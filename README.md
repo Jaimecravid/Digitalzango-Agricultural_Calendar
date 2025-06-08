@@ -1,3 +1,4 @@
+> 🚧 **Status**: Visual improvements and UI enhancements currently in progress
 # Calendário Agrícola para Angola
 
 Uma aplicação web progressiva (PWA) completa para planeamento e gestão agrícola, especialmente desenvolvida para agricultores angolanos.
