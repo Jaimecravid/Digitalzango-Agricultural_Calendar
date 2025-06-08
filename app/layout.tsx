@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 
@@ -9,8 +9,6 @@ export const metadata: Metadata = {
   title: "Calendário Agrícola para Angola",
   description: "Aplicação de planeamento agrícola inteligente para agricultores angolanos",
   manifest: "/manifest.json",
-  themeColor: "#16a34a",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -20,8 +18,17 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
-    generator: 'v0.dev'
+  generator: 'v0.dev'
 }
+
+// Move these out of metadata:
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+}
+
+export const themeColor = "#16a34a"
 
 export default function RootLayout({
   children,
