@@ -1,3 +1,4 @@
+import Footer from '../components/footer';
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
@@ -21,7 +22,6 @@ export const metadata: Metadata = {
   generator: 'v0.dev'
 }
 
-// Move these out of metadata:
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -46,7 +46,10 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#16a34a" />
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <Footer /> {/* This ensures the footer appears on every page */}
+      </body>
     </html>
   )
 }

@@ -97,6 +97,11 @@ function AppContent() {
     <div className="min-h-screen bg-white">
       <Header />
 
+      {/* AdSense Optimization Zone: Top of page, ideal for a responsive ad unit */}
+      <div className="adsense-top-banner w-full text-center py-2 bg-gray-100 text-gray-500 mb-4">
+        [AdSense Top Banner Ad]
+      </div>
+
       {/* Hero Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
@@ -143,6 +148,11 @@ function AppContent() {
         </div>
       </section>
 
+      {/* AdSense Optimization Zone: Middle of page, after features */}
+      <div className="adsense-middle-banner w-full text-center py-2 bg-gray-100 text-gray-500 my-4">
+        [AdSense Middle Banner Ad]
+      </div>
+
       {/* Stats Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
@@ -168,7 +178,7 @@ function AppContent() {
           <div className="absolute top-1/2 left-1/4 text-3xl">☀️</div>
           <div className="absolute top-1/3 right-1/3 text-4xl">💧</div>
         </div>
--
+
         <div className="relative max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
@@ -178,7 +188,6 @@ function AppContent() {
               </h2>
               <p className="text-xl text-orange-50 mb-2 font-medium">{t("startPlanningDescription")}</p>
               <p className="text-lg text-orange-100 mb-8 leading-relaxed">{t("startPlanningDescription")}</p>
-
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href="/calendario">
                   <Button
@@ -199,7 +208,6 @@ function AppContent() {
                 </Link>
               </div>
             </div>
-
             {/* Right Column - Illustration */}
             <div className="flex justify-center lg:justify-end">
               <div className="relative">
@@ -229,214 +237,10 @@ function AppContent() {
         </div>
       </section>
 
-      {/* Footer - Keep existing footer code but update text to use translations */}
-      <footer className="bg-gray-50 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Main Footer Content - Compact */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
-            {/* Legal Column */}
-            <div className="space-y-2">
-              <h4 className="text-sm font-bold text-gray-900 flex items-center gap-1">
-                <span className="text-base">⚖️</span>
-                Legal
-              </h4>
-              <ul className="space-y-1 text-xs">
-                <li>
-                  <Link
-                    href="/terms"
-                    className="text-gray-600 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded"
-                  >
-                    Termos & Condições
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/privacy"
-                    className="text-gray-600 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded"
-                  >
-                    Política de Privacidade
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/affiliate-disclosure"
-                    className="text-gray-600 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded"
-                  >
-                    Divulgação de Afiliados
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Support Column */}
-            <div className="space-y-2">
-              <h4 className="text-sm font-bold text-gray-900 flex items-center gap-1">
-                <span className="text-base">❓</span>
-                Suporte
-              </h4>
-              <ul className="space-y-1 text-xs">
-                <li>
-                  <Link
-                    href="/help"
-                    className="text-gray-600 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded"
-                  >
-                    {t("helpCenter")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/faq"
-                    className="text-gray-600 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded"
-                  >
-                    {t("faq")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className="text-gray-600 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded"
-                  >
-                    {t("contactUs")}
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Company Column */}
-            <div className="space-y-2">
-              <h4 className="text-sm font-bold text-gray-900 flex items-center gap-1">
-                <span className="text-base">🌱</span>
-                Empresa
-              </h4>
-              <ul className="space-y-1 text-xs">
-                <li>
-                  <Link
-                    href="/sobre"
-                    className="text-gray-600 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded"
-                  >
-                    {t("about")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/blog"
-                    className="text-gray-600 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded"
-                  >
-                    {t("blog")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/careers"
-                    className="text-gray-600 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded"
-                  >
-                    {t("careers")}
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Community Column */}
-            <div className="space-y-2">
-              <h4 className="text-sm font-bold text-gray-900 flex items-center gap-1">
-                <span className="text-base">👥</span>
-                {t("community")}
-              </h4>
-              <ul className="space-y-1 text-xs">
-                <li>
-                  <Link
-                    href="/forum"
-                    className="text-gray-600 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded"
-                  >
-                    {t("forum")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/events"
-                    className="text-gray-600 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded"
-                  >
-                    {t("events")}
-                  </Link>
-                </li>
-              </ul>
-
-              {/* Social Media Icons - Compact */}
-              <div className="pt-2">
-                <div className="flex space-x-2">
-                  <a
-                    href="https://facebook.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-blue-600 transition-colors focus:outline-none focus:ring-1 focus:ring-blue-500 rounded"
-                    aria-label="Facebook"
-                  >
-                    <span className="text-sm">📘</span>
-                  </a>
-                  <a
-                    href="https://instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-pink-600 transition-colors focus:outline-none focus:ring-1 focus:ring-pink-500 rounded"
-                    aria-label="Instagram"
-                  >
-                    <span className="text-sm">📷</span>
-                  </a>
-                  <a
-                    href="https://whatsapp.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded"
-                    aria-label="WhatsApp"
-                  >
-                    <span className="text-sm">💬</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Company Info Section - Compact */}
-          <div className="border-t border-gray-200 pt-4 mb-4">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-2 md:space-y-0">
-              <div className="flex items-center space-x-3">
-                <div className="bg-green-600 p-2 rounded-lg">
-                  <Sprout className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-gray-900">
-                    {t("companyName")} {t("companyTagline")}
-                  </h3>
-                  <p className="text-xs text-gray-600 max-w-md">{t("companyDescription")}</p>
-                </div>
-              </div>
-
-              <div className="text-xs text-gray-500">
-                <p>
-                  © 2024 {t("companyName")} {t("companyTagline")}
-                </p>
-                <p>{t("allRightsReserved")}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Collapsible Legal Section */}
-          <details className="border-t border-gray-200 pt-3">
-            <summary className="cursor-pointer text-xs font-medium text-gray-600 hover:text-green-600 transition-colors focus:outline-none focus:ring-1 focus:ring-green-500 rounded">
-              📋 Informações Legais & Parcerias
-            </summary>
-            <div className="mt-2 text-xs text-gray-500 space-y-1">
-              <p>
-                <strong>Aviso:</strong> Informações para fins educacionais. Consulte especialistas locais para decisões
-                agrícolas.
-              </p>
-              <p>
-                <strong>Afiliados:</strong> Podemos receber comissões de compras através de links de afiliados.
-              </p>
-            </div>
-          </details>
-        </div>
-      </footer>
+      {/* AdSense Optimization Zone: Bottom of page, before footer */}
+      <div className="adsense-bottom-banner w-full text-center py-2 bg-gray-100 text-gray-500 mt-4">
+        [AdSense Bottom Banner Ad]
+      </div>
     </div>
   )
 }
