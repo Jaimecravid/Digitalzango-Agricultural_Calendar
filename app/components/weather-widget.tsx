@@ -76,9 +76,37 @@ const getWeatherIcon = (condition?: string) => {
   );
 };
 
+// Helper for emoji icons above hourly chart
+const getWeatherEmoji = (condition?: string) => {
+  if (!condition) return "☁️";
+  const map: { [key: string]: string } = {
+    clear: "☀️",
+    sunny: "☀️",
+    rain: "🌧️",
+    drizzle: "🌦️",
+    snow: "❄️",
+    thunderstorm: "⛈️",
+    fog: "🌫️",
+    mist: "🌫️",
+    haze: "🌫️",
+    clouds: "☁️",
+    "few clouds": "🌤️",
+    "scattered clouds": "⛅",
+    "broken clouds": "🌥️",
+    "overcast clouds": "☁️",
+    night: "🌙",
+    hail: "🌨️",
+  };
+  return (
+    map[condition.toLowerCase()] ||
+    map[condition.toLowerCase().split(" ").pop() || ""] ||
+    "☁️"
+  );
+};
+
 const WeatherWidget: React.FC = () => {
   const [selectedProvince, setSelectedProvince] = useState("Luanda");
-  const { currentWeather, forecast, isLoading, error, fetchWeatherByLocation } = useWeather();
+  const { currentWeather, forecast, hourlyForecast, isLoading, error, fetchWeatherByLocation } = useWeather();
 
   const handleProvinceChange = (province: string) => {
     setSelectedProvince(province);
@@ -86,6 +114,7 @@ const WeatherWidget: React.FC = () => {
     if (city) fetchWeatherByLocation(city);
   };
 
+  // Daily chart data
   const chartData = {
     labels: forecast.map(day =>
       new Date(day.date).toLocaleDateString("pt-PT", { day: "2-digit", month: "short" })
@@ -103,13 +132,73 @@ const WeatherWidget: React.FC = () => {
 
   const chartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
+    aspectRatio: 4,
     plugins: {
       legend: { display: false },
     },
   };
 
+  // Hourly chart data
+  const hourlyChartData = {
+    labels: hourlyForecast.map(hour => hour.time),
+    datasets: [
+      {
+        label: "Temperatura (°C)",
+        data: hourlyForecast.map(hour => hour.temperature),
+        borderColor: "#3b82f6",
+        backgroundColor: "rgba(59,130,246,0.2)",
+        tension: 0.3,
+      },
+    ],
+  };
+
+  // Chart.js plugin for weather icons above hourly points
+  const iconPlugin = {
+    id: "weatherIcons",
+    afterDatasetsDraw: (chart: any) => {
+      const { ctx, data, chartArea } = chart;
+      if (!chartArea) return;
+      ctx.save();
+
+      // Only run for the hourly chart
+      if (data.labels.length !== hourlyForecast.length) return;
+
+      chart.getDatasetMeta(0).data.forEach((datapoint: any, index: number) => {
+        const icon = getWeatherEmoji(hourlyForecast[index]?.description);
+        ctx.font = "24px serif";
+        ctx.textAlign = "center";
+        ctx.fillText(
+          icon,
+          datapoint.x,
+          datapoint.y - 30 // Adjust vertical position above the point
+        );
+      });
+      ctx.restore();
+    },
+  };
+
+  const hourlyChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    aspectRatio: 4,
+    plugins: {
+      legend: { display: false },
+      weatherIcons: {},
+    },
+    scales: {
+      x: {
+        ticks: {
+          maxRotation: 0,
+          autoSkip: true,
+          maxTicksLimit: 6,
+        },
+      },
+    },
+  };
+
   return (
-    <div className="p-6 rounded shadow bg-gradient-to-br from-green-50 to-blue-50 w-full max-w-2xl mx-auto">
+    <div className="p-6 rounded shadow bg-gradient-to-br from-green-50 to-blue-50 w-full max-w-screen-2xl mx-auto">
       <div className="mb-4">
         <label className="font-semibold">Província:</label>
         <select
@@ -154,8 +243,18 @@ const WeatherWidget: React.FC = () => {
               ))}
             </div>
           </div>
-          <div className="mt-4">
-            <Line data={chartData} options={chartOptions} height={60} />
+          <div className="mt-4" style={{ height: 120 }}>
+            <Line data={chartData} options={chartOptions} height={45} />
+          </div>
+          {/* Hourly Temperature Chart with Icons */}
+          <div className="mt-6" style={{ height: 120 }}>
+            <h3 className="font-semibold mb-2">Previsão Horária</h3>
+            <Line
+              data={hourlyChartData}
+              options={hourlyChartOptions}
+              plugins={[iconPlugin]}
+              height={45}
+            />
           </div>
         </>
       )}

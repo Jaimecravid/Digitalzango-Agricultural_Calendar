@@ -1,5 +1,3 @@
-// contexts/weather-context.tsx
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 // --- Types ---
@@ -18,9 +16,17 @@ interface ForecastData {
   [key: string]: any; // Extend as needed
 }
 
+interface HourlyData {
+  time: string;
+  temperature: number;
+  description: string;
+  icon: string;
+}
+
 interface WeatherContextType {
   currentWeather: WeatherData | null;
   forecast: ForecastData[];
+  hourlyForecast: HourlyData[];
   isLoading: boolean;
   error: string | null;
   hasApiKey: boolean;
@@ -48,10 +54,18 @@ const mockForecast: ForecastData[] = [
   { date: "2025-06-11", temperature: 23, description: "Chuva leve", icon: "10d" },
 ];
 
+const mockHourlyForecast: HourlyData[] = [
+  { time: "12:00", temperature: 25, description: "Ensolarado", icon: "01d" },
+  { time: "15:00", temperature: 27, description: "Ensolarado", icon: "01d" },
+  { time: "18:00", temperature: 24, description: "Parcialmente nublado", icon: "02d" },
+  { time: "21:00", temperature: 22, description: "Limpo", icon: "01n" },
+];
+
 // --- Weather Provider ---
 export const WeatherProvider = ({ children }: { children: ReactNode }) => {
   const [currentWeather, setCurrentWeather] = useState<WeatherData | null>(null);
   const [forecast, setForecast] = useState<ForecastData[]>([]);
+  const [hourlyForecast, setHourlyForecast] = useState<HourlyData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -63,6 +77,7 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
     if (!isApiKeyConfigured) {
       setCurrentWeather(mockWeather);
       setForecast(mockForecast);
+      setHourlyForecast(mockHourlyForecast);
       setIsLoading(false);
       return;
     }
@@ -99,6 +114,17 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
           icon: d.weather[0].icon,
         }));
       setForecast(daily);
+
+      // Extract hourly data (next 12 entries, 3-hour intervals = 36 hours)
+      const hourly = forecastJson.list
+        .slice(0, 12)
+        .map((d: any) => ({
+          time: d.dt_txt.split(" ")[1].slice(0, 5), // "HH:MM"
+          temperature: d.main.temp,
+          description: d.weather[0].description,
+          icon: d.weather[0].icon,
+        }));
+      setHourlyForecast(hourly);
     } catch (err: any) {
       setError(err.message || "Erro desconhecido");
     } finally {
@@ -114,6 +140,7 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
     if (!isApiKeyConfigured) {
       setCurrentWeather(mockWeather);
       setForecast(mockForecast);
+      setHourlyForecast(mockHourlyForecast);
       setIsLoading(false);
       return;
     }
@@ -149,6 +176,16 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
           icon: d.weather[0].icon,
         }));
       setForecast(daily);
+
+      const hourly = forecastJson.list
+        .slice(0, 12)
+        .map((d: any) => ({
+          time: d.dt_txt.split(" ")[1].slice(0, 5), // "HH:MM"
+          temperature: d.main.temp,
+          description: d.weather[0].description,
+          icon: d.weather[0].icon,
+        }));
+      setHourlyForecast(hourly);
     } catch (err: any) {
       setError(err.message || "Erro desconhecido");
     } finally {
@@ -166,6 +203,7 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
       value={{
         currentWeather,
         forecast,
+        hourlyForecast,
         isLoading,
         error,
         hasApiKey: isApiKeyConfigured,
