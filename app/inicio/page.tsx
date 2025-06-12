@@ -1,4 +1,7 @@
 "use client";
+import TrustBadges from '../components/TrustBadges';
+import UserCounter from '../components/UserCounter';
+import EnhancedTestimonials from '../components/EnhancedTestimonials';
 import { Calendar, Cloud, Bug, Sprout, Users, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -144,6 +147,9 @@ function AppContent() {
         </div>
       </section>
 
+      {/* UserCounter Component - Added below hero section */}
+      <UserCounter />
+      <TrustBadges />
       {/* Community Highlights Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-6xl mx-auto text-center">
@@ -168,7 +174,7 @@ function AppContent() {
               className="w-32 h-32 rounded-full object-cover border-4 border-green-200"
             />
             <img
-              src="/images/trator.png"
+              src="/images/tractor.png"
               alt="Community Image 4"
               className="w-32 h-32 rounded-full object-cover border-4 border-green-200"
             />
@@ -215,29 +221,7 @@ function AppContent() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8 text-orange-700">💬 Depoimentos</h2>
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="bg-gray-50 rounded-lg shadow-md p-6">
-              <div className="text-4xl mb-2">👩‍🌾</div>
-              <p className="text-gray-700 mb-2">"O Digitalzango me ajudou a planejar melhor minhas colheitas. Recomendo para todos!"</p>
-              <div className="text-sm text-gray-500">— Maria, Huambo</div>
-            </div>
-            <div className="bg-gray-50 rounded-lg shadow-md p-6">
-              <div className="text-4xl mb-2">👨‍🌾</div>
-              <p className="text-gray-700 mb-2">"Agora entendo quando plantar e colher. Muito útil para agricultores."</p>
-              <div className="text-sm text-gray-500">— João, Benguela</div>
-            </div>
-            <div className="bg-gray-50 rounded-lg shadow-md p-6">
-              <div className="text-4xl mb-2">🌾</div>
-              <p className="text-gray-700 mb-2">"Os guias e dicas são excelentes. Minha produção aumentou!"</p>
-              <div className="text-sm text-gray-500">— Ana, Luanda</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+    <EnhancedTestimonials />
       {/* Features Grid */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
@@ -297,7 +281,7 @@ function AppContent() {
           <div className="absolute top-1/2 left-1/4 text-3xl">☀️</div>
           <div className="absolute top-1/3 right-1/3 text-4xl">💧</div>
         </div>
-
+        
         <div className="relative max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
