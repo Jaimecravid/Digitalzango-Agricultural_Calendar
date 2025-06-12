@@ -1,5 +1,4 @@
 "use client"
-
 import type React from "react"
 import { createContext, useContext, useState, useEffect } from "react"
 
@@ -34,6 +33,10 @@ const translations = {
     community: "Comunidade",
     about: "Sobre",
     downloadApp: "Baixar App",
+
+    // Slogan Parts (NEW)
+    sloganPart1: "Crescendo Inteligente,",
+    sloganPart2: "Colhendo Sucesso",
 
     // Weather Page
     weatherInformation: "Informações Meteorológicas",
@@ -313,6 +316,10 @@ const translations = {
     about: "About",
     downloadApp: "Download App",
 
+    // Slogan Parts (NEW)
+    sloganPart1: "Growing Smart,",
+    sloganPart2: "Harvesting Success",
+
     // Weather Page
     weatherInformation: "Weather Information",
     weatherPageDescription: "Track current weather conditions and forecasts to plan your agricultural activities.",
@@ -583,6 +590,10 @@ const translations = {
     about: "Kima",
     downloadApp: "Kukonga App",
 
+    // Slogan Parts (NEW)
+    sloganPart1: "Kukula mu Ndenge ya Muxima,",
+    sloganPart2: "Kukonga Muxima",
+
     // Weather Page
     weatherInformation: "Makolo ma Tempo",
     weatherPageDescription: "Kumona tempo ya agora ni kima kya tempo ya kusadisa kilima.",
@@ -849,6 +860,10 @@ const translations = {
     community: "Okimbanda",
     about: "Okima",
     downloadApp: "Okukonga App",
+
+    // Slogan Parts (NEW)
+    sloganPart1: "Okukula mu Ndenge ya Omuxima,",
+    sloganPart2: "Okukonga Omuxima",
 
     // Weather Page
     weatherInformation: "Omakolo ma Tempo",

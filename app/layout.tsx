@@ -1,8 +1,10 @@
-import Footer from '../components/footer';
+import Header from './components/header';
+import Footer from './components/footer';
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import { LanguageProvider } from "./contexts/language-context";
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -47,8 +49,11 @@ export default function RootLayout({
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body className={inter.className}>
-        {children}
-        <Footer /> {/* This ensures the footer appears on every page */}
+        <LanguageProvider>
+          <Header />
+          {children}
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   )

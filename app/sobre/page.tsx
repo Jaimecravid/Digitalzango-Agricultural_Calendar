@@ -1,178 +1,373 @@
-"use client"
-
-import Link from "next/link"
-import { Sprout, Target, Users, Award, Mail, Phone, MapPin } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+"use client";
+import { Calendar, Cloud, Bug, Sprout, Users, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { LanguageProvider } from "../contexts/language-context"
-import { RegionProvider } from "../contexts/region-context"
-import Header from "../components/header"
-import { useLanguage } from "../contexts/language-context"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { LanguageProvider, useLanguage } from "./contexts/language-context"
+import { RegionProvider, useRegion } from "./contexts/region-context"
+import { WeatherProvider } from "./contexts/weather-context"
+import Header from "./components/header"
+import NewsletterSignup from "./components/newsletter-signup"
+import Link from "next/link"
 
-function SobreContent() {
-  const { t } = useLanguage()
+function AppContent() {
+  const { t, isLoading } = useLanguage()
+  const { getCurrentRegion } = useRegion()
 
-  const values = [
+  const getCurrentRegionData = () => {
+    return getCurrentRegion()
+  }
+
+  const features = [
     {
-      title: t("mission"),
-      description:
-        "Capacitar os agricultores angolanos com ferramentas tecnológicas para melhorar a produtividade agrícola",
-      icon: Target,
-      color: "text-green-600",
-      bgColor: "bg-green-100",
+      icon: Calendar,
+      iconBg: "bg-green-100",
+      iconColor: "text-green-600",
+      title: t("calendar"),
+      description: t("calendarDescription"),
+      buttonText: t("accessTool"),
+      href: "/calendario",
     },
     {
-      title: t("community"),
-      description: "Criar uma rede forte de agricultores que partilham conhecimentos e recursos",
+      icon: Cloud,
+      iconBg: "bg-blue-100",
+      iconColor: "text-blue-600",
+      title: t("weather"),
+      description: t("weatherDescription"),
+      buttonText: t("accessTool"),
+      href: "/tempo",
+    },
+    {
+      icon: Bug,
+      iconBg: "bg-red-100",
+      iconColor: "text-red-600",
+      title: t("pests"),
+      description: t("pestsDescription"),
+      buttonText: t("viewInformation"),
+      href: "/pragas",
+    },
+    {
+      icon: Sprout,
+      iconBg: "bg-yellow-100",
+      iconColor: "text-yellow-600",
+      title: t("resources"),
+      description: t("resourcesDescription"),
+      buttonText: t("accessTool"),
+      href: "/recursos",
+    },
+    {
       icon: Users,
-      color: "text-blue-600",
-      bgColor: "bg-blue-100",
+      iconBg: "bg-purple-100",
+      iconColor: "text-purple-600",
+      title: t("community"),
+      description: t("communityDescription"),
+      buttonText: t("participate"),
+      href: "/comunidade",
     },
     {
-      title: t("excellence"),
-      description: "Fornecer informações precisas e ferramentas de alta qualidade para o sector agrícola",
-      icon: Award,
-      color: "text-orange-600",
-      bgColor: "bg-orange-100",
+      icon: Download,
+      iconBg: "bg-gray-100",
+      iconColor: "text-gray-600",
+      title: t("downloadApp"),
+      description: t("downloadAppPageDescription"),
+      buttonText: t("downloadApp"),
+      href: "/baixar-app",
     },
   ]
+
+  const stats = [
+    { number: "18", label: t("provincesLabel"), color: "text-green-600" },
+    { number: "4", label: t("languagesLabel"), color: "text-blue-600" },
+    { number: "12", label: t("monthsLabel"), color: "text-orange-600" },
+    { number: "24/7", label: t("weatherLabel"), color: "text-purple-600" },
+  ]
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">{t("loading")}</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-white">
       <Header />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">{t("aboutPageTitle")}</h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto">{t("aboutPageDescription")}</p>
-        </div>
+      {/* AdSense Optimization Zone: Top of page, ideal for a responsive ad unit */}
+      <div className="adsense-top-banner w-full text-center py-2 bg-gray-100 text-gray-500 mb-4">
+        [AdSense Top Banner Ad]
+      </div>
 
-        {/* Mission, Vision, Values */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {values.map((value, index) => (
-            <Card key={index} className="text-center">
-              <CardHeader>
-                <div
-                  className={`w-16 h-16 ${value.bgColor} rounded-full flex items-center justify-center mx-auto mb-4`}
-                >
-                  <value.icon className={`h-8 w-8 ${value.color}`} />
-                </div>
-                <CardTitle className="text-xl">{value.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">{value.description}</CardDescription>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* About Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">{t("ourStory")}</h2>
-            <div className="space-y-4 text-gray-700">
-              <p>
-                O Calendário Agrícola para Angola nasceu da necessidade de modernizar e digitalizar o sector agrícola
-                angolano, fornecendo aos agricultores ferramentas tecnológicas que os ajudem a tomar decisões
-                informadas.
-              </p>
-              <p>
-                Desenvolvido por uma equipa de especialistas em agricultura e tecnologia, a nossa plataforma combina
-                conhecimento local com tecnologia moderna para criar soluções práticas e eficazes.
-              </p>
-              <p>
-                Desde o nosso lançamento, temos apoiado milhares de agricultores em todas as 18 províncias de Angola,
-                contribuindo para o aumento da produtividade e sustentabilidade agrícola.
-              </p>
-            </div>
+      {/* Improved Hero Section (Phase 3) */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50 flex-grow">
+        <div className="max-w-5xl mx-auto text-center">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
+            {t("appTitle")}: <span className="text-green-600">{t("sloganPart1")}</span> {t("sloganPart2")}
+          </h1>
+          <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
+            {t("welcomeDescription")}
+          </p>
+          {/* Region Badge - Prominently displayed */}
+          <div className="inline-block mb-8">
+            <Badge className="bg-green-100 text-green-800 px-6 py-2 text-base font-semibold shadow-md">
+              {t("currentRegion")}: {getCurrentRegionData()?.name}
+              <br />
+              <span className="text-sm font-normal">
+                {t("climate")}: {getCurrentRegionData()?.climate} | {t("rainySeason")}: {t("month")}{" "}
+                {getCurrentRegionData()?.rainySeasonStart}-{getCurrentRegionData()?.rainySeasonEnd}
+              </span>
+            </Badge>
           </div>
-
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">{t("whatWeOffer")}</h2>
-            <div className="space-y-4">
-              <div className="flex items-start space-x-3">
-                <div className="bg-green-100 p-2 rounded-lg">
-                  <Sprout className="h-5 w-5 text-green-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Calendário Personalizado</h3>
-                  <p className="text-gray-600">Planeamento agrícola adaptado às condições específicas de cada região</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-3">
-                <div className="bg-blue-100 p-2 rounded-lg">
-                  <Target className="h-5 w-5 text-blue-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Previsões Meteorológicas</h3>
-                  <p className="text-gray-600">Dados meteorológicos precisos para melhor planeamento</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-3">
-                <div className="bg-orange-100 p-2 rounded-lg">
-                  <Users className="h-5 w-5 text-orange-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Comunidade Activa</h3>
-                  <p className="text-gray-600">Rede de agricultores para partilha de conhecimentos e recursos</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Contact Information */}
-        <div className="bg-gray-50 rounded-lg p-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t("getInTouch")}</h2>
-            <p className="text-gray-600">{t("questionsOrSuggestions")}</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-green-100 p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Mail className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">{t("email")}</h3>
-              <p className="text-gray-600">info@calendarioagricola.ao</p>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-blue-100 p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Phone className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">{t("phone")}</h3>
-              <p className="text-gray-600">+244 923 456 789</p>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-orange-100 p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <MapPin className="h-8 w-8 text-orange-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">{t("location")}</h3>
-              <p className="text-gray-600">Luanda, Angola</p>
-            </div>
-          </div>
-
-          <div className="text-center mt-8">
-            <Link href="/contact">
-              <Button className="bg-green-600 hover:bg-green-700 px-8">{t("contactUs")}</Button>
+          {/* Call to Action in Hero - Primary engagement point */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/calendario">
+              <Button
+                size="lg"
+                className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+              >
+                📅 {t("viewCalendar")}
+              </Button>
+            </Link>
+            <Link href="/baixar-app">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-green-600 text-green-600 hover:bg-green-50 px-6 py-4 text-lg font-semibold transition-all duration-200"
+              >
+                📱 {t("downloadApp")}
+              </Button>
             </Link>
           </div>
         </div>
+      </section>
+
+      {/* Community Highlights Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-4 text-green-700">🌟 Destaques da Comunidade</h2>
+          <p className="text-lg text-gray-600 mb-8">
+            Junte-se à comunidade Digitalzango! Veja histórias de agricultores, compartilhe dicas e faça parte da inovação agrícola em Angola.
+          </p>
+          <div className="flex flex-wrap justify-center gap-6 mb-8">
+            <img
+              src="/images/angola-agri.png"
+              alt="Community Image 1"
+              className="w-32 h-32 rounded-full object-cover border-4 border-green-200"
+            />
+            <img
+              src="/images/camponessas.png"
+              alt="Community Image 2"
+              className="w-32 h-32 rounded-full object-cover border-4 border-green-200"
+            />
+            <img
+              src="/images/community-placeholder.png"
+              alt="Community Image 3"
+              className="w-32 h-32 rounded-full object-cover border-4 border-green-200"
+            />
+            <img
+              src="/images/trator.png"
+              alt="Community Image 4"
+              className="w-32 h-32 rounded-full object-cover border-4 border-green-200"
+            />
+          </div>
+          <a href="/comunidade">
+            <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition">
+              Participe da Comunidade
+            </button>
+          </a>
+        </div>
+      </section>
+
+      {/* Educational Content Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-4 text-blue-700">📚 Conteúdo Educativo</h2>
+          <p className="text-lg text-gray-600 mb-8">
+            Aprenda com nossos guias agrícolas, dicas de cultivo e artigos do blog. Conhecimento para impulsionar sua produção!
+          </p>
+          <div className="flex flex-wrap justify-center gap-8 mb-8">
+            {/* Example educational content cards */}
+            <a href="/guias" className="bg-white rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
+              <div className="text-4xl mb-2">🌱</div>
+              <h3 className="font-semibold text-lg mb-1">Guia de Plantio</h3>
+              <p className="text-gray-500 text-sm">Passo a passo para plantar com sucesso.</p>
+            </a>
+            <a href="/blog" className="bg-white rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
+              <div className="text-4xl mb-2">📰</div>
+              <h3 className="font-semibold text-lg mb-1">Artigos do Blog</h3>
+              <p className="text-gray-500 text-sm">Dicas, novidades e tendências agrícolas.</p>
+            </a>
+            <a href="/tools" className="bg-white rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
+              <div className="text-4xl mb-2">🛠️</div>
+              <h3 className="font-semibold text-lg mb-1">Ferramentas Recomendadas</h3>
+              <p className="text-gray-500 text-sm">Produtos digitais e ferramentas úteis.</p>
+            </a>
+          </div>
+          <a href="/blog">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition">
+              Ver Mais Conteúdo
+            </button>
+          </a>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-8 text-orange-700">💬 Depoimentos</h2>
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="bg-gray-50 rounded-lg shadow-md p-6">
+              <div className="text-4xl mb-2">👩‍🌾</div>
+              <p className="text-gray-700 mb-2">"O Digitalzango me ajudou a planejar melhor minhas colheitas. Recomendo para todos!"</p>
+              <div className="text-sm text-gray-500">— Maria, Huambo</div>
+            </div>
+            <div className="bg-gray-50 rounded-lg shadow-md p-6">
+              <div className="text-4xl mb-2">👨‍🌾</div>
+              <p className="text-gray-700 mb-2">"Agora entendo quando plantar e colher. Muito útil para agricultores."</p>
+              <div className="text-sm text-gray-500">— João, Benguela</div>
+            </div>
+            <div className="bg-gray-50 rounded-lg shadow-md p-6">
+              <div className="text-4xl mb-2">🌾</div>
+              <p className="text-gray-700 mb-2">"Os guias e dicas são excelentes. Minha produção aumentou!"</p>
+              <div className="text-sm text-gray-500">— Ana, Luanda</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} className="bg-white shadow-sm hover:shadow-md transition-shadow">
+                <CardContent className="p-8 text-center">
+                  <div
+                    className={`w-16 h-16 ${feature.iconBg} rounded-full flex items-center justify-center mx-auto mb-6`}
+                  >
+                    <feature.icon className={`h-8 w-8 ${feature.iconColor}`} />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
+                  <p className="text-gray-600 mb-6">{feature.description}</p>
+                  <Link href={feature.href}>
+                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white">
+                      {feature.buttonText}
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AdSense Optimization Zone: Middle of page, after features */}
+      <div className="adsense-middle-banner w-full text-center py-2 bg-gray-100 text-gray-500 my-4">
+        [AdSense Middle Banner Ad]
+      </div>
+
+      {/* Stats Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {stats.map((stat, index) => (
+              <div key={index}>
+                <div className={`text-4xl md:text-5xl font-bold ${stat.color} mb-2`}>{stat.number}</div>
+                <div className="text-gray-600 font-medium">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Signup Section (NEW) */}
+      <NewsletterSignup />
+
+      {/* CTA Section */}
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 text-6xl">🌱</div>
+          <div className="absolute top-20 right-20 text-4xl">🌾</div>
+          <div className="absolute bottom-20 left-20 text-5xl">🚜</div>
+          <div className="absolute bottom-10 right-10 text-4xl">🌽</div>
+          <div className="absolute top-1/2 left-1/4 text-3xl">☀️</div>
+          <div className="absolute top-1/3 right-1/3 text-4xl">💧</div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <div className="text-center lg:text-left">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                {t("startPlanningTitle")}
+              </h2>
+              <p className="text-xl text-orange-50 mb-2 font-medium">{t("startPlanningDescription")}</p>
+              <p className="text-lg text-orange-100 mb-8 leading-relaxed">{t("startPlanningDescription")}</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Link href="/calendario">
+                  <Button
+                    size="lg"
+                    className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                  >
+                    📅 {t("viewCalendar")}
+                  </Button>
+                </Link>
+                <Link href="/baixar-app">
+                  <Button
+                    size="lg"
+                    variant="ghost"
+                    className="bg-white bg-opacity-20 border border-white border-opacity-30 text-white hover:bg-white hover:bg-opacity-30 px-6 py-4 text-base font-medium transition-all duration-200 backdrop-blur-sm"
+                  >
+                    📱 {t("downloadApp")}
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            {/* Right Column - Orange Circle with Sunset Image */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative">
+                <div className="w-80 h-80 bg-orange-200 rounded-full flex items-center justify-center border-4 border-orange-300 shadow-lg">
+                  <img
+                    src="/images/sunset.png"
+                    alt="Sunset"
+                    className="w-72 h-72 object-cover rounded-full"
+                  />
+                </div>
+                {/* Floating Elements */}
+                <div className="absolute -top-8 left-8 bg-white bg-opacity-90 rounded-lg p-3 shadow-lg animate-float">
+                  <div className="text-2xl">📊</div>
+                  <div className="text-xs text-gray-600 font-medium">Analytics</div>
+                </div>
+                <div className="absolute -bottom-8 right-8 bg-white bg-opacity-90 rounded-lg p-3 shadow-lg animate-float-delayed">
+                  <div className="text-2xl">🌤️</div>
+                  <div className="text-xs text-gray-600 font-medium">{t("weather")}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AdSense Optimization Zone: Bottom of page, before footer */}
+      <div className="adsense-bottom-banner w-full text-center py-2 bg-gray-100 text-gray-500 mt-4">
+        [AdSense Bottom Banner Ad]
       </div>
     </div>
   )
 }
 
-export default function SobrePage() {
+export default function Home() {
   return (
     <LanguageProvider>
       <RegionProvider>
-        <SobreContent />
+        <WeatherProvider>
+          <AppContent />
+        </WeatherProvider>
       </RegionProvider>
     </LanguageProvider>
   )
