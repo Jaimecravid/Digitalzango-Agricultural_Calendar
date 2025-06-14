@@ -120,3 +120,32 @@ body {
 .animate-float-delayed {
   animation: float-delayed 3s ease-in-out infinite 1.5s;
 }
+
+/* Hero Section Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Custom Ultra-Light Green Gradients */
+.bg-ultra-light-green {
+  background: linear-gradient(to bottom, #f0fdf4, #ffffff, #f0fdf4);
+}
+
+.bg-ultra-light-green-alt {
+  background: linear-gradient(to bottom, #ecfdf5, #ffffff, #ecfdf5);
+}
+
+.bg-ultra-light-green-subtle {
+  background: linear-gradient(to bottom, #f7fee7, #ffffff, #f7fee7);
+}

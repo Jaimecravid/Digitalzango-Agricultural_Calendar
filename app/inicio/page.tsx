@@ -105,7 +105,7 @@ function AppContent() {
       </div>
 
       {/* Improved Hero Section (Phase 3) */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 via-white to-gray-50 flex-grow relative overflow-hidden">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-ultra-light-green flex-grow relative overflow-hidden">
           <div className="absolute inset-0 opacity-5">
           <div className="absolute top-10 left-10 text-6xl animate-float">🌱</div>
           <div className="absolute top-32 right-20 text-4xl animate-float">🌾</div>
@@ -197,7 +197,7 @@ function AppContent() {
       </section>
 
       {/* Educational Content Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 via-green-50 to-white border-t border-gray-200">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-ultra-light-green-alt border-t border-gray-200">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4 text-gray-900">📚 Conteúdo Educativo</h2>
           <p className="text-lg text-gray-700 mb-8">
@@ -233,7 +233,7 @@ function AppContent() {
       <EnhancedTestimonials />
       
       {/* Features Grid - SUPER PROMINENT FLOATING ICONS */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 via-white to-gray-50 border-t border-gray-200 relative overflow-hidden">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-ultra-light-green border-t border-gray-200 relative overflow-hidden">
         {/* SUPER PROMINENT Floating Feature Icons */}
         <div className="absolute inset-0 pointer-events-none z-10">
           <div className="absolute top-40 left-16 bg-gradient-to-br from-green-400 to-green-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform rotate-12 hover:scale-110 transition-transform">
@@ -335,7 +335,7 @@ function AppContent() {
       <NewsletterSignup />
 
       {/* CTA Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 via-white to-gray-50 overflow-hidden border-t border-gray-200">
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-ultra-light-green overflow-hidden border-t border-gray-200">
         {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
              <div className="absolute top-10 left-10 text-6xl animate-float">🌱</div>
