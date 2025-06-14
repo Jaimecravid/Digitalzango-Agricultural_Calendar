@@ -107,8 +107,8 @@ function AppContent() {
       {/* Improved Hero Section (Phase 3) */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50 flex-grow">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
-            {t("appTitle")}: <span className="text-green-600">{t("sloganPart1")}</span> {t("sloganPart2")}
+         <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
+            {t("appTitle")}
           </h1>
           <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
             {t("welcomeDescription")}
