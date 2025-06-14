@@ -107,10 +107,12 @@ function AppContent() {
       {/* Improved Hero Section (Phase 3) */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50 flex-grow">
         <div className="max-w-5xl mx-auto text-center">
-         <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
+         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight">
+             <span className="bg-gradient-to-r from-gray-900 via-green-800 to-gray-900 bg-clip-text text-transparent">
             {t("appTitle")}
-          </h1>
-          <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
+      </span>
+         </h1>
+          <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
             {t("welcomeDescription")}
           </p>
           {/* Region Badge - Prominently displayed */}
