@@ -3,9 +3,9 @@ import TrustBadges from '../components/TrustBadges';
 import UserCounter from '../components/UserCounter';
 import EnhancedTestimonials from '../components/EnhancedTestimonials';
 import { Calendar, Cloud, Bug, Sprout, Users, Download } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "../components/ui/button"
+import { Card, CardContent } from "../components/ui/card"
+import { Badge } from "../components/ui/badge"
 import { LanguageProvider, useLanguage } from "../contexts/language-context"
 import { RegionProvider, useRegion } from "../contexts/region-context"
 import { WeatherProvider } from "../contexts/weather-context"
@@ -221,7 +221,8 @@ function AppContent() {
       </section>
 
       {/* Testimonials Section */}
-    <EnhancedTestimonials />
+      <EnhancedTestimonials />
+      
       {/* Features Grid */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
