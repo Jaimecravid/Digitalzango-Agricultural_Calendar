@@ -113,7 +113,7 @@ function AppContent() {
           <div className="absolute bottom-32 right-1/3 text-3xl">🍃</div>
          </div>
         <div className="max-w-5xl mx-auto text-center">
-         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight">
+         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight animate-fadeInUp">
              <span className="bg-gradient-to-r from-gray-900 via-green-800 to-gray-900 bg-clip-text text-transparent">
             {t("appTitle")}
       </span>
@@ -282,16 +282,13 @@ function AppContent() {
       {/* CTA Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 overflow-hidden">
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 text-6xl">🌱</div>
-          <div className="absolute top-20 right-20 text-4xl">🌾</div>
-          <div className="absolute bottom-20 left-20 text-5xl">🚜</div>
-          <div className="absolute bottom-10 right-10 text-4xl">🌽</div>
-          <div className="absolute top-1/2 left-1/4 text-3xl">☀️</div>
-          <div className="absolute top-1/3 right-1/3 text-4xl">💧</div>
-        </div>
-        
-        <div className="relative max-w-7xl mx-auto">
+            <div className="absolute inset-0 opacity-10">
+             <div className="absolute top-10 left-10 text-6xl animate-float">🌱</div>
+             <div className="absolute top-32 right-20 text-4xl animate-float">🌾</div>
+             <div className="absolute bottom-20 left-1/4 text-5xl animate-float">🌿</div>
+             <div className="absolute bottom-32 right-1/3 text-3xl animate-float">🍃</div>
+             </div>
+          <div className="relative max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
             <div className="text-center lg:text-left">
