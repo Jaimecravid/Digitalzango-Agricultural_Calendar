@@ -105,7 +105,13 @@ function AppContent() {
       </div>
 
       {/* Improved Hero Section (Phase 3) */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50 flex-grow">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 via-white to-gray-50 flex-grow relative overflow-hidden">
+          <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-10 left-10 text-6xl">🌱</div>
+          <div className="absolute top-32 right-20 text-4xl">🌾</div>
+          <div className="absolute bottom-20 left-1/4 text-5xl">🌿</div>
+          <div className="absolute bottom-32 right-1/3 text-3xl">🍃</div>
+         </div>
         <div className="max-w-5xl mx-auto text-center">
          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight">
              <span className="bg-gradient-to-r from-gray-900 via-green-800 to-gray-900 bg-clip-text text-transparent">
