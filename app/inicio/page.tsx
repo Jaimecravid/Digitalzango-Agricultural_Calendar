@@ -107,10 +107,10 @@ function AppContent() {
       {/* Improved Hero Section (Phase 3) */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 via-white to-gray-50 flex-grow relative overflow-hidden">
           <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 left-10 text-6xl">🌱</div>
-          <div className="absolute top-32 right-20 text-4xl">🌾</div>
-          <div className="absolute bottom-20 left-1/4 text-5xl">🌿</div>
-          <div className="absolute bottom-32 right-1/3 text-3xl">🍃</div>
+          <div className="absolute top-10 left-10 text-6xl animate-float">🌱</div>
+          <div className="absolute top-32 right-20 text-4xl animate-float">🌾</div>
+          <div className="absolute bottom-20 left-1/4 text-5xl animate-float">🌿</div>
+          <div className="absolute bottom-32 right-1/3 text-3xl animate-float">🍃</div>
          </div>
         <div className="max-w-5xl mx-auto text-center">
          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight animate-fadeInUp">
@@ -158,11 +158,12 @@ function AppContent() {
       {/* UserCounter Component - Added below hero section */}
       <UserCounter />
       <TrustBadges />
+      
       {/* Community Highlights Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4 text-green-700">🌟 Destaques da Comunidade</h2>
-          <p className="text-lg text-gray-600 mb-8">
+          <h2 className="text-3xl font-bold mb-4 text-gray-900">🌟 Destaques da Comunidade</h2>
+          <p className="text-lg text-gray-700 mb-8">
             Junte-se à comunidade Digitalzango! Veja histórias de agricultores, compartilhe dicas e faça parte da inovação agrícola em Angola.
           </p>
           <div className="flex flex-wrap justify-center gap-6 mb-8">
@@ -196,32 +197,32 @@ function AppContent() {
       </section>
 
       {/* Educational Content Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 via-green-50 to-white border-t border-gray-200">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4 text-blue-700">📚 Conteúdo Educativo</h2>
-          <p className="text-lg text-gray-600 mb-8">
+          <h2 className="text-3xl font-bold mb-4 text-gray-900">📚 Conteúdo Educativo</h2>
+          <p className="text-lg text-gray-700 mb-8">
             Aprenda com nossos guias agrícolas, dicas de cultivo e artigos do blog. Conhecimento para impulsionar sua produção!
           </p>
           <div className="flex flex-wrap justify-center gap-8 mb-8">
             {/* Example educational content cards */}
-            <a href="/guias" className="bg-white rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
+            <a href="/guias" className="bg-white/80 backdrop-blur-sm border border-gray-100 rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
               <div className="text-4xl mb-2">🌱</div>
-              <h3 className="font-semibold text-lg mb-1">Guia de Plantio</h3>
-              <p className="text-gray-500 text-sm">Passo a passo para plantar com sucesso.</p>
+              <h3 className="font-semibold text-lg mb-1 text-gray-900">Guia de Plantio</h3>
+              <p className="text-gray-600 text-sm">Passo a passo para plantar com sucesso.</p>
             </a>
-            <a href="/blog" className="bg-white rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
+            <a href="/blog" className="bg-white/80 backdrop-blur-sm border border-gray-100 rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
               <div className="text-4xl mb-2">📰</div>
-              <h3 className="font-semibold text-lg mb-1">Artigos do Blog</h3>
-              <p className="text-gray-500 text-sm">Dicas, novidades e tendências agrícolas.</p>
+              <h3 className="font-semibold text-lg mb-1 text-gray-900">Artigos do Blog</h3>
+              <p className="text-gray-600 text-sm">Dicas, novidades e tendências agrícolas.</p>
             </a>
-            <a href="/tools" className="bg-white rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
+            <a href="/tools" className="bg-white/80 backdrop-blur-sm border border-gray-100 rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
               <div className="text-4xl mb-2">🛠️</div>
-              <h3 className="font-semibold text-lg mb-1">Ferramentas Recomendadas</h3>
-              <p className="text-gray-500 text-sm">Produtos digitais e ferramentas úteis.</p>
+              <h3 className="font-semibold text-lg mb-1 text-gray-900">Ferramentas Recomendadas</h3>
+              <p className="text-gray-600 text-sm">Produtos digitais e ferramentas úteis.</p>
             </a>
           </div>
           <a href="/blog">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition">
+            <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition">
               Ver Mais Conteúdo
             </button>
           </a>
@@ -231,22 +232,76 @@ function AppContent() {
       {/* Testimonials Section */}
       <EnhancedTestimonials />
       
-      {/* Features Grid */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
+      {/* Features Grid - SUPER PROMINENT FLOATING ICONS */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 via-white to-gray-50 border-t border-gray-200 relative overflow-hidden">
+        {/* SUPER PROMINENT Floating Feature Icons */}
+        <div className="absolute inset-0 pointer-events-none z-10">
+          <div className="absolute top-40 left-16 bg-gradient-to-br from-green-400 to-green-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform rotate-12 hover:scale-110 transition-transform">
+            <Calendar className="h-16 w-16 text-white drop-shadow-lg" />
+            <div className="text-base text-white font-bold mt-3 drop-shadow">Calendar</div>
+            <div className="absolute -top-3 -right-3 bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center">
+              <span className="text-white text-sm font-bold">!</span>
+            </div>
+          </div>
+          
+          <div className="absolute top-20 right-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform -rotate-6 hover:scale-110 transition-transform">
+            <Cloud className="h-16 w-16 text-white drop-shadow-lg" />
+            <div className="text-base text-white font-bold mt-3 drop-shadow">Weather</div>
+            <div className="absolute -top-3 -right-3 bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center">
+              <span className="text-white text-sm font-bold">!</span>
+            </div>
+          </div>
+          
+          <div className="absolute bottom-60 left-32 bg-gradient-to-br from-red-400 to-red-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform rotate-6 hover:scale-110 transition-transform">
+            <Bug className="h-16 w-16 text-white drop-shadow-lg" />
+            <div className="text-base text-white font-bold mt-3 drop-shadow">Pests</div>
+            <div className="absolute -top-3 -right-3 bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center">
+              <span className="text-white text-sm font-bold">!</span>
+            </div>
+          </div>
+          
+          <div className="absolute bottom-40 right-20 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform -rotate-12 hover:scale-110 transition-transform">
+            <Sprout className="h-16 w-16 text-white drop-shadow-lg" />
+            <div className="text-base text-white font-bold mt-3 drop-shadow">Resources</div>
+            <div className="absolute -top-3 -right-3 bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center">
+              <span className="text-white text-sm font-bold">!</span>
+            </div>
+          </div>
+          
+          <div className="absolute top-80 left-1/2 transform -translate-x-1/2 rotate-3 bg-gradient-to-br from-purple-400 to-purple-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white hover:scale-110 transition-transform">
+            <Users className="h-16 w-16 text-white drop-shadow-lg" />
+            <div className="text-base text-white font-bold mt-3 drop-shadow">Community</div>
+            <div className="absolute -top-3 -right-3 bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center">
+              <span className="text-white text-sm font-bold">!</span>
+            </div>
+          </div>
+          
+          <div className="absolute bottom-80 right-40 bg-gradient-to-br from-gray-600 to-gray-800 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform rotate-9 hover:scale-110 transition-transform">
+            <Download className="h-16 w-16 text-white drop-shadow-lg" />
+            <div className="text-base text-white font-bold mt-3 drop-shadow">Download</div>
+            <div className="absolute -top-3 -right-3 bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center">
+              <span className="text-white text-sm font-bold">!</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto relative z-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">🚀 Ferramentas Digitalzango</h2>
+            <p className="text-lg text-gray-700">Explore todas as funcionalidades do seu assistente agrícola</p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="bg-white shadow-sm hover:shadow-md transition-shadow">
+              <Card key={index} className="bg-white/80 backdrop-blur-sm border border-gray-200 shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 relative z-30">
                 <CardContent className="p-8 text-center">
-                  <div
-                    className={`w-16 h-16 ${feature.iconBg} rounded-full flex items-center justify-center mx-auto mb-6`}
-                  >
-                    <feature.icon className={`h-8 w-8 ${feature.iconColor}`} />
+                  {/* Simplified card content without large icons */}
+                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <feature.icon className="h-6 w-6 text-gray-500" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
-                  <p className="text-gray-600 mb-6">{feature.description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                  <p className="text-gray-700 mb-6 leading-relaxed">{feature.description}</p>
                   <Link href={feature.href}>
-                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white">
+                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                       {feature.buttonText}
                     </Button>
                   </Link>
@@ -263,13 +318,13 @@ function AppContent() {
       </div>
 
       {/* Stats Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => (
               <div key={index}>
                 <div className={`text-4xl md:text-5xl font-bold ${stat.color} mb-2`}>{stat.number}</div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
+                <div className="text-gray-700 font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -280,7 +335,7 @@ function AppContent() {
       <NewsletterSignup />
 
       {/* CTA Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 overflow-hidden">
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 via-white to-gray-50 overflow-hidden border-t border-gray-200">
         {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
              <div className="absolute top-10 left-10 text-6xl animate-float">🌱</div>
@@ -292,16 +347,16 @@ function AppContent() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
             <div className="text-center lg:text-left">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
                 {t("startPlanningTitle")}
               </h2>
-              <p className="text-xl text-orange-50 mb-2 font-medium">{t("startPlanningDescription")}</p>
-              <p className="text-lg text-orange-100 mb-8 leading-relaxed">{t("startPlanningDescription")}</p>
+              <p className="text-xl text-gray-700 mb-2 font-medium">{t("startPlanningDescription")}</p>
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">{t("startPlanningDescription")}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href="/calendario">
                   <Button
                     size="lg"
-                    className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                    className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                   >
                     📅 {t("viewCalendar")}
                   </Button>
@@ -309,18 +364,18 @@ function AppContent() {
                 <Link href="/baixar-app">
                   <Button
                     size="lg"
-                    variant="ghost"
-                    className="bg-white bg-opacity-20 border border-white border-opacity-30 text-white hover:bg-white hover:bg-opacity-30 px-6 py-4 text-base font-medium transition-all duration-200 backdrop-blur-sm"
+                    variant="outline"
+                    className="border-2 border-green-600 text-green-600 hover:bg-green-50 px-6 py-4 text-base font-medium transition-all duration-200"
                   >
                     📱 {t("downloadApp")}
                   </Button>
                 </Link>
               </div>
             </div>
-            {/* Right Column - Orange Circle with Sunset Image */}
+            {/* Right Column - Green Circle with Sunset Image */}
             <div className="flex justify-center lg:justify-end">
               <div className="relative">
-                <div className="w-80 h-80 bg-orange-200 rounded-full flex items-center justify-center border-4 border-orange-300 shadow-lg">
+                <div className="w-80 h-80 bg-green-100 rounded-full flex items-center justify-center border-4 border-green-200 shadow-lg">
                   <img
                     src="/images/sunset.png"
                     alt="Sunset"
