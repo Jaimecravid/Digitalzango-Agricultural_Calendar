@@ -1,16 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { useWeather } from "../contexts/weather-context";
-import { useLanguage } from "../contexts/language-context";
-import { useRegion } from "../contexts/region-context";
-import Header from "../components/header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Progress } from "@/components/ui/progress";
-import { 
+import { useState, useEffect, useCallback } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { Badge } from "../components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
+import { Progress } from "../components/ui/progress";
+import {
   Sun, 
   Cloud, 
   CloudRain, 
@@ -63,11 +59,11 @@ import {
   Filler,
 } from "chart.js";
 
-// Import our enhanced systems - CORRECTED PATHS
-import AgriculturalIntelligence from "../../lib/agricultural-intelligence";
-import {
-  useNetworkStatus
-} from "../../lib/performance-offline";
+// Import context hooks
+import { useLanguage } from "../contexts/language-context";
+import { useRegion } from "../contexts/region-context";
+import { useWeather } from "../contexts/weather-context";
+import Header from "../components/header";
 
 // Register Chart.js components
 ChartJS.register(
@@ -172,7 +168,59 @@ const convertTemperature = (temp, unit) => {
   return Math.round(temp);
 };
 
-// Enhanced Weather Page Component with all features integrated
+// Simplified network status hook (since we removed the external library)
+const useNetworkStatus = () => {
+  const [isOnline, setIsOnline] = useState(true);
+  const [connectionType, setConnectionType] = useState('4g');
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  return { isOnline, connectionType };
+};
+
+// Simplified Agricultural Intelligence (without external library)
+const generateSimpleRecommendations = (currentWeather, forecast) => {
+  const recommendations = [];
+  
+  if (currentWeather?.temperature > 30) {
+    recommendations.push({
+      title: "Irrigação Recomendada",
+      description: "Temperatura alta detectada. Considere irrigação adicional.",
+      action: "Verificar níveis de água nas culturas",
+      priority: "high",
+      confidence: 0.85,
+      timeframe: "Próximas 6 horas",
+      icon: "💧"
+    });
+  }
+
+  if (currentWeather?.description?.includes('rain')) {
+    recommendations.push({
+      title: "Chuva Prevista",
+      description: "Condições favoráveis para o crescimento das plantas.",
+      action: "Reduzir irrigação artificial",
+      priority: "medium",
+      confidence: 0.90,
+      timeframe: "Hoje",
+      icon: "🌧️"
+    });
+  }
+
+  return recommendations;
+};
+
+// Enhanced Weather Page Component with simplified features
 const EnhancedWeatherPage = () => {
   // State management
   const [selectedProvince, setSelectedProvince] = useState("Luanda");
@@ -183,7 +231,7 @@ const EnhancedWeatherPage = () => {
   const [language, setLanguage] = useState('pt');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Enhanced hooks - simplified since we only have useNetworkStatus
+  // Simplified hooks
   const { isOnline, connectionType } = useNetworkStatus();
 
   // Context hooks
@@ -200,16 +248,13 @@ const EnhancedWeatherPage = () => {
   const { t, isLoading: langLoading } = useLanguage();
   const { getCurrentRegion } = useRegion();
 
-  // Initialize systems - simplified
-  const [agriculturalAI] = useState(() => new AgriculturalIntelligence(selectedProvince));
-
   // Generate agricultural recommendations when weather data changes
   useEffect(() => {
     if (currentWeather && forecast.length > 0) {
       setIsLoading(true);
       
       try {
-        const recommendations = agriculturalAI.generateRecommendations(
+        const recommendations = generateSimpleRecommendations(
           currentWeather,
           forecast.slice(0, 5)
         );
@@ -220,7 +265,7 @@ const EnhancedWeatherPage = () => {
         setIsLoading(false);
       }
     }
-  }, [currentWeather, forecast, agriculturalAI]);
+  }, [currentWeather, forecast]);
 
   // Handle province change
   const handleProvinceChange = useCallback(async (province) => {
@@ -633,7 +678,7 @@ const EnhancedWeatherPage = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-green-800">
                   <Sprout className="h-6 w-6" />
-                  Inteligência Agrícola Avançada
+                  Inteligência Agrícola Simplificada
                   <Badge variant="secondary" className="ml-2">
                     IA
                   </Badge>
@@ -835,7 +880,7 @@ const EnhancedWeatherPage = () => {
             </Badge>
           </div>
           <p className="text-sm text-gray-500 mb-2">
-            Dados meteorológicos fornecidos pela OpenWeather API com inteligência agrícola avançada.
+            Dados meteorológicos fornecidos pela OpenWeather API com inteligência agrícola simplificada.
           </p>
           <p className="text-xs text-gray-400">
             Última atualização: {lastUpdated.toLocaleString("pt-PT")} | 
@@ -844,7 +889,7 @@ const EnhancedWeatherPage = () => {
           </p>
           {!hasApiKey && (
             <p className="text-xs text-orange-600 mt-2 font-medium">
-              ⚠️ Modo demonstração - dados simulados com IA para fins de teste
+              ⚠️ Modo demonstração - dados simulados para fins de teste
             </p>
           )}
         </div>
