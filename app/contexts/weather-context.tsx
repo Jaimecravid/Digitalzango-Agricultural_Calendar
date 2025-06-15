@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from "react";
 
 // --- Types ---
 interface WeatherData {
@@ -41,7 +41,6 @@ interface WeatherConfigType {
   hasApiKey: boolean;
 }
 
-
 const WeatherDataContext = createContext<WeatherDataType | undefined>(undefined);
 const WeatherActionsContext = createContext<WeatherActionsType | undefined>(undefined);
 const WeatherConfigContext = createContext<WeatherConfigType | undefined>(undefined);
@@ -80,7 +79,7 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
 
   // --- Fetch by Location ---
-  const fetchWeatherByLocation = async (location: string) => {
+  const fetchWeatherByLocation = useCallback(async (location: string) => {
     setIsLoading(true);
     setError(null);
 
@@ -140,10 +139,10 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   // --- Fetch by Coordinates ---
-  const fetchWeatherByCoords = async (lat: number, lon: number) => {
+  const fetchWeatherByCoords = useCallback(async (lat: number, lon: number) => {
     setIsLoading(true);
     setError(null);
 
@@ -201,37 +200,40 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   // --- Initial Load (optional, e.g., Luanda) ---
- // useEffect(() => {
-//   fetchWeatherByLocation("Luanda");
-// }, []); // Removed to prevent hydration mismatch
+  // useEffect(() => {
+  //   fetchWeatherByLocation("Luanda");
+  // }, []); // Removed to prevent hydration mismatch
+
+  // Memoize weather data to prevent unnecessary re-renders
+  const weatherData = useMemo(() => ({
+    currentWeather,
+    forecast,
+    hourlyForecast,
+    isLoading,
+    error,
+  }), [currentWeather, forecast, hourlyForecast, isLoading, error]);
+
+  // Memoize weather actions to prevent function recreation
+  const weatherActions = useMemo(() => ({
+    fetchWeatherByLocation,
+    fetchWeatherByCoords,
+  }), [fetchWeatherByLocation, fetchWeatherByCoords]);
 
   return (
-  <WeatherConfigContext.Provider value={{ hasApiKey: isApiKeyConfigured }}>
-    <WeatherDataContext.Provider 
-      value={{
-        currentWeather,
-        forecast,
-        hourlyForecast,
-        isLoading,
-        error,
-      }}
-    >
-      <WeatherActionsContext.Provider 
-        value={{
-          fetchWeatherByLocation,
-          fetchWeatherByCoords,
-        }}
-      >
-        {children}
-      </WeatherActionsContext.Provider>
-    </WeatherDataContext.Provider>
-  </WeatherConfigContext.Provider>
-);
+    <WeatherConfigContext.Provider value={{ hasApiKey: isApiKeyConfigured }}>
+      <WeatherDataContext.Provider value={weatherData}>
+        <WeatherActionsContext.Provider value={weatherActions}>
+          {children}
+        </WeatherActionsContext.Provider>
+      </WeatherDataContext.Provider>
+    </WeatherConfigContext.Provider>
+  );
+};
 
-// --- Custom Hook ---
+// --- Custom Hooks ---
 export const useWeatherData = () => {
   const context = useContext(WeatherDataContext);
   if (context === undefined) {
