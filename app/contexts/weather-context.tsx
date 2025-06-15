@@ -40,7 +40,7 @@ const WeatherContext = createContext<WeatherContextType | undefined>(undefined);
 // --- Helper: Detect API Key ---
 const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
 const isApiKeyConfigured = !!(apiKey && apiKey.length > 0);
-console.log("DEBUG: API KEY =", apiKey);
+// console.log("DEBUG: API KEY =", apiKey); // Removed for security
 
 // --- Mock Data (used if no API key) ---
 const mockWeather: WeatherData = {
@@ -195,9 +195,9 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // --- Initial Load (optional, e.g., Luanda) ---
-  useEffect(() => {
-    fetchWeatherByLocation("Luanda");
-  }, []);
+ // useEffect(() => {
+//   fetchWeatherByLocation("Luanda");
+// }, []); // Removed to prevent hydration mismatch
 
   return (
     <WeatherContext.Provider

@@ -6,8 +6,8 @@ import { WeatherProvider } from "../contexts/weather-context"
 import Header from "../components/header"
 import { useLanguage } from "../contexts/language-context"
 import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
+import { Badge } from "../components/ui/badge"
 import { AlertTriangle, Shield } from "lucide-react"
 
 function PragasContent() {

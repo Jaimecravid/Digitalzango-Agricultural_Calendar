@@ -33,6 +33,8 @@ const translations = {
     community: "Comunidade",
     about: "Sobre",
     downloadApp: "Baixar App",
+    guides: "Guias",
+    guidesDescription: "Guias completos de cultivo para Angola",
 
     // Weather Page
     weatherInformation: "Informações Meteorológicas",
@@ -311,6 +313,8 @@ const translations = {
     community: "Community",
     about: "About",
     downloadApp: "Download App",
+    guides: "Guides",
+    guidesDescription: "Complete cultivation guides for Angola",
 
     // Weather Page
     weatherInformation: "Weather Information",
