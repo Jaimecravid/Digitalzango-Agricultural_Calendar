@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState } from "react";
-import { useWeather } from "../contexts/weather-context";
+import { useWeatherData, useWeatherActions } from "../contexts/weather-context";
 import {
   Sun,
   Cloud,
@@ -104,18 +106,22 @@ const getWeatherEmoji = (condition?: string) => {
   );
 };
 
-const WeatherWidget: React.FC = () => {
+// Memoized Weather Widget for better performance
+const WeatherWidget: React.FC = React.memo(() => {
   const [selectedProvince, setSelectedProvince] = useState("Luanda");
-  const { currentWeather, forecast, hourlyForecast, isLoading, error, fetchWeatherByLocation } = useWeather();
+  
+  // Use optimized context hooks
+  const { currentWeather, forecast, hourlyForecast, isLoading, error } = useWeatherData();
+  const { fetchWeatherByLocation } = useWeatherActions();
 
-  const handleProvinceChange = (province: string) => {
+  const handleProvinceChange = React.useCallback((province: string) => {
     setSelectedProvince(province);
     const city = PROVINCE_CITY_MAP[province];
     if (city) fetchWeatherByLocation(city);
-  };
+  }, [fetchWeatherByLocation]);
 
-  // Daily chart data
-  const chartData = {
+  // Memoize chart data to prevent recreation
+  const chartData = React.useMemo(() => ({
     labels: forecast.map(day =>
       new Date(day.date).toLocaleDateString("pt-PT", { day: "2-digit", month: "short" })
     ),
@@ -128,19 +134,19 @@ const WeatherWidget: React.FC = () => {
         tension: 0.3,
       },
     ],
-  };
+  }), [forecast]);
 
-  const chartOptions = {
+  const chartOptions = React.useMemo(() => ({
     responsive: true,
     maintainAspectRatio: false,
     aspectRatio: 4,
     plugins: {
       legend: { display: false },
     },
-  };
+  }), []);
 
-  // Hourly chart data
-  const hourlyChartData = {
+  // Memoize hourly chart data
+  const hourlyChartData = React.useMemo(() => ({
     labels: hourlyForecast.map(hour => hour.time),
     datasets: [
       {
@@ -151,10 +157,10 @@ const WeatherWidget: React.FC = () => {
         tension: 0.3,
       },
     ],
-  };
+  }), [hourlyForecast]);
 
   // Chart.js plugin for weather icons above hourly points
-  const iconPlugin = {
+  const iconPlugin = React.useMemo(() => ({
     id: "weatherIcons",
     afterDatasetsDraw: (chart: any) => {
       const { ctx, data, chartArea } = chart;
@@ -176,9 +182,9 @@ const WeatherWidget: React.FC = () => {
       });
       ctx.restore();
     },
-  };
+  }), [hourlyForecast]);
 
-  const hourlyChartOptions = {
+  const hourlyChartOptions = React.useMemo(() => ({
     responsive: true,
     maintainAspectRatio: false,
     aspectRatio: 4,
@@ -195,7 +201,7 @@ const WeatherWidget: React.FC = () => {
         },
       },
     },
-  };
+  }), []);
 
   return (
     <div className="p-6 rounded shadow bg-gradient-to-br from-green-50 to-blue-50 w-full max-w-screen-2xl mx-auto">
@@ -265,6 +271,9 @@ const WeatherWidget: React.FC = () => {
       )}
     </div>
   );
-};
+});
+
+// Add display name for better debugging
+WeatherWidget.displayName = 'WeatherWidget';
 
 export default WeatherWidget;
