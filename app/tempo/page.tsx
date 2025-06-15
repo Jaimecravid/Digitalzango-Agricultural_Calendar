@@ -59,11 +59,11 @@ import {
   Filler,
 } from "chart.js";
 
-// Import context hooks
+// Import context hooks - UPDATED TO USE OPTIMIZED HOOKS
 import { useLanguage } from "../contexts/language-context";
 import { useRegion } from "../contexts/region-context";
-import { useWeather } from "../contexts/weather-context";
-import Header from "../components/header";
+import { useWeatherData, useWeatherActions, useWeatherConfig } from "../contexts/weather-context";
+
 
 // Register Chart.js components
 ChartJS.register(
@@ -234,16 +234,17 @@ const EnhancedWeatherPage = () => {
   // Simplified hooks
   const { isOnline, connectionType } = useNetworkStatus();
 
-  // Context hooks
+  // UPDATED: Context hooks using optimized hooks
   const { 
     currentWeather, 
     forecast, 
     hourlyForecast, 
     isLoading: weatherLoading, 
-    error, 
-    hasApiKey,
-    fetchWeatherByLocation 
-  } = useWeather();
+    error
+  } = useWeatherData();
+
+  const { fetchWeatherByLocation } = useWeatherActions();
+  const { hasApiKey } = useWeatherConfig();
 
   const { t, isLoading: langLoading } = useLanguage();
   const { getCurrentRegion } = useRegion();
@@ -444,7 +445,6 @@ const EnhancedWeatherPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-      <Header />
       
       {/* Enhanced status indicators */}
       <div className="bg-white border-b border-gray-200 px-4 py-2">
