@@ -24,18 +24,27 @@ interface HourlyData {
   icon: string;
 }
 
-interface WeatherContextType {
+interface WeatherDataType {
   currentWeather: WeatherData | null;
   forecast: ForecastData[];
   hourlyForecast: HourlyData[];
   isLoading: boolean;
   error: string | null;
-  hasApiKey: boolean;
+}
+
+interface WeatherActionsType {
   fetchWeatherByLocation: (location: string) => Promise<void>;
   fetchWeatherByCoords: (lat: number, lon: number) => Promise<void>;
 }
 
-const WeatherContext = createContext<WeatherContextType | undefined>(undefined);
+interface WeatherConfigType {
+  hasApiKey: boolean;
+}
+
+
+const WeatherDataContext = createContext<WeatherDataType | undefined>(undefined);
+const WeatherActionsContext = createContext<WeatherActionsType | undefined>(undefined);
+const WeatherConfigContext = createContext<WeatherConfigType | undefined>(undefined);
 
 // --- Helper: Detect API Key ---
 const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
@@ -200,28 +209,49 @@ export const WeatherProvider = ({ children }: { children: ReactNode }) => {
 // }, []); // Removed to prevent hydration mismatch
 
   return (
-    <WeatherContext.Provider
+  <WeatherConfigContext.Provider value={{ hasApiKey: isApiKeyConfigured }}>
+    <WeatherDataContext.Provider 
       value={{
         currentWeather,
         forecast,
         hourlyForecast,
         isLoading,
         error,
-        hasApiKey: isApiKeyConfigured,
-        fetchWeatherByLocation,
-        fetchWeatherByCoords,
       }}
     >
-      {children}
-    </WeatherContext.Provider>
-  );
-};
+      <WeatherActionsContext.Provider 
+        value={{
+          fetchWeatherByLocation,
+          fetchWeatherByCoords,
+        }}
+      >
+        {children}
+      </WeatherActionsContext.Provider>
+    </WeatherDataContext.Provider>
+  </WeatherConfigContext.Provider>
+);
 
 // --- Custom Hook ---
-export const useWeather = () => {
-  const context = useContext(WeatherContext);
+export const useWeatherData = () => {
+  const context = useContext(WeatherDataContext);
   if (context === undefined) {
-    throw new Error("useWeather must be used within a WeatherProvider");
+    throw new Error("useWeatherData must be used within a WeatherProvider");
+  }
+  return context;
+};
+
+export const useWeatherActions = () => {
+  const context = useContext(WeatherActionsContext);
+  if (context === undefined) {
+    throw new Error("useWeatherActions must be used within a WeatherProvider");
+  }
+  return context;
+};
+
+export const useWeatherConfig = () => {
+  const context = useContext(WeatherConfigContext);
+  if (context === undefined) {
+    throw new Error("useWeatherConfig must be used within a WeatherProvider");
   }
   return context;
 };
