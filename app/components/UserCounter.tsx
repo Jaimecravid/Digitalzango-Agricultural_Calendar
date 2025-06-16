@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useState } from 'react';
+import { useLanguage } from "../contexts/language-context";
 
 function UserCounter() {
+  const { t } = useLanguage();
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -33,19 +35,19 @@ function UserCounter() {
             <div className="text-3xl font-bold text-green-600">
               {count}+
             </div>
-            <div className="text-gray-600 mt-2">Farmers Joined</div>
+            <div className="text-gray-600 mt-2">{t("farmersJoined")}</div>
           </div>
           <div className="flex flex-col items-center">
             <div className="text-3xl font-bold text-green-600">
               50+
             </div>
-            <div className="text-gray-600 mt-2">Success Stories</div>
+            <div className="text-gray-600 mt-2">{t("successStories")}</div>
           </div>
           <div className="flex flex-col items-center">
             <div className="text-3xl font-bold text-green-600">
               95%
             </div>
-            <div className="text-gray-600 mt-2">Satisfaction Rate</div>
+            <div className="text-gray-600 mt-2">{t("satisfactionRate")}</div>
           </div>
         </div>
       </div>

@@ -1,170 +1,385 @@
 "use client"
 
-import type React from "react"
+import React, { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
-import { useState, useRef, useEffect } from "react"
-import { Globe, Check, ChevronDown } from "lucide-react"
-import { useLanguage } from "../contexts/language-context"
-
-interface LanguageSelectorProps {
-  variant?: "desktop" | "mobile"
-  className?: string
+interface Language {
+  code: string
+  name: string
+  nativeName: string
+  flag: string
 }
 
-export default function LanguageSelector({ variant = "desktop", className = "" }: LanguageSelectorProps) {
-  const { currentLanguage, setLanguage, languages, t } = useLanguage()
-  const [isOpen, setIsOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
-  const buttonRef = useRef<HTMLButtonElement>(null)
+interface LanguageContextType {
+  currentLanguage: string
+  setLanguage: (lang: string) => void
+  languages: Language[]
+  t: (key: string) => string
+  isLoading: boolean
+}
 
-  const currentLang = languages.find((lang) => lang.code === currentLanguage)
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-  // Close dropdown when clicking outside
+export const languages: Language[] = [
+  { code: "pt", name: "Portuguese", nativeName: "Português", flag: "🇵🇹" },
+  { code: "en", name: "English", nativeName: "English", flag: "🇺🇸" },
+  { code: "fr", name: "French", nativeName: "Français", flag: "🇫🇷" },
+  { code: "ki", name: "Kimbundu", nativeName: "Kimbundu", flag: "🇦🇴" },
+  { code: "um", name: "Umbundu", nativeName: "Umbundu", flag: "🇦🇴" },
+]
+
+export const translations = {
+  en: {
+    appTitle: "Agricultural Calendar for Angola",
+    welcomeDescription: "Plan, organize and optimize your agricultural activities based on local conditions in Angola.",
+    currentRegion: "Current Region",
+    climate: "Climate",
+    rainySeason: "Rainy Season",
+    month: "Month",
+    viewCalendar: "View Calendar",
+    downloadApp: "Download App",
+    communityHighlightsTitle: "Community Highlights",
+    communityHighlightsDescription: "Join the Digitalzango community! See farmer stories, share tips, and be part of agricultural innovation in Angola.",
+    communityJoinButton: "Join the Community",
+    educationalContentTitle: "Educational Content",
+    educationalContentDescription: "Learn from our agricultural guides, cultivation tips and blog articles. Knowledge to boost your production!",
+    plantingGuideTitle: "Planting Guide",
+    plantingGuideDescription: "Step by step to plant successfully.",
+    blogArticlesTitle: "Blog Articles",
+    blogArticlesDescription: "Tips, news and agricultural trends.",
+    recommendedToolsTitle: "Recommended Tools",
+    recommendedToolsDescription: "Digital products and useful tools.",
+    seeMoreContentButton: "See More Content",
+    featuresGridTitle: "Digitalzango Tools",
+    featuresGridDescription: "Explore all the features of your agricultural assistant",
+    startPlanningTitle: "Start Planning Your Farm Today",
+    startPlanningDescription: "Join thousands of Angolan farmers using Digitalzango to boost productivity and sustainability.",
+    loading: "Loading...",
+    calendar: "Calendar",
+    calendarDescription: "Agricultural planning calendar",
+    weather: "Weather",
+    weatherDescription: "Real-time weather information",
+    pests: "Pests & Diseases",
+    pestsDescription: "Identification and control guide",
+    resources: "Resources",
+    resourcesDescription: "Agricultural tools and guides",
+    community: "Community",
+    communityDescription: "Connect with other farmers",
+    downloadAppPageDescription: "Download our mobile app",
+    accessTool: "Access Tool",
+    viewInformation: "View Information",
+    participate: "Participate",
+    provincesLabel: "Provinces",
+    languagesLabel: "Languages",
+    monthsLabel: "Months",
+    weatherLabel: "Weather",
+    language: "Language",
+    selectLanguage: "Select Language",
+    adsenseTopBanner: "AdSense Top Banner Ad",
+    adsenseMiddleBanner: "AdSense Middle Banner Ad",
+    adsenseBottomBanner: "AdSense Bottom Banner Ad",
+    analytics: "Analytics",
+    communityImageAlt: "Community Image",
+    sunsetImageAlt: "Sunset",
+    // New keys for TrustBadges and UserCounter
+    verifiedAffiliate: "Verified Affiliate",
+    secureSite: "Secure Site",
+    trustedByFarmers: "Trusted by Farmers",
+    farmersJoined: "Farmers Joined",
+    successStories: "Success Stories",
+    satisfactionRate: "Satisfaction Rate",
+  },
+  pt: {
+    appTitle: "Calendário Agrícola de Angola",
+    welcomeDescription: "Planeje, organize e otimize suas atividades agrícolas com base nas condições locais em Angola.",
+    currentRegion: "Região Atual",
+    climate: "Clima",
+    rainySeason: "Estação Chuvosa",
+    month: "Mês",
+    viewCalendar: "Ver Calendário",
+    downloadApp: "Baixar App",
+    communityHighlightsTitle: "Destaques da Comunidade",
+    communityHighlightsDescription: "Junte-se à comunidade Digitalzango! Veja histórias de agricultores, compartilhe dicas e faça parte da inovação agrícola em Angola.",
+    communityJoinButton: "Participe da Comunidade",
+    educationalContentTitle: "Conteúdo Educativo",
+    educationalContentDescription: "Aprenda com nossos guias agrícolas, dicas de cultivo e artigos do blog. Conhecimento para impulsionar sua produção!",
+    plantingGuideTitle: "Guia de Plantio",
+    plantingGuideDescription: "Passo a passo para plantar com sucesso.",
+    blogArticlesTitle: "Artigos do Blog",
+    blogArticlesDescription: "Dicas, novidades e tendências agrícolas.",
+    recommendedToolsTitle: "Ferramentas Recomendadas",
+    recommendedToolsDescription: "Produtos digitais e ferramentas úteis.",
+    seeMoreContentButton: "Ver Mais Conteúdo",
+    featuresGridTitle: "Ferramentas Digitalzango",
+    featuresGridDescription: "Explore todas as funcionalidades do seu assistente agrícola",
+    startPlanningTitle: "Comece a Planejar Sua Fazenda Hoje",
+    startPlanningDescription: "Junte-se a milhares de agricultores angolanos usando o Digitalzango para aumentar a produtividade e a sustentabilidade.",
+    loading: "Carregando...",
+    calendar: "Calendário",
+    calendarDescription: "Calendário de planejamento agrícola",
+    weather: "Tempo",
+    weatherDescription: "Informações meteorológicas em tempo real",
+    pests: "Pragas e Doenças",
+    pestsDescription: "Guia de identificação e controle",
+    resources: "Recursos",
+    resourcesDescription: "Ferramentas e guias agrícolas",
+    community: "Comunidade",
+    communityDescription: "Conecte-se com outros agricultores",
+    downloadAppPageDescription: "Baixe nosso aplicativo móvel",
+    accessTool: "Acessar Ferramenta",
+    viewInformation: "Ver Informações",
+    participate: "Participar",
+    provincesLabel: "Províncias",
+    languagesLabel: "Idiomas",
+    monthsLabel: "Meses",
+    weatherLabel: "Tempo",
+    language: "Idioma",
+    selectLanguage: "Selecionar Idioma",
+    adsenseTopBanner: "Banner Superior AdSense",
+    adsenseMiddleBanner: "Banner Meio AdSense",
+    adsenseBottomBanner: "Banner Inferior AdSense",
+    analytics: "Análises",
+    communityImageAlt: "Imagem da Comunidade",
+    sunsetImageAlt: "Pôr do Sol",
+    // New keys for TrustBadges and UserCounter
+    verifiedAffiliate: "Afiliado Verificado",
+    secureSite: "Site Seguro",
+    trustedByFarmers: "Confiado por Agricultores",
+    farmersJoined: "Agricultores Cadastrados",
+    successStories: "Histórias de Sucesso",
+    satisfactionRate: "Taxa de Satisfação",
+  },
+  fr: {
+    appTitle: "Calendrier Agricole pour l'Angola",
+    welcomeDescription: "Planifiez, organisez et optimisez vos activités agricoles selon les conditions locales en Angola.",
+    currentRegion: "Région Actuelle",
+    climate: "Climat",
+    rainySeason: "Saison des Pluies",
+    month: "Mois",
+    viewCalendar: "Voir le Calendrier",
+    downloadApp: "Télécharger l'App",
+    communityHighlightsTitle: "Temps forts de la communauté",
+    communityHighlightsDescription: "Rejoignez la communauté Digitalzango ! Découvrez des témoignages d'agriculteurs, partagez des astuces et participez à l'innovation agricole en Angola.",
+    communityJoinButton: "Rejoindre la communauté",
+    educationalContentTitle: "Contenu Éducatif",
+    educationalContentDescription: "Apprenez avec nos guides agricoles, conseils de culture et articles de blog. Des connaissances pour stimuler votre production !",
+    plantingGuideTitle: "Guide de Plantation",
+    plantingGuideDescription: "Étape par étape pour planter avec succès.",
+    blogArticlesTitle: "Articles de Blog",
+    blogArticlesDescription: "Conseils, actualités et tendances agricoles.",
+    recommendedToolsTitle: "Outils Recommandés",
+    recommendedToolsDescription: "Produits numériques et outils utiles.",
+    seeMoreContentButton: "Voir Plus de Contenu",
+    featuresGridTitle: "Outils Digitalzango",
+    featuresGridDescription: "Explorez toutes les fonctionnalités de votre assistant agricole",
+    startPlanningTitle: "Commencez à Planifier Votre Ferme Aujourd'hui",
+    startPlanningDescription: "Rejoignez des milliers d'agriculteurs angolais qui utilisent Digitalzango pour augmenter leur productivité et leur durabilité.",
+    loading: "Chargement...",
+    calendar: "Calendrier",
+    calendarDescription: "Calendrier de planification agricole",
+    weather: "Météo",
+    weatherDescription: "Informations météorologiques en temps réel",
+    pests: "Ravageurs et Maladies",
+    pestsDescription: "Guide d'identification et de contrôle",
+    resources: "Ressources",
+    resourcesDescription: "Outils et guides agricoles",
+    community: "Communauté",
+    communityDescription: "Connectez-vous avec d'autres agriculteurs",
+    downloadAppPageDescription: "Téléchargez notre application mobile",
+    accessTool: "Accéder à l'Outil",
+    viewInformation: "Voir les Informations",
+    participate: "Participer",
+    provincesLabel: "Provinces",
+    languagesLabel: "Langues",
+    monthsLabel: "Mois",
+    weatherLabel: "Météo",
+    language: "Langue",
+    selectLanguage: "Sélectionner la Langue",
+    adsenseTopBanner: "Bannière Supérieure AdSense",
+    adsenseMiddleBanner: "Bannière Milieu AdSense",
+    adsenseBottomBanner: "Bannière Inférieure AdSense",
+    analytics: "Analyses",
+    communityImageAlt: "Image de la Communauté",
+    sunsetImageAlt: "Coucher de Soleil",
+    // New keys for TrustBadges and UserCounter
+    verifiedAffiliate: "Affilié Vérifié",
+    secureSite: "Site Sécurisé",
+    trustedByFarmers: "Approuvé par les Agriculteurs",
+    farmersJoined: "Agriculteurs Inscrits",
+    successStories: "Histoires de Succès",
+    satisfactionRate: "Taux de Satisfaction",
+  },
+  ki: {
+    appTitle: "Kalendário ya Kilimi ku Angola",
+    welcomeDescription: "Longa, lombolola, udi utonda misangu ya kilimi ku Angola.",
+    currentRegion: "Dikanda ya Sona",
+    climate: "Meso",
+    rainySeason: "Mvula",
+    month: "Mwezi",
+    viewCalendar: "Tala Kalendário",
+    downloadApp: "Dawniloda App",
+    communityHighlightsTitle: "Mbandu ya Dikanda",
+    communityHighlightsDescription: "Kakula mu dikanda Digitalzango! Tala misangu ya balimi, yambula dikanda, udi mu nsonge ya dikuma mu Angola.",
+    communityJoinButton: "Kakula mu Dikanda",
+    educationalContentTitle: "Misangu ya Kilongololo",
+    educationalContentDescription: "Longola misangu ya kilimi, dikanda ya kilongololo. Misangu ya kutonda kilimi!",
+    plantingGuideTitle: "Kilongololo ya Kilimi",
+    plantingGuideDescription: "Misangu ya kulima kwa mbote.",
+    blogArticlesTitle: "Misangu ya Blog",
+    blogArticlesDescription: "Dikanda, misangu ya kilimi.",
+    recommendedToolsTitle: "Misangu ya Mbote",
+    recommendedToolsDescription: "Misangu ya digital na mbote.",
+    seeMoreContentButton: "Tala Misangu Mingi",
+    featuresGridTitle: "Misangu Digitalzango",
+    featuresGridDescription: "Tala misangu yoso ya kilimi wako",
+    startPlanningTitle: "Tumbula Kulonga Kilimi Wako Lelo",
+    startPlanningDescription: "Kakula na balimi ba Angola bafwila Digitalzango kutonda kilimi.",
+    loading: "Kusoma...",
+    calendar: "Kalendário",
+    calendarDescription: "Kalendário ya kilimi",
+    weather: "Meso",
+    weatherDescription: "Misangu ya meso",
+    pests: "Bibulu",
+    pestsDescription: "Kutala bibulu",
+    resources: "Misangu",
+    resourcesDescription: "Misangu ya kilimi",
+    community: "Dikanda",
+    communityDescription: "Kakula na balimi",
+    downloadAppPageDescription: "Dawniloda app yetu",
+    accessTool: "Kota Misangu",
+    viewInformation: "Tala Misangu",
+    participate: "Kakula",
+    provincesLabel: "Mikanda",
+    languagesLabel: "Ndinga",
+    monthsLabel: "Mizezi",
+    weatherLabel: "Meso",
+    language: "Ndinga",
+    selectLanguage: "Sobola Ndinga",
+    adsenseTopBanner: "Banner ya Likolo AdSense",
+    adsenseMiddleBanner: "Banner ya Kati AdSense",
+    adsenseBottomBanner: "Banner ya Nsi AdSense",
+    analytics: "Misangu",
+    communityImageAlt: "Foto ya Dikanda",
+    sunsetImageAlt: "Mwinda wa Buelo",
+    // New keys for TrustBadges and UserCounter
+    verifiedAffiliate: "Mulimi wa Mbote",
+    secureSite: "Site ya Mbote",
+    trustedByFarmers: "Balimi Bafwila",
+    farmersJoined: "Balimi Bakakula",
+    successStories: "Misangu ya Mbote",
+    satisfactionRate: "Mbote ya Balimi",
+  },
+  um: {
+    appTitle: "Kalendário wa Olongela vyokulima ku Angola",
+    welcomeDescription: "Lombolola, longa, utwale vyakukanda vyokulima ku Angola.",
+    currentRegion: "Olukanda",
+    climate: "Oluvyo",
+    rainySeason: "Epunda lyomvula",
+    month: "Okwesi",
+    viewCalendar: "Twala Kalendário",
+    downloadApp: "Download App",
+    communityHighlightsTitle: "Olongela vyakukanda",
+    communityHighlightsDescription: "Jovokele k'ukanda Digitalzango! Tala vyakukanda vyavakalimi, longa vyakukanda, utya k'ukwavo vyokulima mu Angola.",
+    communityJoinButton: "Jovokele k'ukanda",
+    educationalContentTitle: "Vyakukanda vyolongelo",
+    educationalContentDescription: "Longela vyakukanda vyokulima, olongelo vyokulima. Vyakukanda vyokuholela okulima!",
+    plantingGuideTitle: "Olongelo wokulima",
+    plantingGuideDescription: "Vyakukanda vyokulima kwa mbote.",
+    blogArticlesTitle: "Vyakukanda vya Blog",
+    blogArticlesDescription: "Olongelo, vyakukanda vyokulima.",
+    recommendedToolsTitle: "Vyakukanda vyambote",
+    recommendedToolsDescription: "Vyakukanda vya digital vyambote.",
+    seeMoreContentButton: "Twala Vyakukanda Vingi",
+    featuresGridTitle: "Vyakukanda Digitalzango",
+    featuresGridDescription: "Twala vyakukanda vyosi vyokulima vyako",
+    startPlanningTitle: "Tundula Okulonga Olongela Vyokulima",
+    startPlanningDescription: "Jovokele valimi vyosi vy'Angola vyatwala Digitalzango okuholela vyakukanda vyavo.",
+    loading: "Okutwala...",
+    calendar: "Kalendário",
+    calendarDescription: "Kalendário wokulima",
+    weather: "Oluvyo",
+    weatherDescription: "Vyakukanda vyoluvyo",
+    pests: "Ovihulu",
+    pestsDescription: "Okulonga ovihulu",
+    resources: "Vyakukanda",
+    resourcesDescription: "Vyakukanda vyokulima",
+    community: "Olukanda",
+    communityDescription: "Jovokele valimi",
+    downloadAppPageDescription: "Download app yetu",
+    accessTool: "Twala Vyakukanda",
+    viewInformation: "Twala Vyakukanda",
+    participate: "Jovokele",
+    provincesLabel: "Ovikanda",
+    languagesLabel: "Olongede",
+    monthsLabel: "Okwesi",
+    weatherLabel: "Oluvyo",
+    language: "Olongede",
+    selectLanguage: "Hola Olongede",
+    adsenseTopBanner: "Banner ya Likolo AdSense",
+    adsenseMiddleBanner: "Banner ya Kati AdSense",
+    adsenseBottomBanner: "Banner ya Nsi AdSense",
+    analytics: "Vyakukanda",
+    communityImageAlt: "Foto ya Olukanda",
+    sunsetImageAlt: "Oluvemba",
+    // New keys for TrustBadges and UserCounter
+    verifiedAffiliate: "Mukalimi wa Mbote",
+    secureSite: "Site ya Mbote",
+    trustedByFarmers: "Valimi Vafwila",
+    farmersJoined: "Valimi Vajovokele",
+    successStories: "Vyakukanda vya Mbote",
+    satisfactionRate: "Mbote ya Valimi",
+  },
+}
+
+interface LanguageProviderProps {
+  children: ReactNode
+}
+
+export function LanguageProvider({ children }: LanguageProviderProps) {
+  const [currentLanguage, setCurrentLanguage] = useState<string>("pt")
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false)
-      }
+    // Load saved language from localStorage
+    const savedLanguage = localStorage.getItem("digitalzango-language")
+    if (savedLanguage && languages.some(lang => lang.code === savedLanguage)) {
+      setCurrentLanguage(savedLanguage)
     }
-
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
+    setIsLoading(false)
   }, [])
 
-  // Close dropdown on escape key
-  useEffect(() => {
-    function handleEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setIsOpen(false)
-        buttonRef.current?.focus()
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscape)
-      return () => {
-        document.removeEventListener("keydown", handleEscape)
-      }
-    }
-  }, [isOpen])
-
-  const handleLanguageSelect = (langCode: string) => {
-    setLanguage(langCode)
-    setIsOpen(false)
-
-    // Announce language change to screen readers
-    const announcement = `Language changed to ${languages.find((l) => l.code === langCode)?.name}`
-    const ariaLive = document.createElement("div")
-    ariaLive.setAttribute("aria-live", "polite")
-    ariaLive.setAttribute("aria-atomic", "true")
-    ariaLive.className = "sr-only"
-    ariaLive.textContent = announcement
-    document.body.appendChild(ariaLive)
-    setTimeout(() => document.body.removeChild(ariaLive), 1000)
-  }
-
-  const handleKeyDown = (event: React.KeyboardEvent, langCode?: string) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault()
-      if (langCode) {
-        handleLanguageSelect(langCode)
-      } else {
-        setIsOpen(!isOpen)
-      }
-    } else if (event.key === "ArrowDown" && !isOpen) {
-      event.preventDefault()
-      setIsOpen(true)
+  const setLanguage = (langCode: string) => {
+    if (languages.some(lang => lang.code === langCode)) {
+      setCurrentLanguage(langCode)
+      localStorage.setItem("digitalzango-language", langCode)
+      // Force page reload to ensure all components update
+      window.location.reload()
     }
   }
 
-  if (variant === "mobile") {
-    return (
-      <div className={`space-y-3 ${className}`}>
-        <div className="px-3 py-2 text-sm font-semibold text-gray-500 uppercase tracking-wider">{t("language")}</div>
-        <div className="grid grid-cols-2 gap-2 px-3">
-          {languages.map((lang) => (
-            <button
-              key={lang.code}
-              onClick={() => handleLanguageSelect(lang.code)}
-              className={`px-3 py-2 text-sm rounded-md transition-colors duration-200 flex items-center space-x-2 ${
-                currentLanguage === lang.code
-                  ? "bg-green-100 text-green-700 font-medium ring-2 ring-green-500"
-                  : "bg-gray-100 text-gray-700 hover:bg-green-50 hover:text-green-600"
-              }`}
-              aria-pressed={currentLanguage === lang.code}
-              aria-label={`Switch to ${lang.name}`}
-            >
-              <span className="text-base">{lang.flag}</span>
-              <span className="truncate">{lang.nativeName}</span>
-              {currentLanguage === lang.code && <Check className="h-3 w-3 ml-auto flex-shrink-0" aria-hidden="true" />}
-            </button>
-          ))}
-        </div>
-      </div>
-    )
+  const t = (key: string): string => {
+    const translation = translations[currentLanguage as keyof typeof translations]?.[key as keyof typeof translation]
+    return translation || key
+  }
+
+  const value: LanguageContextType = {
+    currentLanguage,
+    setLanguage,
+    languages,
+    t,
+    isLoading,
   }
 
   return (
-    <div className={`relative ${className}`}>
-      <button
-        ref={buttonRef}
-        onClick={() => setIsOpen(!isOpen)}
-        onKeyDown={handleKeyDown}
-        className="p-2 text-gray-500 hover:text-green-600 hover:bg-green-50 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 flex items-center space-x-1"
-        aria-label={`${t("selectLanguage")} - ${t("language")}: ${currentLang?.name}`}
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
-        title={`${t("language")}: ${currentLang?.name}`}
-      >
-        <Globe className="h-4 w-4" aria-hidden="true" />
-        <span className="hidden sm:inline text-sm font-medium">{currentLang?.flag}</span>
-        <ChevronDown
-          className={`h-3 w-3 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-          aria-hidden="true"
-        />
-      </button>
-
-      {isOpen && (
-        <div
-          ref={dropdownRef}
-          className="absolute right-0 mt-1 w-56 bg-white rounded-md shadow-lg border border-gray-200 z-50 py-1"
-          role="listbox"
-          aria-label={t("selectLanguage")}
-        >
-          {languages.map((lang, index) => (
-            <button
-              key={lang.code}
-              onClick={() => handleLanguageSelect(lang.code)}
-              onKeyDown={(e) => handleKeyDown(e, lang.code)}
-              className={`w-full text-left px-4 py-3 text-sm hover:bg-green-50 hover:text-green-600 transition-colors duration-200 flex items-center space-x-3 ${
-                currentLanguage === lang.code ? "bg-green-50 text-green-600 font-medium" : "text-gray-700"
-              }`}
-              role="option"
-              aria-selected={currentLanguage === lang.code}
-              aria-label={`Switch to ${lang.name} (${lang.nativeName})`}
-              tabIndex={isOpen ? 0 : -1}
-            >
-              <span className="text-lg flex-shrink-0" aria-hidden="true">
-                {lang.flag}
-              </span>
-              <div className="flex-1 min-w-0">
-                <div className="font-medium truncate">{lang.nativeName}</div>
-                <div className="text-xs text-gray-500 truncate">{lang.name}</div>
-              </div>
-              {currentLanguage === lang.code && (
-                <Check className="h-4 w-4 flex-shrink-0 text-green-600" aria-hidden="true" />
-              )}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+    <LanguageContext.Provider value={value}>
+      {children}
+    </LanguageContext.Provider>
   )
+}
+
+export function useLanguage(): LanguageContextType {
+  const context = useContext(LanguageContext)
+  if (context === undefined) {
+    throw new Error("useLanguage must be used within a LanguageProvider")
+  }
+  return context
 }
