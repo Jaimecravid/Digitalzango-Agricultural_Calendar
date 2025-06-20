@@ -2,13 +2,14 @@
 title: "Planejamento Climático para Agricultores"
 date: "2025-06-17"
 excerpt: "Para os agricultores angolanos, a diferença entre uma colheita abundante e uma perda devastadora pode estar na capacidade de interpretar corretamente os dados meteorológicos e usar previsões climáticas como ferramentas estratégicas de planejamento agrícola."
+coverImage: "/images/blog/Weather-Planning-for-Farmers.jpg"
 ---
 
 # Planejamento Climático para Agricultores
 
 Para os agricultores angolanos, a diferença entre uma colheita abundante e uma perda devastadora pode estar na capacidade de interpretar corretamente os dados meteorológicos disponibilizados pelo Instituto Nacional de Meteorologia e Geofísica (INAMET), onde tendências essenciais como precipitação, velocidade do vento e nível de umidade tornam-se poderosas ferramentas estratégicas de planejamento agrícola.
 
-![Colheitadeira em plantação](images/Weather-Planning-for-Farmers.jpg)
+![Planejamento Climático para Agricultores](/images/blog/Weather-Planning-for-Farmers.jpg)
 
 ## Satélites na Agricultura Angolana
 
@@ -27,6 +28,4 @@ Uma iniciativa promissora é a metodologia S-world, testada na Província do Hua
 O Gabinete de Gestão do Programa Espacial Nacional (GGPEN) está desenvolvendo uma ferramenta WebGIS 100% angolana para suporte agrícola, que estará disponível para os agricultores em todo o país.
 
 A solução WebGIS angolana possibilita a criação de mapas especializados de fertilidade, erosão, pH, recomendação de adubação, produtividade e vulnerabilidade do fósforo no terreno. Esta tecnologia é particularmente relevante para Angola, onde os sistemas de extensão estão concentrados principalmente em produtores familiares (80%), produtores comerciais e especialistas (20%). Empresas como a Topgis também oferecem serviços de agricultura de precisão, permitindo que produtores rurais controlem suas lavouras através de informações geoespaciais, tratando cada área como única e reconhecendo as diferenças regionais.
-
----
-
+ do fósforo no terreno. Esta tecnologia é particularmente relevante para Angola, onde os sistemas de extensão estão concentrados principalmente em produtores familiares (80%), produtores comerciais e especialistas (20%). Empresas como a Topgis também oferecem serviços de agricultura de precisão, permitindo que produtores rurais controlem suas lavouras através de informações geoespaciais, tratando cada área como única e reconhecendo as diferenças regionais.

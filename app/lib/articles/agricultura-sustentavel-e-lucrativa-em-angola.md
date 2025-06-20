@@ -1,7 +1,8 @@
 ---
 title: "Agricultura Sustentável e Lucrativa em Angola"
 date: "2025-06-17"
-excerpt: "Com vastas terras das quais apenas 20% são exploradas, Angola apresenta oportunidades precisosas para agricultores que adotam práticas sustentáveis, não apenas como medida ambiental, mas como estratégia comprovada para aumentar a rentabilidade e garantir a segurança alimentar a longo prazo."
+excerpt: "Com vastas terras das quais apenas 20% são exploradas, Angola apresenta oportunidades preciosas para agricultores que adotam práticas sustentáveis, não apenas como medida ambiental, mas como estratégia comprovada para aumentar a rentabilidade e garantir a segurança alimentar a longo prazo."
+coverImage: "/images/blog/Agricultura-Sustentável-e-Lucrativa-em-Angola.jpg"
 ---
 
 # Agricultura Sustentável e Lucrativa em Angola

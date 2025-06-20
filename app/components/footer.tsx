@@ -50,7 +50,7 @@ export default function Footer() {
             <h4 className="font-semibold text-gray-900 mb-4">{t("company")}</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="/about" className="hover:text-green-600">
+                <a href="/sobre" className="hover:text-green-600">
                   {t("about")}
                 </a>
               </li>

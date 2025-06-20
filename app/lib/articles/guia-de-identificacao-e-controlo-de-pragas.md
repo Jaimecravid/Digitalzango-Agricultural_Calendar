@@ -2,13 +2,14 @@
 title: "Guia de Identificação e Controlo de Pragas"
 date: "2025-06-17"
 excerpt: "Em Angola, as pragas e doenças representam uma ameaça significativa para culturas como milho, soja, feijão e café, comprometendo a produtividade agrícola e a subsistência dos agricultores. Este guia apresenta métodos de Manejo Integrado de Pragas (MIP), combinando técnicas culturais, físicas, químicas e biológicas para um controlo sustentável e economicamente viável."
+coverImage: "/images/blog/Guia-de-Identificacao-e-Controlo-de-Pragas.jpg"
 ---
 
 # Guia de Identificação e Controlo de Pragas
 
 Em Angola, as pragas e doenças representam uma ameaça significativa para culturas como milho, soja, feijão e café, comprometendo a produtividade agrícola e a subsistência dos agricultores. Este guia apresenta métodos de Manejo Integrado de Pragas (MIP), uma abordagem que combina métodos culturais, físicos, químicos e biológicos, e propõe soluções que tornam o controlo destas ameaças de forma ambientalmente sustentável e economicamente viável.
 
-![Agricultores em campo](/images/Guia-de-Identificacao-e-Controlo-de-Pragas.jpg) 
+![Agricultores em campo](/images/blog/Guia-de-Identificacao-e-Controlo-de-Pragas.jpg) 
 
 ## Pragas Quarentenadas em Angola
 
@@ -43,6 +44,3 @@ Principais métodos de controlo biológico:
 - Consorciação de culturas para aumentar a biodiversidade de predadores naturais
 - Rotação de culturas para quebrar ciclos de vida das pragas e proteger contra fatores climáticos adversos
 - Utilização de variedades resistentes que afetam negativamente o desempenho das pragas
-
----
-

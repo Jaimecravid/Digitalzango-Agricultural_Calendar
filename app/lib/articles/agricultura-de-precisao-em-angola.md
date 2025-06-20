@@ -2,7 +2,9 @@
 title: "Agricultura de Precisão em Angola"
 date: "2025-06-17"
 excerpt: "A agricultura de precisão está revolucionando o campo angolano, combinando tecnologias como GPS, drones, sensores e sistemas de informação geográfica para otimizar a produção agrícola e aumentar a produtividade."
+coverImage: "/images/blog/agricultura-de-precicao-em-angola.jpg"
 ---
+
 
 # Agricultura de Precisão em Angola
 
