@@ -5,28 +5,27 @@ import { MapPin, Clock, Users, Briefcase, Heart, Target, Award } from "lucide-re
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { LanguageProvider, useLanguage } from "../contexts/language-context"
 import { RegionProvider } from "../contexts/region-context"
 import Header from "../components/header"
 
 function CareersContent() {
-  const { t } = useLanguage()
+
 
   const jobOpenings = [
     {
       id: 1,
-      title: "Engenheiro Agrónomo",
+      title: "Engenheiro AgrÃ³nomo",
       department: "Agricultura",
       location: "Luanda",
       type: "Tempo Integral",
-      level: "Sénior",
+      level: "SÃ©nior",
       description:
-        "Procuramos um engenheiro agrónomo experiente para liderar o desenvolvimento de conteúdo técnico e apoiar agricultores em todo o país.",
+        "Procuramos um engenheiro agrÃ³nomo experiente para liderar o desenvolvimento de conteÃºdo tÃ©cnico e apoiar agricultores em todo o paÃ­s.",
       requirements: [
-        "Licenciatura em Engenharia Agronómica",
-        "Mínimo 5 anos de experiência",
-        "Conhecimento das condições agrícolas de Angola",
-        "Fluência em Português e Inglês",
+        "Licenciatura em Engenharia AgronÃ³mica",
+        "MÃ­nimo 5 anos de experiÃªncia",
+        "Conhecimento das condiÃ§Ãµes agrÃ­colas de Angola",
+        "FluÃªncia em PortuguÃªs e InglÃªs",
       ],
     },
     {
@@ -35,14 +34,14 @@ function CareersContent() {
       department: "Tecnologia",
       location: "Luanda / Remoto",
       type: "Tempo Integral",
-      level: "Júnior",
+      level: "JÃºnior",
       description:
-        "Junte-se à nossa equipa de desenvolvimento para criar interfaces intuitivas e responsivas para agricultores angolanos.",
+        "Junte-se Ã  nossa equipa de desenvolvimento para criar interfaces intuitivas e responsivas para agricultores angolanos.",
       requirements: [
-        "Experiência com React e TypeScript",
+        "ExperiÃªncia com React e TypeScript",
         "Conhecimento de Tailwind CSS",
         "Portfolio de projectos web",
-        "Paixão por UX/UI",
+        "PaixÃ£o por UX/UI",
       ],
     },
     {
@@ -51,14 +50,14 @@ function CareersContent() {
       department: "Dados",
       location: "Benguela",
       type: "Tempo Integral",
-      level: "Sénior",
+      level: "SÃ©nior",
       description:
-        "Responsável por analisar dados meteorológicos e desenvolver previsões precisas para apoio à agricultura.",
+        "ResponsÃ¡vel por analisar dados meteorolÃ³gicos e desenvolver previsÃµes precisas para apoio Ã  agricultura.",
       requirements: [
-        "Licenciatura em Meteorologia ou área relacionada",
-        "Experiência com análise de dados meteorológicos",
+        "Licenciatura em Meteorologia ou Ã¡rea relacionada",
+        "ExperiÃªncia com anÃ¡lise de dados meteorolÃ³gicos",
         "Conhecimento de Python/R",
-        "Experiência em agricultura é uma vantagem",
+        "ExperiÃªncia em agricultura Ã© uma vantagem",
       ],
     },
     {
@@ -67,14 +66,14 @@ function CareersContent() {
       department: "Comunidade",
       location: "Huambo",
       type: "Tempo Integral",
-      level: "Médio",
+      level: "MÃ©dio",
       description:
         "Gerir e expandir a nossa comunidade de agricultores, organizando eventos e facilitando a partilha de conhecimentos.",
       requirements: [
-        "Experiência em gestão de comunidades",
-        "Excelentes habilidades de comunicação",
-        "Conhecimento do sector agrícola",
-        "Capacidade de viajar dentro da província",
+        "ExperiÃªncia em gestÃ£o de comunidades",
+        "Excelentes habilidades de comunicaÃ§Ã£o",
+        "Conhecimento do sector agrÃ­cola",
+        "Capacidade de viajar dentro da provÃ­ncia",
       ],
     },
   ]
@@ -82,13 +81,13 @@ function CareersContent() {
   const benefits = [
     {
       icon: Heart,
-      title: "Saúde e Bem-estar",
-      description: "Seguro de saúde completo para si e família",
+      title: "SaÃºde e Bem-estar",
+      description: "Seguro de saÃºde completo para si e famÃ­lia",
     },
     {
       icon: Target,
       title: "Desenvolvimento Profissional",
-      description: "Formação contínua e oportunidades de crescimento",
+      description: "FormaÃ§Ã£o contÃ­nua e oportunidades de crescimento",
     },
     {
       icon: Users,
@@ -98,7 +97,7 @@ function CareersContent() {
     {
       icon: Award,
       title: "Reconhecimento",
-      description: "Programas de reconhecimento e bonificações por desempenho",
+      description: "Programas de reconhecimento e bonificaÃ§Ãµes por desempenho",
     },
   ]
 
@@ -108,16 +107,16 @@ function CareersContent() {
       description: "Trabalhamos para melhorar a vida dos agricultores angolanos",
     },
     {
-      title: "Inovação",
+      title: "InovaÃ§Ã£o",
       description: "Usamos tecnologia para resolver problemas reais",
     },
     {
-      title: "Colaboração",
+      title: "ColaboraÃ§Ã£o",
       description: "Acreditamos no poder do trabalho em equipa",
     },
     {
       title: "Sustentabilidade",
-      description: "Promovemos práticas agrícolas sustentáveis",
+      description: "Promovemos prÃ¡ticas agrÃ­colas sustentÃ¡veis",
     },
   ]
 
@@ -128,9 +127,9 @@ function CareersContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{t("careers")}</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Carreiras</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Junte-se à nossa missão de transformar a agricultura em Angola. Construa uma carreira com propósito e
+            Junte-se Ã  nossa missÃ£o de transformar a agricultura em Angola. Construa uma carreira com propÃ³sito e
             impacto real.
           </p>
         </div>
@@ -152,7 +151,7 @@ function CareersContent() {
 
         {/* Benefits */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Benefícios e Vantagens</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">BenefÃ­cios e Vantagens</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((benefit, index) => (
               <Card key={index} className="text-center">
@@ -224,15 +223,15 @@ function CareersContent() {
         {/* Call to Action */}
         <Card className="bg-green-50 border-green-200">
           <CardContent className="p-8 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Não Encontrou a Posição Ideal?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">NÃ£o Encontrou a PosiÃ§Ã£o Ideal?</h2>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Estamos sempre à procura de talentos excepcionais. Envie-nos o seu CV e entraremos em contacto quando
+              Estamos sempre Ã  procura de talentos excepcionais. Envie-nos o seu CV e entraremos em contacto quando
               surgir uma oportunidade adequada.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-green-600 hover:bg-green-700">Enviar CV Espontâneo</Button>
+              <Button className="bg-green-600 hover:bg-green-700">Enviar CV EspontÃ¢neo</Button>
               <Link href="/contact">
-                <Button variant="outline">{t("contactUs")}</Button>
+                <Button variant="outline">Contacte-nos</Button>
               </Link>
             </div>
           </CardContent>
@@ -243,11 +242,8 @@ function CareersContent() {
 }
 
 export default function CareersPage() {
-  return (
-    <LanguageProvider>
-      <RegionProvider>
+  return <RegionProvider>
         <CareersContent />
       </RegionProvider>
-    </LanguageProvider>
-  )
 }
+

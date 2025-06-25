@@ -52,7 +52,7 @@ interface Message {
 }
 
 export default function CooperativeFeatures() {
-  const { t } = useLanguage()
+
   const [members, setMembers] = useState<CooperativeMember[]>([])
   const [sharedResources, setSharedResources] = useState<SharedResource[]>([])
   const [groupPlans, setGroupPlans] = useState<GroupPlan[]>([])

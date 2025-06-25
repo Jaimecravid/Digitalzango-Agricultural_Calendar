@@ -4,13 +4,13 @@ import Link from "next/link"
 import { Calendar, Cloud, Package } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { LanguageProvider } from "../contexts/language-context"
+
 import { RegionProvider } from "../contexts/region-context"
 import Header from "../components/header"
-import { useLanguage } from "../contexts/language-context"
+
 
 function FerramentasContent() {
-  const { t } = useLanguage()
+  
 
   const tools = [
     {
@@ -73,11 +73,8 @@ function FerramentasContent() {
 }
 
 export default function FerramentasPage() {
-  return (
-    <LanguageProvider>
-      <RegionProvider>
+  return <RegionProvider>
         <FerramentasContent />
       </RegionProvider>
-    </LanguageProvider>
-  )
 }
+

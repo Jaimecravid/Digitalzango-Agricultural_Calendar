@@ -39,7 +39,7 @@ const activityTypes = {
 }
 
 export default function ActivityLogger() {
-  const { t } = useLanguage()
+
   const [activities, setActivities] = useState<Activity[]>([])
   const [showAddForm, setShowAddForm] = useState(false)
   const [editingActivity, setEditingActivity] = useState<Activity | null>(null)

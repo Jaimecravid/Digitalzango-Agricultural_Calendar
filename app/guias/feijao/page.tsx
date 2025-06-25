@@ -1,17 +1,17 @@
 "use client"
 
-import { LanguageProvider } from "../../contexts/language-context"
+
 import { RegionProvider } from "../../contexts/region-context"
 import { WeatherProvider } from "../../contexts/weather-context"
 import Header from "../../components/header"
-import { useLanguage } from "../../contexts/language-context"
+
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, Calendar, Droplets, Sun, Thermometer } from "lucide-react"
 
 function FeijaoContent() {
-  const { t } = useLanguage()
+
 
   const plantingCalendar = [
     { month: t("october"), activity: t("landPreparation"), icon: "🚜" },
@@ -218,12 +218,12 @@ function FeijaoContent() {
 
 export default function FeijaoPage() {
   return (
-    <LanguageProvider>
+    
       <RegionProvider>
         <WeatherProvider>
           <FeijaoContent />
         </WeatherProvider>
       </RegionProvider>
-    </LanguageProvider>
+    
   )
 }

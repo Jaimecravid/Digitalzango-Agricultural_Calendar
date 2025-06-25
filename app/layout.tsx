@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { LanguageProvider } from "./contexts/language-context";
 import { RegionProvider } from "./contexts/region-context";
 import { WeatherProvider } from "./contexts/weather-context";
 import Header from "./components/header";
@@ -23,16 +22,14 @@ export default function RootLayout({
   return (
     <html lang="pt">
       <body className={inter.className}>
-        <LanguageProvider>
-          <RegionProvider>
-            <WeatherProvider>
-              <HtmlLang />
-              <Header />
-              <main>{children}</main>
-              <Footer />
-            </WeatherProvider>
-          </RegionProvider>
-        </LanguageProvider>
+        <RegionProvider>
+          <WeatherProvider>
+            <HtmlLang />
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </WeatherProvider>
+        </RegionProvider>
       </body>
     </html>
   );

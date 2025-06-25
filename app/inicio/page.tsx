@@ -6,14 +6,13 @@ import { Calendar, Cloud, Bug, Sprout, Users, Download } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Card, CardContent } from "../components/ui/card"
 import { Badge } from "../components/ui/badge"
-import { LanguageProvider, useLanguage } from "../contexts/language-context"
+
 import { RegionProvider, useRegion } from "../contexts/region-context"
 import { WeatherProvider } from "../contexts/weather-context"
 import NewsletterSignup from "../components/newsletter-signup"
 import Link from "next/link"
 
 function AppContent() {
-  const { t, isLoading } = useLanguage()
   const { getCurrentRegion } = useRegion()
 
   const getCurrentRegionData = () => {
@@ -25,75 +24,66 @@ function AppContent() {
       icon: Calendar,
       iconBg: "bg-green-100",
       iconColor: "text-green-600",
-      title: t("calendar"),
-      description: t("calendarDescription"),
-      buttonText: t("accessTool"),
+      title: "Calendário",
+      description: "Veja o calendário agrícola adaptado à sua região.",
+      buttonText: "Acessar ferramenta",
       href: "/calendario",
     },
     {
       icon: Cloud,
       iconBg: "bg-blue-100",
       iconColor: "text-blue-600",
-      title: t("weather"),
-      description: t("weatherDescription"),
-      buttonText: t("accessTool"),
+      title: "Tempo",
+      description: "Consulte previsões meteorológicas locais para planejar melhor.",
+      buttonText: "Acessar ferramenta",
       href: "/tempo",
     },
     {
       icon: Bug,
       iconBg: "bg-red-100",
       iconColor: "text-red-600",
-      title: t("pests"),
-      description: t("pestsDescription"),
-      buttonText: t("viewInformation"),
+      title: "Pragas",
+      description: "Identifique e combata pragas agrícolas comuns.",
+      buttonText: "Ver informações",
       href: "/pragas",
     },
     {
       icon: Sprout,
       iconBg: "bg-yellow-100",
       iconColor: "text-yellow-600",
-      title: t("resources"),
-      description: t("resourcesDescription"),
-      buttonText: t("accessTool"),
+      title: "Recursos",
+      description: "Acesse materiais e dicas para agricultores.",
+      buttonText: "Acessar ferramenta",
       href: "/recursos",
     },
     {
       icon: Users,
       iconBg: "bg-purple-100",
       iconColor: "text-purple-600",
-      title: t("community"),
-      description: t("communityDescription"),
-      buttonText: t("participate"),
+      title: "Comunidade",
+      description: "Participe da nossa comunidade de agricultores.",
+      buttonText: "Participar",
       href: "/comunidade",
     },
     {
       icon: Download,
       iconBg: "bg-gray-100",
       iconColor: "text-gray-600",
-      title: t("downloadApp"),
-      description: t("downloadAppPageDescription"),
-      buttonText: t("downloadApp"),
+      title: "Baixar App",
+      description: "Baixe o aplicativo para acessar offline.",
+      buttonText: "Baixar App",
       href: "/baixar-app",
     },
   ]
 
   const stats = [
-    { number: "18", label: t("provincesLabel"), color: "text-green-600" },
-    { number: "4", label: t("languagesLabel"), color: "text-blue-600" },
-    { number: "12", label: t("monthsLabel"), color: "text-orange-600" },
-    { number: "24/7", label: t("weatherLabel"), color: "text-purple-600" },
+    { number: "18", label: "Províncias", color: "text-green-600" },
+    { number: "4", label: "Idiomas", color: "text-blue-600" },
+    { number: "12", label: "Meses", color: "text-orange-600" },
+    { number: "24/7", label: "Tempo", color: "text-purple-600" },
   ]
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">{t("loading")}</p>
-        </div>
-      </div>
-    )
-  }
+  // Nenhum carregamento necessário, conteúdo sempre disponível
 
   return (
     <div className="min-h-screen bg-white">
@@ -115,23 +105,22 @@ function AppContent() {
         <div className="max-w-5xl mx-auto text-center">
          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight animate-fadeInUp">
              <span className="bg-gradient-to-r from-gray-900 via-green-800 to-gray-900 bg-clip-text text-transparent">
-            {t("appTitle")}
+            Calendário Agrícola Angola
       </span>
          </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
-            {t("welcomeDescription")}
+            Bem-vindo ao Calendário Agrícola de Angola. Planeje sua produção, acompanhe o clima e acesse recursos para agricultores de todo o país.
           </p>
           {/* Region Badge - Prominently displayed */}
           <div className="inline-block mb-8">
-            <Badge className="bg-green-100 text-green-800 px-6 py-2 text-base font-semibold shadow-md">
-              {t("currentRegion")}: {getCurrentRegionData()?.name}
-              <br />
-              <span className="text-sm font-normal">
-                {t("climate")}: {getCurrentRegionData()?.climate} | {t("rainySeason")}: {t("month")}{" "}
-                {getCurrentRegionData()?.rainySeasonStart}-{getCurrentRegionData()?.rainySeasonEnd}
-              </span>
-            </Badge>
-          </div>
+  <Badge className="bg-green-100 text-green-800 px-6 py-2 text-base font-semibold shadow-md">
+    Região atual: {getCurrentRegionData()?.name}
+    <br />
+    <span className="text-sm font-normal">
+      Clima: {getCurrentRegionData()?.climate} | Estação chuvosa: {getCurrentRegionData()?.rainySeasonStart}-{getCurrentRegionData()?.rainySeasonEnd}
+    </span>
+  </Badge>
+</div>
           {/* Call to Action in Hero - Primary engagement point */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/calendario">
@@ -139,7 +128,7 @@ function AppContent() {
                 size="lg"
                 className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
               >
-                📅 {t("viewCalendar")}
+                📅 Ver Calendário
               </Button>
             </Link>
             <Link href="/baixar-app">
@@ -148,7 +137,7 @@ function AppContent() {
                 variant="outline"
                 className="border-green-600 text-green-600 hover:bg-green-50 px-6 py-4 text-lg font-semibold transition-all duration-200"
               >
-                📱 {t("downloadApp")}
+                📱 Baixar App
               </Button>
             </Link>
           </div>
@@ -238,7 +227,7 @@ function AppContent() {
         <div className="absolute inset-0 pointer-events-none z-10">
           <div className="absolute top-40 left-16 bg-gradient-to-br from-green-400 to-green-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform rotate-12 hover:scale-110 transition-transform">
             <Calendar className="h-16 w-16 text-white drop-shadow-lg" />
-            <div className="text-base text-white font-bold mt-3 drop-shadow">Calendar</div>
+            <div className="text-base text-white font-bold mt-3 drop-shadow">Calendário</div>
             <div className="absolute -top-3 -right-3 bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center">
               <span className="text-white text-sm font-bold">!</span>
             </div>
@@ -246,7 +235,7 @@ function AppContent() {
           
           <div className="absolute top-20 right-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform -rotate-6 hover:scale-110 transition-transform">
             <Cloud className="h-16 w-16 text-white drop-shadow-lg" />
-            <div className="text-base text-white font-bold mt-3 drop-shadow">Weather</div>
+            <div className="text-base text-white font-bold mt-3 drop-shadow">Tempo</div>
             <div className="absolute -top-3 -right-3 bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center">
               <span className="text-white text-sm font-bold">!</span>
             </div>
@@ -254,7 +243,7 @@ function AppContent() {
           
           <div className="absolute bottom-60 left-32 bg-gradient-to-br from-red-400 to-red-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform rotate-6 hover:scale-110 transition-transform">
             <Bug className="h-16 w-16 text-white drop-shadow-lg" />
-            <div className="text-base text-white font-bold mt-3 drop-shadow">Pests</div>
+            <div className="text-base text-white font-bold mt-3 drop-shadow">Pragas</div>
             <div className="absolute -top-3 -right-3 bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center">
               <span className="text-white text-sm font-bold">!</span>
             </div>
@@ -262,7 +251,7 @@ function AppContent() {
           
           <div className="absolute bottom-40 right-20 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform -rotate-12 hover:scale-110 transition-transform">
             <Sprout className="h-16 w-16 text-white drop-shadow-lg" />
-            <div className="text-base text-white font-bold mt-3 drop-shadow">Resources</div>
+            <div className="text-base text-white font-bold mt-3 drop-shadow">Recursos</div>
             <div className="absolute -top-3 -right-3 bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center">
               <span className="text-white text-sm font-bold">!</span>
             </div>
@@ -270,7 +259,7 @@ function AppContent() {
           
           <div className="absolute top-80 left-1/2 transform -translate-x-1/2 rotate-3 bg-gradient-to-br from-purple-400 to-purple-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white hover:scale-110 transition-transform">
             <Users className="h-16 w-16 text-white drop-shadow-lg" />
-            <div className="text-base text-white font-bold mt-3 drop-shadow">Community</div>
+            <div className="text-base text-white font-bold mt-3 drop-shadow">Comunidade</div>
             <div className="absolute -top-3 -right-3 bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center">
               <span className="text-white text-sm font-bold">!</span>
             </div>
@@ -278,7 +267,7 @@ function AppContent() {
           
           <div className="absolute bottom-80 right-40 bg-gradient-to-br from-gray-600 to-gray-800 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform rotate-9 hover:scale-110 transition-transform">
             <Download className="h-16 w-16 text-white drop-shadow-lg" />
-            <div className="text-base text-white font-bold mt-3 drop-shadow">Download</div>
+            <div className="text-base text-white font-bold mt-3 drop-shadow">Baixar App</div>
             <div className="absolute -top-3 -right-3 bg-orange-500 rounded-full w-8 h-8 flex items-center justify-center">
               <span className="text-white text-sm font-bold">!</span>
             </div>
@@ -348,17 +337,17 @@ function AppContent() {
             {/* Left Column - Text Content */}
             <div className="text-center lg:text-left">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-                {t("startPlanningTitle")}
+                Comece a planejar sua produção!
               </h2>
-              <p className="text-xl text-gray-700 mb-2 font-medium">{t("startPlanningDescription")}</p>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">{t("startPlanningDescription")}</p>
+              <p className="text-xl text-gray-700 mb-2 font-medium">Acesse o calendário agrícola e ferramentas digitais.</p>
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">Tenha previsões do tempo, dicas e recursos para agricultores de Angola.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href="/calendario">
                   <Button
                     size="lg"
                     className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                   >
-                    📅 {t("viewCalendar")}
+                    📅 Ver Calendário
                   </Button>
                 </Link>
                 <Link href="/baixar-app">
@@ -367,7 +356,7 @@ function AppContent() {
                     variant="outline"
                     className="border-2 border-green-600 text-green-600 hover:bg-green-50 px-6 py-4 text-base font-medium transition-all duration-200"
                   >
-                    📱 {t("downloadApp")}
+                    📱 Baixar App
                   </Button>
                 </Link>
               </div>
@@ -385,11 +374,11 @@ function AppContent() {
                 {/* Floating Elements */}
                 <div className="absolute -top-8 left-8 bg-white bg-opacity-90 rounded-lg p-3 shadow-lg animate-float">
                   <div className="text-2xl">📊</div>
-                  <div className="text-xs text-gray-600 font-medium">Analytics</div>
+                  <div className="text-xs text-gray-600 font-medium">Tempo</div>
                 </div>
                 <div className="absolute -bottom-8 right-8 bg-white bg-opacity-90 rounded-lg p-3 shadow-lg animate-float-delayed">
                   <div className="text-2xl">🌤️</div>
-                  <div className="text-xs text-gray-600 font-medium">{t("weather")}</div>
+                  <div className="text-xs text-gray-600 font-medium">Tempo</div>
                 </div>
               </div>
             </div>
@@ -407,12 +396,10 @@ function AppContent() {
 
 export default function InicioPage() {
   return (
-    <LanguageProvider>
-      <RegionProvider>
-        <WeatherProvider>
-          <AppContent />
-        </WeatherProvider>
-      </RegionProvider>
-    </LanguageProvider>
+    <RegionProvider>
+      <WeatherProvider>
+        <AppContent />
+      </WeatherProvider>
+    </RegionProvider>
   )
 }

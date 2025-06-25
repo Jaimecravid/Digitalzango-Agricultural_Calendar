@@ -7,109 +7,109 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { LanguageProvider, useLanguage } from "../contexts/language-context"
+
 import { RegionProvider } from "../contexts/region-context"
 import Header from "../components/header"
 
 function ForumContent() {
-  const { t } = useLanguage()
+
 
   const forumCategories = [
     {
       id: 1,
       name: "Culturas e Plantio",
-      description: "Discussões sobre diferentes culturas e técnicas de plantio",
-      icon: "🌱",
+      description: "DiscussÃµes sobre diferentes culturas e tÃ©cnicas de plantio",
+      icon: "ðŸŒ±",
       topics: 156,
       posts: 1243,
-      lastActivity: "2 horas atrás",
+      lastActivity: "2 horas atrÃ¡s",
     },
     {
       id: 2,
       name: "Meteorologia e Clima",
-      description: "Previsões do tempo e impacto climático na agricultura",
-      icon: "🌤️",
+      description: "PrevisÃµes do tempo e impacto climÃ¡tico na agricultura",
+      icon: "ðŸŒ¤ï¸",
       topics: 89,
       posts: 567,
-      lastActivity: "4 horas atrás",
+      lastActivity: "4 horas atrÃ¡s",
     },
     {
       id: 3,
-      name: "Pragas e Doenças",
-      description: "Identificação e controlo de pragas e doenças",
-      icon: "🐛",
+      name: "Pragas e DoenÃ§as",
+      description: "IdentificaÃ§Ã£o e controlo de pragas e doenÃ§as",
+      icon: "ðŸ›",
       topics: 134,
       posts: 892,
-      lastActivity: "1 hora atrás",
+      lastActivity: "1 hora atrÃ¡s",
     },
     {
       id: 4,
       name: "Equipamentos e Tecnologia",
-      description: "Ferramentas, máquinas e tecnologias agrícolas",
-      icon: "🚜",
+      description: "Ferramentas, mÃ¡quinas e tecnologias agrÃ­colas",
+      icon: "ðŸšœ",
       topics: 67,
       posts: 345,
-      lastActivity: "6 horas atrás",
+      lastActivity: "6 horas atrÃ¡s",
     },
     {
       id: 5,
       name: "Mercado e Vendas",
-      description: "Preços, mercados e estratégias de venda",
-      icon: "💰",
+      description: "PreÃ§os, mercados e estratÃ©gias de venda",
+      icon: "ðŸ’°",
       topics: 78,
       posts: 456,
-      lastActivity: "3 horas atrás",
+      lastActivity: "3 horas atrÃ¡s",
     },
     {
       id: 6,
       name: "Cooperativas",
-      description: "Formação e gestão de cooperativas agrícolas",
-      icon: "👥",
+      description: "FormaÃ§Ã£o e gestÃ£o de cooperativas agrÃ­colas",
+      icon: "ðŸ‘¥",
       topics: 45,
       posts: 234,
-      lastActivity: "5 horas atrás",
+      lastActivity: "5 horas atrÃ¡s",
     },
   ]
 
   const recentTopics = [
     {
       id: 1,
-      title: "Melhor época para plantar milho em Luanda?",
-      author: "João Silva",
+      title: "Melhor Ã©poca para plantar milho em Luanda?",
+      author: "JoÃ£o Silva",
       category: "Culturas e Plantio",
       replies: 12,
       views: 156,
-      lastReply: "30 min atrás",
+      lastReply: "30 min atrÃ¡s",
       isHot: true,
     },
     {
       id: 2,
       title: "Como controlar a lagarta-do-cartucho naturalmente",
       author: "Maria Santos",
-      category: "Pragas e Doenças",
+      category: "Pragas e DoenÃ§as",
       replies: 8,
       views: 89,
-      lastReply: "1 hora atrás",
+      lastReply: "1 hora atrÃ¡s",
       isHot: false,
     },
     {
       id: 3,
-      title: "Preços do feijão no mercado de Benguela",
-      author: "António Costa",
+      title: "PreÃ§os do feijÃ£o no mercado de Benguela",
+      author: "AntÃ³nio Costa",
       category: "Mercado e Vendas",
       replies: 15,
       views: 234,
-      lastReply: "2 horas atrás",
+      lastReply: "2 horas atrÃ¡s",
       isHot: true,
     },
     {
       id: 4,
-      title: "Irrigação por gotejamento: vale a pena?",
+      title: "IrrigaÃ§Ã£o por gotejamento: vale a pena?",
       author: "Ana Ferreira",
       category: "Equipamentos e Tecnologia",
       replies: 6,
       views: 67,
-      lastReply: "3 horas atrás",
+      lastReply: "3 horas atrÃ¡s",
       isHot: false,
     },
     {
@@ -119,15 +119,15 @@ function ForumContent() {
       category: "Cooperativas",
       replies: 9,
       views: 123,
-      lastReply: "4 horas atrás",
+      lastReply: "4 horas atrÃ¡s",
       isHot: false,
     },
   ]
 
   const activeUsers = [
-    { name: "João Silva", posts: 234, avatar: "/placeholder.svg?height=40&width=40" },
+    { name: "JoÃ£o Silva", posts: 234, avatar: "/placeholder.svg?height=40&width=40" },
     { name: "Maria Santos", posts: 189, avatar: "/placeholder.svg?height=40&width=40" },
-    { name: "António Costa", posts: 156, avatar: "/placeholder.svg?height=40&width=40" },
+    { name: "AntÃ³nio Costa", posts: 156, avatar: "/placeholder.svg?height=40&width=40" },
     { name: "Ana Ferreira", posts: 134, avatar: "/placeholder.svg?height=40&width=40" },
     { name: "Carlos Mendes", posts: 98, avatar: "/placeholder.svg?height=40&width=40" },
   ]
@@ -141,7 +141,7 @@ function ForumContent() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">{t("forum")}</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Conecte-se com outros agricultores angolanos. Partilhe experiências, faça perguntas e aprenda com a
+            Conecte-se com outros agricultores angolanos. Partilhe experiÃªncias, faÃ§a perguntas e aprenda com a
             comunidade.
           </p>
         </div>
@@ -150,11 +150,11 @@ function ForumContent() {
         <div className="flex flex-col md:flex-row gap-4 mb-8">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-            <Input placeholder="Pesquisar tópicos..." className="pl-10" />
+            <Input placeholder="Pesquisar tÃ³picos..." className="pl-10" />
           </div>
           <Button className="bg-green-600 hover:bg-green-700">
             <Plus className="h-4 w-4 mr-2" />
-            Novo Tópico
+            Novo TÃ³pico
           </Button>
         </div>
 
@@ -163,7 +163,7 @@ function ForumContent() {
           <div className="lg:col-span-2 space-y-8">
             {/* Forum Categories */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Categorias do Fórum</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Categorias do FÃ³rum</h2>
               <div className="space-y-4">
                 {forumCategories.map((category) => (
                   <Card key={category.id} className="hover:shadow-md transition-shadow">
@@ -179,9 +179,9 @@ function ForumContent() {
                             </h3>
                             <p className="text-gray-600 text-sm mb-2">{category.description}</p>
                             <div className="flex items-center gap-4 text-xs text-gray-500">
-                              <span>{category.topics} tópicos</span>
+                              <span>{category.topics} tÃ³picos</span>
                               <span>{category.posts} posts</span>
-                              <span>Última actividade: {category.lastActivity}</span>
+                              <span>Ãšltima actividade: {category.lastActivity}</span>
                             </div>
                           </div>
                         </div>
@@ -204,7 +204,7 @@ function ForumContent() {
 
             {/* Recent Topics */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Tópicos Recentes</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">TÃ³picos Recentes</h2>
               <div className="space-y-4">
                 {recentTopics.map((topic) => (
                   <Card key={topic.id} className="hover:shadow-md transition-shadow">
@@ -217,7 +217,7 @@ function ForumContent() {
                                 {topic.title}
                               </Link>
                             </h3>
-                            {topic.isHot && <Badge className="bg-red-100 text-red-800 text-xs">🔥 Quente</Badge>}
+                            {topic.isHot && <Badge className="bg-red-100 text-red-800 text-xs">ðŸ”¥ Quente</Badge>}
                           </div>
                           <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
                             <span>Por {topic.author}</span>
@@ -232,7 +232,7 @@ function ForumContent() {
                             </div>
                             <div className="flex items-center gap-1">
                               <Eye className="h-3 w-3" />
-                              {topic.views} visualizações
+                              {topic.views} visualizaÃ§Ãµes
                             </div>
                             <div className="flex items-center gap-1">
                               <Clock className="h-3 w-3" />
@@ -253,7 +253,7 @@ function ForumContent() {
             {/* Forum Stats */}
             <Card>
               <CardHeader>
-                <CardTitle>Estatísticas do Fórum</CardTitle>
+                <CardTitle>EstatÃ­sticas do FÃ³rum</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-center">
@@ -262,7 +262,7 @@ function ForumContent() {
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-blue-600">569</div>
-                  <div className="text-sm text-gray-600">Tópicos</div>
+                  <div className="text-sm text-gray-600">TÃ³picos</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-purple-600">3,737</div>
@@ -305,15 +305,15 @@ function ForumContent() {
             {/* Forum Rules */}
             <Card>
               <CardHeader>
-                <CardTitle>Regras do Fórum</CardTitle>
+                <CardTitle>Regras do FÃ³rum</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="text-sm text-gray-600 space-y-2">
-                  <li>• Seja respeitoso com outros membros</li>
-                  <li>• Mantenha as discussões relevantes</li>
-                  <li>• Não faça spam ou publicidade</li>
-                  <li>• Use linguagem apropriada</li>
-                  <li>• Partilhe conhecimento útil</li>
+                  <li>â€¢ Seja respeitoso com outros membros</li>
+                  <li>â€¢ Mantenha as discussÃµes relevantes</li>
+                  <li>â€¢ NÃ£o faÃ§a spam ou publicidade</li>
+                  <li>â€¢ Use linguagem apropriada</li>
+                  <li>â€¢ Partilhe conhecimento Ãºtil</li>
                 </ul>
               </CardContent>
             </Card>
@@ -325,11 +325,8 @@ function ForumContent() {
 }
 
 export default function ForumPage() {
-  return (
-    <LanguageProvider>
-      <RegionProvider>
+  return <RegionProvider>
         <ForumContent />
       </RegionProvider>
-    </LanguageProvider>
-  )
 }
+

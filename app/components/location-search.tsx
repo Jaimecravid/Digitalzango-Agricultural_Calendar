@@ -14,7 +14,7 @@ interface LocationSearchProps {
 }
 
 export default function LocationSearch({ onLocationSelect, currentLocation }: LocationSearchProps) {
-  const { t } = useLanguage()
+
   const [query, setQuery] = useState("")
   const [results, setResults] = useState<LocationData[]>([])
   const [isSearching, setIsSearching] = useState(false)

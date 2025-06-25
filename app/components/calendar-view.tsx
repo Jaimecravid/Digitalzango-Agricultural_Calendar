@@ -1,306 +1,193 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
-import { Button } from "./ui/button"
-import { Badge } from "./ui/badge"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { useLanguage } from "../contexts/language-context"
-import { useRegion } from "../contexts/region-context"
+import React from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Calendar as CalendarComponent } from '@/components/ui/calendar'
+import { Droplets, Leaf, Sun, Trash2, Pencil } from "lucide-react"
 
-interface CalendarActivity {
+interface Region {
   id: string
-  type: "planting" | "irrigation" | "fertilization" | "pest-control" | "harvesting" | "land-prep"
-  crop: string
-  title: string
-  description: string
-  priority: "low" | "medium" | "high"
-  icon: string
+  name: string
+  capital: string
 }
 
-const activityIcons = {
-  planting: "🌱",
-  irrigation: "💧",
-  fertilization: "🌿",
-  "pest-control": "🐛",
-  harvesting: "🌾",
-  "land-prep": "🚜",
+interface Events {
+  irrigation: Date[]
+  planting: Date[]
+  harvest: Date[]
 }
 
-export default function CalendarView() {
-  const { t } = useLanguage()
-  const { getCurrentRegion } = useRegion()
-  const [currentDate, setCurrentDate] = useState(new Date())
-  const [selectedDate, setSelectedDate] = useState(new Date())
-  const [activities, setActivities] = useState<CalendarActivity[]>([])
+interface EditingEvent {
+  type: string
+  oldDate: Date
+  newDate: string
+}
 
-  // Generate activities based on region and season
-  useEffect(() => {
-    const region = getCurrentRegion()
-    if (!region) return
+interface CalendarViewProps {
+  region: Region
+  events: Events
+  selectedDate: Date | undefined
+  setSelectedDate: (date: Date | undefined) => void
+  userProvinceEvents: Events
+  onDelete: (date: Date, type: string) => void
+  onEditStart: (date: Date, type: string) => void
+  editingEvent: EditingEvent | null
+  onEditChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
+  onEditSave: () => void
+  onEditCancel: () => void
+}
 
-    const currentMonth = currentDate.getMonth() + 1
-    const isRainySeason = currentMonth >= region.rainySeasonStart || currentMonth <= region.rainySeasonEnd
+export default function CalendarView({
+  region,
+  events,
+  selectedDate,
+  setSelectedDate,
+  onDelete,
+  onEditStart,
+  editingEvent,
+  onEditChange,
+  onEditSave,
+  onEditCancel
+}: CalendarViewProps) {
+  const irrigationDays = events.irrigation
+  const plantingDays = events.planting
+  const harvestDays = events.harvest
 
-    const mockActivities: CalendarActivity[] = []
-
-    // Generate activities for the current month
-    for (let day = 1; day <= 30; day++) {
-      const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
-      const dayOfWeek = date.getDay()
-
-      // Planting activities during rainy season
-      if (isRainySeason && dayOfWeek === 1 && day <= 15) {
-        mockActivities.push({
-          id: `plant-${day}`,
-          type: "planting",
-          crop: region.mainCrops[Math.floor(Math.random() * region.mainCrops.length)],
-          title: "Plantio recomendado",
-          description: "Condições ideais para plantio",
-          priority: "high",
-          icon: activityIcons.planting,
-        })
-      }
-
-      // Irrigation during dry season
-      if (!isRainySeason && dayOfWeek % 2 === 0) {
-        mockActivities.push({
-          id: `irrigate-${day}`,
-          type: "irrigation",
-          crop: "Geral",
-          title: "Irrigação necessária",
-          description: "Manter humidade do solo",
-          priority: "high",
-          icon: activityIcons.irrigation,
-        })
-      }
-
-      // Fertilization
-      if (day === 10 || day === 25) {
-        mockActivities.push({
-          id: `fertilize-${day}`,
-          type: "fertilization",
-          crop: "Todas as culturas",
-          title: "Aplicação de fertilizante",
-          description: "Nutrição das plantas",
-          priority: "medium",
-          icon: activityIcons.fertilization,
-        })
-      }
-
-      // Pest control
-      if (isRainySeason && day === 20) {
-        mockActivities.push({
-          id: `pest-${day}`,
-          type: "pest-control",
-          crop: "Milho, Feijão",
-          title: "Controlo de pragas",
-          description: "Verificar e tratar pragas",
-          priority: "medium",
-          icon: activityIcons["pest-control"],
-        })
-      }
-    }
-
-    setActivities(mockActivities)
-  }, [currentDate, getCurrentRegion])
-
-  const getDaysInMonth = (date: Date) => {
-    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
-  }
-
-  const getFirstDayOfMonth = (date: Date) => {
-    return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
-  }
-
-  const getActivitiesForDate = (date: Date) => {
-    return activities.filter((activity) => {
-      // Simple matching by day for demo
-      return date.getDate() % 7 === 0 || date.getDate() % 10 === 0
-    })
-  }
-
-  const navigateMonth = (direction: "prev" | "next") => {
-    setCurrentDate((prev) => {
-      const newDate = new Date(prev)
-      if (direction === "prev") {
-        newDate.setMonth(prev.getMonth() - 1)
-      } else {
-        newDate.setMonth(prev.getMonth() + 1)
-      }
-      return newDate
-    })
-  }
-
-  const monthNames = [
-    t("january"),
-    t("february"),
-    t("march"),
-    t("april"),
-    t("may"),
-    t("june"),
-    t("july"),
-    t("august"),
-    t("september"),
-    t("october"),
-    t("november"),
-    t("december"),
-  ]
-
-  const daysInMonth = getDaysInMonth(currentDate)
-  const firstDay = getFirstDayOfMonth(currentDate)
-  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1)
-  const emptyDays = Array.from({ length: firstDay }, (_, i) => i)
+  const isSameDay = (a: Date, b: Date) =>
+    a.getDate() === b.getDate() && a.getMonth() === b.getMonth() && a.getFullYear() === b.getFullYear()
 
   return (
-    <div className="space-y-6">
-      {/* Calendar Header */}
+    <div>
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="text-2xl">
-                {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-              </CardTitle>
-              <CardDescription>
-                {getCurrentRegion()?.name} - {getCurrentRegion()?.climate}
-              </CardDescription>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Button variant="outline" size="icon" onClick={() => navigateMonth("prev")}>
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon" onClick={() => navigateMonth("next")}>
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+          <CardTitle>Próximas Atividades - {region.name}</CardTitle>
+          <p className="text-sm text-gray-500">Capital: {region.capital}</p>
         </CardHeader>
-      </Card>
+        <CardContent>
+          <CalendarComponent
+            mode="single"
+            selected={selectedDate}
+            onSelect={setSelectedDate}
+            numberOfMonths={2}
+            showWeekNumber
+            fixedWeeks
+            modifiers={{
+              irrigation: irrigationDays,
+              planting: plantingDays,
+              harvest: harvestDays,
+            }}
+            modifiersClassNames={{
+              irrigation: "bg-blue-100 text-blue-900 font-bold",
+              planting: "bg-green-100 text-green-900 font-bold",
+              harvest: "bg-yellow-100 text-yellow-900 font-bold",
+            }}
+            components={{
+              DayContent: ({ date }) => (
+                <div className="flex items-center justify-center">
+                  {irrigationDays.some(d => isSameDay(d, date)) && <Droplets className="h-3 w-3 text-blue-500 mr-1" />}
+                  {plantingDays.some(d => isSameDay(d, date)) && <Leaf className="h-3 w-3 text-green-600 mr-1" />}
+                  {harvestDays.some(d => isSameDay(d, date)) && <Sun className="h-3 w-3 text-yellow-500 mr-1" />}
+                  <span>{date.getDate()}</span>
+                </div>
+              ),
+            }}
+            className="w-full"
+          />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Calendar Grid */}
-        <div className="lg:col-span-2">
-          <Card>
-            <CardContent className="p-6">
-              {/* Days of week header */}
-              <div className="grid grid-cols-7 gap-2 mb-4">
-                {["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"].map((day) => (
-                  <div key={day} className="text-center text-sm font-medium text-gray-500 py-2">
-                    {day}
-                  </div>
-                ))}
+          {/* Details panel for selected day */}
+          {selectedDate && (
+            <div className="mt-6 p-4 bg-gray-50 rounded border border-gray-200">
+              <div className="font-semibold text-green-800 mb-2">
+                Adicionar/Editar Atividade em {selectedDate.toLocaleDateString("pt-AO")}
               </div>
-
-              {/* Calendar days */}
-              <div className="grid grid-cols-7 gap-2">
-                {/* Empty days */}
-                {emptyDays.map((day) => (
-                  <div key={`empty-${day}`} className="h-20"></div>
-                ))}
-
-                {/* Month days */}
-                {days.map((day) => {
-                  const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
-                  const dayActivities = getActivitiesForDate(date)
-                  const isSelected = selectedDate.toDateString() === date.toDateString()
-                  const isToday = new Date().toDateString() === date.toDateString()
-
-                  return (
-                    <div
-                      key={day}
-                      className={`h-20 border rounded-lg p-2 cursor-pointer transition-colors ${
-                        isSelected
-                          ? "bg-green-100 border-green-500"
-                          : isToday
-                            ? "bg-blue-50 border-blue-300"
-                            : "hover:bg-gray-50"
-                      }`}
-                      onClick={() => setSelectedDate(date)}
+              <ul className="space-y-2">
+                {irrigationDays.some(d => isSameDay(d, selectedDate)) && (
+                  <li className="flex items-center space-x-2">
+                    <Droplets className="h-4 w-4 text-blue-500" />
+                    <span>Irrigação</span>
+                    <button
+                      title="Excluir"
+                      onClick={() => onDelete(selectedDate, "Irrigação")}
+                      className="ml-2 text-red-500 hover:text-red-700"
                     >
-                      <div className="text-sm font-medium">{day}</div>
-                      <div className="flex flex-wrap gap-1 mt-1">
-                        {dayActivities.slice(0, 2).map((activity, idx) => (
-                          <div key={idx} className="text-xs bg-green-200 text-green-800 px-1 rounded">
-                            {activity.icon}
-                          </div>
-                        ))}
-                        {dayActivities.length > 2 && (
-                          <div className="text-xs text-gray-500">+{dayActivities.length - 2}</div>
-                        )}
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Activities Panel */}
-        <div className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>{t("todaysActivities")}</CardTitle>
-              <CardDescription>{selectedDate.toLocaleDateString("pt-AO")}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {getActivitiesForDate(selectedDate).length > 0 ? (
-                  getActivitiesForDate(selectedDate).map((activity, idx) => (
-                    <div key={idx} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
-                      <div className="text-2xl">{activity.icon}</div>
-                      <div className="flex-1">
-                        <h4 className="font-medium text-sm">{activity.title}</h4>
-                        <p className="text-xs text-gray-600 mt-1">{activity.description}</p>
-                        <div className="flex items-center gap-2 mt-2">
-                          <Badge variant="secondary" className="text-xs">
-                            {activity.crop}
-                          </Badge>
-                          <Badge
-                            variant={
-                              activity.priority === "high"
-                                ? "destructive"
-                                : activity.priority === "medium"
-                                  ? "default"
-                                  : "secondary"
-                            }
-                            className="text-xs"
-                          >
-                            {activity.priority}
-                          </Badge>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-gray-500 text-sm text-center py-4">Nenhuma actividade programada para este dia</p>
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                    <button
+                      title="Editar"
+                      onClick={() => onEditStart(selectedDate, "Irrigação")}
+                      className="ml-1 text-blue-500 hover:text-blue-700"
+                    >
+                      <Pencil className="w-4 h-4" />
+                    </button>
+                  </li>
                 )}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Upcoming Tasks */}
-          <Card>
-            <CardHeader>
-              <CardTitle>{t("upcomingTasks")}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                {activities.slice(0, 5).map((activity, idx) => (
-                  <div key={idx} className="flex items-center space-x-2 text-sm">
-                    <div>{activity.icon}</div>
-                    <div className="flex-1">
-                      <div className="font-medium">{activity.title}</div>
-                      <div className="text-gray-500 text-xs">{activity.crop}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+                {plantingDays.some(d => isSameDay(d, selectedDate)) && (
+                  <li className="flex items-center space-x-2">
+                    <Leaf className="h-4 w-4 text-green-600" />
+                    <span>Plantio</span>
+                    <button
+                      title="Excluir"
+                      onClick={() => onDelete(selectedDate, "Plantio")}
+                      className="ml-2 text-red-500 hover:text-red-700"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                    <button
+                      title="Editar"
+                      onClick={() => onEditStart(selectedDate, "Plantio")}
+                      className="ml-1 text-blue-500 hover:text-blue-700"
+                    >
+                      <Pencil className="w-4 h-4" />
+                    </button>
+                  </li>
+                )}
+                {harvestDays.some(d => isSameDay(d, selectedDate)) && (
+                  <li className="flex items-center space-x-2">
+                    <Sun className="h-4 w-4 text-yellow-500" />
+                    <span>Colheita</span>
+                    <button
+                      title="Excluir"
+                      onClick={() => onDelete(selectedDate, "Colheita")}
+                      className="ml-2 text-red-500 hover:text-red-700"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                    <button
+                      title="Editar"
+                      onClick={() => onEditStart(selectedDate, "Colheita")}
+                      className="ml-1 text-blue-500 hover:text-blue-700"
+                    >
+                      <Pencil className="w-4 h-4" />
+                    </button>
+                  </li>
+                )}
+                {/* If no events */}
+                {!(
+                  irrigationDays.some(d => isSameDay(d, selectedDate)) ||
+                  plantingDays.some(d => isSameDay(d, selectedDate)) ||
+                  harvestDays.some(d => isSameDay(d, selectedDate))
+                ) && (
+                  <li className="text-gray-500">Nenhum evento para este dia.</li>
+                )}
+              </ul>
+              {/* Edit form (in details panel) */}
+              {editingEvent && (
+                <div className="mt-4 p-2 bg-yellow-100 rounded border border-yellow-300">
+                  <div className="mb-2 font-semibold">Adicionar/Editar Atividade</div>
+                  <input
+                    type="date"
+                    className="border rounded px-2 py-1 mr-2"
+                    value={editingEvent.newDate}
+                    onChange={onEditChange}
+                  />
+                  <button onClick={onEditSave} className="bg-green-600 text-white px-2 py-1 rounded mr-2 hover:bg-green-700">Salvar</button>
+                  <button onClick={onEditCancel} className="bg-gray-300 px-2 py-1 rounded hover:bg-gray-400">Cancelar</button>
+                </div>
+              )}
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   )
 }

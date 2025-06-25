@@ -1,23 +1,23 @@
 "use client"
 
-import { LanguageProvider } from "../contexts/language-context"
+
 import { RegionProvider } from "../contexts/region-context"
 import { WeatherProvider } from "../contexts/weather-context"
 import Header from "../components/header"
-import { useLanguage } from "../contexts/language-context"
+
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Clock, TrendingUp } from "lucide-react"
 
 function CropGuidesContent() {
-  const { t } = useLanguage()
+
 
   const cropGuides = [
     {
       id: "milho",
       name: t("cornGuide"),
-      icon: "🌽",
+      icon: "ðŸŒ½",
       description: t("cornDescription"),
       difficulty: t("beginner"),
       season: t("rainySeasonShort"),
@@ -28,7 +28,7 @@ function CropGuidesContent() {
     {
       id: "feijao",
       name: t("beanGuide"),
-      icon: "🫘",
+      icon: "ðŸ«˜",
       description: t("beanDescription"),
       difficulty: t("intermediate"),
       season: t("rainySeasonShort"),
@@ -38,11 +38,11 @@ function CropGuidesContent() {
     },
     {
       id: "mandioca",
-      name: t("cassavaGuide"),
-      icon: "🥔",
-      description: t("cassavaDescription"),
-      difficulty: t("beginner"),
-      season: t("yearRound"),
+      name: "Guias de Cultivo",
+      icon: "ðŸ¥”",
+      description: "Veja dicas para diferentes culturas.",
+      difficulty: "Iniciante",
+      season: "Ano todo",
       duration: "8-12 meses",
       popularity: "high",
       href: "/guias/mandioca",
@@ -50,7 +50,7 @@ function CropGuidesContent() {
     {
       id: "batata-doce",
       name: t("sweetPotatoGuide"),
-      icon: "🍠",
+      icon: "ðŸ ",
       description: t("sweetPotatoDescription"),
       difficulty: t("beginner"),
       season: t("rainySeasonShort"),
@@ -61,7 +61,7 @@ function CropGuidesContent() {
     {
       id: "tomate",
       name: t("tomatoGuide"),
-      icon: "🍅",
+      icon: "ðŸ…",
       description: t("tomatoDescription"),
       difficulty: t("intermediate"),
       season: t("drySeasonShort"),
@@ -72,7 +72,7 @@ function CropGuidesContent() {
     {
       id: "cebola",
       name: t("onionGuide"),
-      icon: "🧅",
+      icon: "ðŸ§…",
       description: t("onionDescription"),
       difficulty: t("intermediate"),
       season: t("drySeasonShort"),
@@ -83,7 +83,7 @@ function CropGuidesContent() {
     {
       id: "cafe",
       name: t("coffeeGuide"),
-      icon: "☕",
+      icon: "â˜•",
       description: t("coffeeDescription"),
       difficulty: t("advanced"),
       season: t("yearRound"),
@@ -94,7 +94,7 @@ function CropGuidesContent() {
     {
       id: "banana",
       name: t("bananaGuide"),
-      icon: "🍌",
+      icon: "ðŸŒ",
       description: t("bananaDescription"),
       difficulty: t("intermediate"),
       season: t("yearRound"),
@@ -129,7 +129,7 @@ function CropGuidesContent() {
       <div className="bg-gradient-to-r from-green-600 to-green-700 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">🌾 {t("cropGuidesTitle")}</h1>
+            <h1 className="text-4xl font-bold mb-4">ðŸŒ¾ {t("cropGuidesTitle")}</h1>
             <p className="text-xl text-green-100 max-w-3xl mx-auto">{t("cropGuidesSubtitle")}</p>
           </div>
         </div>
@@ -205,13 +205,13 @@ function CropGuidesContent() {
               href="/comunidade"
               className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors font-medium"
             >
-              👥 {t("joinCommunity")}
+              ðŸ‘¥ {t("joinCommunity")}
             </Link>
             <Link
               href="/contact"
               className="bg-white text-green-600 border border-green-600 px-6 py-3 rounded-md hover:bg-green-50 transition-colors font-medium"
             >
-              📞 {t("contactExpert")}
+              ðŸ“ž {t("contactExpert")}
             </Link>
           </div>
         </div>
@@ -221,13 +221,6 @@ function CropGuidesContent() {
 }
 
 export default function CropGuidesPage() {
-  return (
-    <LanguageProvider>
-      <RegionProvider>
-        <WeatherProvider>
-          <CropGuidesContent />
-        </WeatherProvider>
-      </RegionProvider>
-    </LanguageProvider>
-  )
+  return <CropGuidesContent />
 }
+

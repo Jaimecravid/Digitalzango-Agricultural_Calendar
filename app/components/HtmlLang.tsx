@@ -3,11 +3,9 @@ import { useEffect } from "react";
 import { useLanguage } from "../contexts/language-context";
 
 export default function HtmlLang() {
-  const { currentLanguage } = useLanguage();
-
   useEffect(() => {
-    document.documentElement.lang = currentLanguage;
-  }, [currentLanguage]);
+    document.documentElement.lang = 'pt';
+  }, []);
 
   return null;
 }

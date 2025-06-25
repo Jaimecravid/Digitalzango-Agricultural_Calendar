@@ -33,7 +33,7 @@ const resourceTypes = {
 }
 
 export default function ResourceManager() {
-  const { t } = useLanguage()
+
   const [resources, setResources] = useState<Resource[]>([])
   const [showAddForm, setShowAddForm] = useState(false)
   const [editingResource, setEditingResource] = useState<Resource | null>(null)

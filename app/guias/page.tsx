@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { WeatherProvider } from "../contexts/weather-context";
@@ -15,7 +15,7 @@ const CropGuidesContent = React.memo(() => {
       
       {/* Add weather information for agricultural planning */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Condições Meteorológicas</h2>
+        <h2 className="text-xl font-semibold mb-4">CondiÃ§Ãµes MeteorolÃ³gicas</h2>
         <WeatherWidget />
       </div>
 
@@ -25,8 +25,8 @@ const CropGuidesContent = React.memo(() => {
           <p>Guia completo para o cultivo de milho em Angola.</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Feijão</h2>
-          <p>Guia completo para o cultivo de feijão em Angola.</p>
+          <h2 className="text-xl font-semibold mb-4">FeijÃ£o</h2>
+          <p>Guia completo para o cultivo de feijÃ£o em Angola.</p>
         </div>
       </div>
     </div>
@@ -38,13 +38,9 @@ CropGuidesContent.displayName = 'CropGuidesContent';
 
 export default function GuiasPage() {
   return (
-    <LanguageProvider>
-      <RegionProvider>
-        <WeatherProvider>
-          <Header />
-          <CropGuidesContent />
-        </WeatherProvider>
-      </RegionProvider>
-    </LanguageProvider>
+    <>
+      <Header />
+      <CropGuidesContent />
+    </>
   );
 }

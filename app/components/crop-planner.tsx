@@ -83,7 +83,7 @@ const cropDatabase: CropInfo[] = [
 ]
 
 export default function CropPlanner() {
-  const { t } = useLanguage()
+
   const { getCurrentRegion } = useRegion()
   const [cropPlans, setCropPlans] = useState<CropPlan[]>([])
   const [showAddForm, setShowAddForm] = useState(false)

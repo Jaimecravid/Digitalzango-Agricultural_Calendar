@@ -1,18 +1,10 @@
-"use client"
-
-import { LanguageProvider } from "../../contexts/language-context"
-import { RegionProvider } from "../../contexts/region-context"
-import { WeatherProvider } from "../../contexts/weather-context"
 import Header from "../../components/header"
-import { useLanguage } from "../../contexts/language-context"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { AlertTriangle, ArrowLeft, MapPin } from "lucide-react"
 
 function LagarteContent() {
-  const { t } = useLanguage()
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -22,14 +14,14 @@ function LagarteContent() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <nav className="flex items-center space-x-2 text-sm">
             <Link href="/" className="text-gray-500 hover:text-green-600">
-              {t("home")}
+              Início
             </Link>
             <span className="text-gray-400">/</span>
             <Link href="/pragas" className="text-gray-500 hover:text-green-600">
-              {t("pests")} & Doenças
+              Pragas & Doenças
             </Link>
             <span className="text-gray-400">/</span>
-            <span className="text-gray-900">{t("fallArmyworm")}</span>
+            <span className="text-gray-900">Lagarta-do-cartucho</span>
           </nav>
         </div>
       </div>
@@ -220,13 +212,5 @@ function LagarteContent() {
 }
 
 export default function LagarteDoCartuchoPage() {
-  return (
-    <LanguageProvider>
-      <RegionProvider>
-        <WeatherProvider>
-          <LagarteContent />
-        </WeatherProvider>
-      </RegionProvider>
-    </LanguageProvider>
-  )
+  return <LagarteContent />
 }

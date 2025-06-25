@@ -3,7 +3,7 @@
 import React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { LanguageProvider, useLanguage } from "../contexts/language-context"
+
 import { RegionProvider, useRegion } from "../contexts/region-context"
 import { WeatherProvider } from "../contexts/weather-context"
 import NewsletterSignup from "../components/newsletter-signup"
@@ -19,11 +19,11 @@ function AppContent() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Sobre o Calendário Agrícola de Angola
+              Sobre o CalendÃ¡rio AgrÃ­cola de Angola
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Uma plataforma completa para apoiar os agricultores angolanos com informações 
-              precisas sobre cultivo, clima e melhores práticas agrícolas.
+              Uma plataforma completa para apoiar os agricultores angolanos com informaÃ§Ãµes 
+              precisas sobre cultivo, clima e melhores prÃ¡ticas agrÃ­colas.
             </p>
           </div>
 
@@ -31,15 +31,15 @@ function AppContent() {
             <Card className="p-6">
               <CardContent className="p-0">
                 <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
-                  Nossa Missão
+                  Nossa MissÃ£o
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
                   Capacitar os agricultores angolanos com tecnologia e conhecimento para 
-                  aumentar a produtividade agrícola e promover práticas sustentáveis.
+                  aumentar a produtividade agrÃ­cola e promover prÃ¡ticas sustentÃ¡veis.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="secondary">Sustentabilidade</Badge>
-                  <Badge variant="secondary">Inovação</Badge>
+                  <Badge variant="secondary">InovaÃ§Ã£o</Badge>
                   <Badge variant="secondary">Comunidade</Badge>
                 </div>
               </CardContent>
@@ -51,11 +51,11 @@ function AppContent() {
                   Funcionalidades
                 </h2>
                 <ul className="space-y-2 text-gray-600 dark:text-gray-300">
-                  <li>• Calendário de plantio personalizado</li>
-                  <li>• Previsões meteorológicas precisas</li>
-                  <li>• Guias de cultivo detalhados</li>
-                  <li>• Gestão de pragas e doenças</li>
-                  <li>• Comunidade de agricultores</li>
+                  <li>â€¢ CalendÃ¡rio de plantio personalizado</li>
+                  <li>â€¢ PrevisÃµes meteorolÃ³gicas precisas</li>
+                  <li>â€¢ Guias de cultivo detalhados</li>
+                  <li>â€¢ GestÃ£o de pragas e doenÃ§as</li>
+                  <li>â€¢ Comunidade de agricultores</li>
                 </ul>
               </CardContent>
             </Card>
@@ -63,14 +63,14 @@ function AppContent() {
 
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-              Comece Sua Jornada Agrícola
+              Comece Sua Jornada AgrÃ­cola
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 href="/calendario" 
                 className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
               >
-                Ver Calendário
+                Ver CalendÃ¡rio
               </Link>
               <Link 
                 href="/guias" 
@@ -89,13 +89,6 @@ function AppContent() {
 }
 
 export default function SobrePage() {
-  return (
-    <LanguageProvider>
-      <RegionProvider>
-        <WeatherProvider>
-          <AppContent />
-        </WeatherProvider>
-      </RegionProvider>
-    </LanguageProvider>
-  )
+  return <AppContent />
 }
+

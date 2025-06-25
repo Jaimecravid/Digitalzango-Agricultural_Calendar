@@ -4,17 +4,17 @@ import Link from "next/link"
 import { Bug, BookOpen, Wheat } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { LanguageProvider } from "../contexts/language-context"
+
 import { RegionProvider } from "../contexts/region-context"
 import Header from "../components/header"
-import { useLanguage } from "../contexts/language-context"
+
 
 function InformacoesContent() {
-  const { t } = useLanguage()
+
 
   const infoSections = [
     {
-      title: t("pests") + " e Doenças",
+      title: t("pests") + " e DoenÃ§as",
       description: t("pestsDescription"),
       icon: Bug,
       href: "/pests",
@@ -23,7 +23,7 @@ function InformacoesContent() {
     },
     {
       title: t("crops"),
-      description: "Informações detalhadas sobre as principais culturas cultivadas em Angola",
+      description: "InformaÃ§Ãµes detalhadas sobre as principais culturas cultivadas em Angola",
       icon: Wheat,
       href: "/crops",
       color: "text-green-600",
@@ -31,7 +31,7 @@ function InformacoesContent() {
     },
     {
       title: t("cropGuides"),
-      description: "Guias práticos e manuais para melhorar as suas práticas agrícolas",
+      description: "Guias prÃ¡ticos e manuais para melhorar as suas prÃ¡ticas agrÃ­colas",
       icon: BookOpen,
       href: "/guides",
       color: "text-blue-600",
@@ -75,11 +75,8 @@ function InformacoesContent() {
 }
 
 export default function InformacoesPage() {
-  return (
-    <LanguageProvider>
-      <RegionProvider>
+  return <RegionProvider>
         <InformacoesContent />
       </RegionProvider>
-    </LanguageProvider>
-  )
 }
+

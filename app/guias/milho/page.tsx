@@ -5,7 +5,7 @@ import { Sprout, Calendar, Droplets, Thermometer, Bug, ArrowLeft } from "lucide-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { LanguageProvider, useLanguage } from "../../contexts/language-context"
+
 import { RegionProvider } from "../../contexts/region-context"
 import Header from "../../components/header"
 
@@ -333,10 +333,10 @@ function CornGuideContent() {
 
 export default function CornGuidePage() {
   return (
-    <LanguageProvider>
+    
       <RegionProvider>
         <CornGuideContent />
       </RegionProvider>
-    </LanguageProvider>
+    
   )
 }

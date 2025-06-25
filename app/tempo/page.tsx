@@ -59,11 +59,9 @@ import {
   Filler,
 } from "chart.js";
 
-// Import context hooks - UPDATED TO USE OPTIMIZED HOOKS
-import { useLanguage } from "../contexts/language-context";
+// Import context hooks - REMOVED LANGUAGE CONTEXT
 import { useRegion } from "../contexts/region-context";
 import { useWeatherData, useWeatherActions, useWeatherConfig } from "../contexts/weather-context";
-
 
 // Register Chart.js components
 ChartJS.register(
@@ -228,13 +226,12 @@ const EnhancedWeatherPage = () => {
   const [favoriteLocation, setFavoriteLocation] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(new Date());
   const [agriculturalRecommendations, setAgriculturalRecommendations] = useState([]);
-  const [language, setLanguage] = useState('pt');
   const [isLoading, setIsLoading] = useState(false);
 
   // Simplified hooks
   const { isOnline, connectionType } = useNetworkStatus();
 
-  // UPDATED: Context hooks using optimized hooks
+  // Context hooks - REMOVED useLanguage
   const { 
     currentWeather, 
     forecast, 
@@ -245,8 +242,6 @@ const EnhancedWeatherPage = () => {
 
   const { fetchWeatherByLocation } = useWeatherActions();
   const { hasApiKey } = useWeatherConfig();
-
-  const { t, isLoading: langLoading } = useLanguage();
   const { getCurrentRegion } = useRegion();
 
   // Generate agricultural recommendations when weather data changes
@@ -421,7 +416,7 @@ const EnhancedWeatherPage = () => {
   };
 
   // Loading state
-  if (langLoading || isLoading || weatherLoading) {
+  if (isLoading || weatherLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
         <div className="text-center space-y-6">
@@ -472,14 +467,7 @@ const EnhancedWeatherPage = () => {
           </div>
           
           <div className="flex items-center gap-2">
-            <select
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-              className="text-xs border rounded px-2 py-1"
-            >
-              <option value="pt">Português</option>
-              <option value="en">English</option>
-            </select>
+            <span className="text-xs text-gray-600">Português</span>
           </div>
         </div>
       </div>

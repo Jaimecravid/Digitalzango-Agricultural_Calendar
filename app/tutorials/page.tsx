@@ -5,17 +5,17 @@ import { Play, Clock, User, BookOpen, Video } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { LanguageProvider, useLanguage } from "../contexts/language-context"
+
 import { RegionProvider } from "../contexts/region-context"
 import Header from "../components/header"
 
 function TutorialsContent() {
-  const { t } = useLanguage()
+
 
   const tutorials = [
     {
       id: 1,
-      title: "Como Usar o Calendário Agrícola",
+      title: "Aprenda a usar o calendário agrícola.",
       description: "Aprenda a navegar e usar todas as funcionalidades do calendário para planear as suas actividades.",
       duration: "8 min",
       level: "Iniciante",
@@ -76,7 +76,7 @@ function TutorialsContent() {
     {
       id: 6,
       title: "Planeamento de Culturas Avançado",
-      description: "Técnicas avançadas para optimizar o planeamento das suas culturas.",
+      description: "Técnicas avançadas para otimizar o planeamento das suas culturas.",
       duration: "15 min",
       level: "Avançado",
       category: "Planeamento",
@@ -119,7 +119,7 @@ function TutorialsContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{t("tutorials")}</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Tutoriais</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Aprenda a usar todas as funcionalidades do Calendário Agrícola para Angola com os nossos tutoriais em vídeo.
           </p>
@@ -222,11 +222,11 @@ function TutorialsContent() {
                   <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
-                      {tutorial.views} visualizações
+                      {tutorial.views} visualizaÃ§Ãµes
                     </div>
                     <div className="flex items-center gap-1">
                       <Video className="h-4 w-4" />
-                      Vídeo
+                      VÃ­deo
                     </div>
                   </div>
                   <Button className="w-full bg-green-600 hover:bg-green-700">
@@ -245,7 +245,7 @@ function TutorialsContent() {
             <BookOpen className="h-12 w-12 text-green-600 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Precisa de Mais Ajuda?</h2>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Se não encontrou o que procurava nos nossos tutoriais, consulte a nossa central de ajuda ou entre em
+              Se nÃ£o encontrou o que procurava nos nossos tutoriais, consulte a nossa central de ajuda ou entre em
               contacto connosco.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -264,11 +264,8 @@ function TutorialsContent() {
 }
 
 export default function TutorialsPage() {
-  return (
-    <LanguageProvider>
-      <RegionProvider>
+  return <RegionProvider>
         <TutorialsContent />
       </RegionProvider>
-    </LanguageProvider>
-  )
 }
+
