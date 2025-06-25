@@ -79,11 +79,7 @@ export const translations = {
     adsenseBottomBanner: "AdSense Bottom Banner Ad",
     analytics: "Analytics",
     communityImageAlt: "Community Image",
-    sunsetImageAlt: "Sunset",
-    blog: "Blog",
-    noBlogPostsFound: "No blog posts found.",
-    readMore: "Read More",
-    publishedOn: "Published on"
+    sunsetImageAlt: "Sunset"
   },
   pt: {
     appTitle: "Calendário Agrícola de Angola",
@@ -136,11 +132,7 @@ export const translations = {
     adsenseBottomBanner: "Banner Inferior AdSense",
     analytics: "Análises",
     communityImageAlt: "Imagem da Comunidade",
-    sunsetImageAlt: "Pôr do Sol",
-    blog: "Blog",
-    noBlogPostsFound: "Nenhum artigo encontrado.",
-    readMore: "Ler Mais",
-    publishedOn: "Publicado em"
+    sunsetImageAlt: "Pôr do Sol"
   },
   fr: {
     appTitle: "Calendrier Agricole pour l'Angola",
@@ -193,11 +185,7 @@ export const translations = {
     adsenseBottomBanner: "Bannière Inférieure AdSense",
     analytics: "Analyses",
     communityImageAlt: "Image de la Communauté",
-    sunsetImageAlt: "Coucher de Soleil",
-    blog: "Blog",
-    noBlogPostsFound: "Aucun article de blog trouvé.",
-    readMore: "Lire Plus",
-    publishedOn: "Publié le"
+    sunsetImageAlt: "Coucher de Soleil"
   },
   ki: {
     appTitle: "Kalendário ya Kilimi ku Angola",

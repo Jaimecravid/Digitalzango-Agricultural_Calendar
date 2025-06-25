@@ -2,23 +2,20 @@
 import TrustBadges from '../components/TrustBadges';
 import UserCounter from '../components/UserCounter';
 import EnhancedTestimonials from '../components/EnhancedTestimonials';
-import { Calendar, Cloud, Bug, Sprout, Users, Download } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { LanguageProvider, useLanguage } from "../contexts/language-context"
-import { RegionProvider, useRegion } from "../contexts/region-context"
-import { WeatherProvider } from "../contexts/weather-context"
-import NewsletterSignup from "../components/newsletter-signup"
-import Link from "next/link"
+import { Calendar, Cloud, Bug, Sprout, Users, Download } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
+import { useLanguage } from "../contexts/language-context";
+import { useRegion } from "../contexts/region-context";
+import NewsletterSignup from "../components/newsletter-signup";
+import Link from "next/link";
 
 function AppContent() {
-  const { t, isLoading } = useLanguage()
-  const { getCurrentRegion } = useRegion()
+  const { t, isLoading } = useLanguage();
+  const { getCurrentRegion } = useRegion();
 
-  const getCurrentRegionData = () => {
-    return getCurrentRegion()
-  }
+  const getCurrentRegionData = () => getCurrentRegion();
 
   const features = [
     {
@@ -75,14 +72,14 @@ function AppContent() {
       buttonText: t("downloadApp"),
       href: "/baixar-app",
     },
-  ]
+  ];
 
   const stats = [
     { number: "18", label: t("provincesLabel"), color: "text-green-600" },
     { number: "4", label: t("languagesLabel"), color: "text-blue-600" },
     { number: "12", label: t("monthsLabel"), color: "text-orange-600" },
     { number: "24/7", label: t("weatherLabel"), color: "text-purple-600" },
-  ]
+  ];
 
   if (isLoading) {
     return (
@@ -92,28 +89,34 @@ function AppContent() {
           <p className="text-gray-600">{t("loading")}</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header removed - it's provided by the global layout */}
-
-      {/* AdSense Optimization Zone: Top of page, ideal for a responsive ad unit */}
+      {/* AdSense Top Banner */}
       <div className="adsense-top-banner w-full text-center py-2 bg-gray-100 text-gray-500 mb-4">
-        [AdSense Top Banner Ad]
+        [{t("adsenseTopBanner")}]
       </div>
 
-      {/* Improved Hero Section (Phase 3) */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50 flex-grow">
+      {/* Hero Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-ultra-light-green flex-grow relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-10 left-10 text-6xl animate-float">🌱</div>
+          <div className="absolute top-32 right-20 text-4xl animate-float">🌾</div>
+          <div className="absolute bottom-20 left-1/4 text-5xl animate-float">🌿</div>
+          <div className="absolute bottom-32 right-1/3 text-3xl animate-float">🍃</div>
+        </div>
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
-            {t("appTitle")}: <span className="text-green-600">{t("sloganPart1")}</span> {t("sloganPart2")}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight animate-fadeInUp">
+            <span className="bg-gradient-to-r from-gray-900 via-green-800 to-gray-900 bg-clip-text text-transparent">
+              {t("appTitle")}
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
             {t("welcomeDescription")}
           </p>
-          {/* Region Badge - Prominently displayed */}
+          {/* Region Badge */}
           <div className="inline-block mb-8">
             <Badge className="bg-green-100 text-green-800 px-6 py-2 text-base font-semibold shadow-md">
               {t("currentRegion")}: {getCurrentRegionData()?.name}
@@ -124,7 +127,7 @@ function AppContent() {
               </span>
             </Badge>
           </div>
-          {/* Call to Action in Hero - Primary engagement point */}
+          {/* Call to Action */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/calendario">
               <Button
@@ -147,97 +150,82 @@ function AppContent() {
         </div>
       </section>
 
-      {/* UserCounter Component - Added below hero section */}
       <UserCounter />
       <TrustBadges />
-      {/* Community Highlights Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+
+      {/* Community Highlights */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4 text-green-700">🌟 Destaques da Comunidade</h2>
-          <p className="text-lg text-gray-600 mb-8">
-            Junte-se à comunidade Digitalzango! Veja histórias de agricultores, compartilhe dicas e faça parte da inovação agrícola em Angola.
+          <h2 className="text-3xl font-bold mb-4 text-gray-900">🌟 {t("communityHighlightsTitle")}</h2>
+          <p className="text-lg text-gray-700 mb-8">
+            {t("communityHighlightsDescription")}
           </p>
           <div className="flex flex-wrap justify-center gap-6 mb-8">
-            <img
-              src="/images/angola-agri.png"
-              alt="Community Image 1"
-              className="w-32 h-32 rounded-full object-cover border-4 border-green-200"
-            />
-            <img
-              src="/images/camponessas.png"
-              alt="Community Image 2"
-              className="w-32 h-32 rounded-full object-cover border-4 border-green-200"
-            />
-            <img
-              src="/images/community-placeholder.png"
-              alt="Community Image 3"
-              className="w-32 h-32 rounded-full object-cover border-4 border-green-200"
-            />
-            <img
-              src="/images/tractor.png"
-              alt="Community Image 4"
-              className="w-32 h-32 rounded-full object-cover border-4 border-green-200"
-            />
+            <img src="/images/angola-agri.png" alt={`${t("communityImageAlt")} 1`} className="w-32 h-32 rounded-full object-cover border-4 border-green-200" />
+            <img src="/images/camponessas.png" alt={`${t("communityImageAlt")} 2`} className="w-32 h-32 rounded-full object-cover border-4 border-green-200" />
+            <img src="/images/community-placeholder.png" alt={`${t("communityImageAlt")} 3`} className="w-32 h-32 rounded-full object-cover border-4 border-green-200" />
+            <img src="/images/tractor.png" alt={`${t("communityImageAlt")} 4`} className="w-32 h-32 rounded-full object-cover border-4 border-green-200" />
           </div>
           <a href="/comunidade">
             <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition">
-              Participe da Comunidade
+              {t("communityJoinButton")}
             </button>
           </a>
         </div>
       </section>
 
-      {/* Educational Content Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      {/* Educational Content */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-ultra-light-green-alt border-t border-gray-200">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4 text-blue-700">📚 Conteúdo Educativo</h2>
-          <p className="text-lg text-gray-600 mb-8">
-            Aprenda com nossos guias agrícolas, dicas de cultivo e artigos do blog. Conhecimento para impulsionar sua produção!
+          <h2 className="text-3xl font-bold mb-4 text-gray-900">📚 {t("educationalContentTitle")}</h2>
+          <p className="text-lg text-gray-700 mb-8">
+            {t("educationalContentDescription")}
           </p>
           <div className="flex flex-wrap justify-center gap-8 mb-8">
-            {/* Example educational content cards */}
-            <a href="/guias" className="bg-white rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
+            <a href="/guias" className="bg-white/80 backdrop-blur-sm border border-gray-100 rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
               <div className="text-4xl mb-2">🌱</div>
-              <h3 className="font-semibold text-lg mb-1">Guia de Plantio</h3>
-              <p className="text-gray-500 text-sm">Passo a passo para plantar com sucesso.</p>
+              <h3 className="font-semibold text-lg mb-1 text-gray-900">{t("plantingGuideTitle")}</h3>
+              <p className="text-gray-600 text-sm">{t("plantingGuideDescription")}</p>
             </a>
-            <a href="/blog" className="bg-white rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
+            <a href="/blog" className="bg-white/80 backdrop-blur-sm border border-gray-100 rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
               <div className="text-4xl mb-2">📰</div>
-              <h3 className="font-semibold text-lg mb-1">Artigos do Blog</h3>
-              <p className="text-gray-500 text-sm">Dicas, novidades e tendências agrícolas.</p>
+              <h3 className="font-semibold text-lg mb-1 text-gray-900">{t("blogArticlesTitle")}</h3>
+              <p className="text-gray-600 text-sm">{t("blogArticlesDescription")}</p>
             </a>
-            <a href="/tools" className="bg-white rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
+            <a href="/tools" className="bg-white/80 backdrop-blur-sm border border-gray-100 rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition">
               <div className="text-4xl mb-2">🛠️</div>
-              <h3 className="font-semibold text-lg mb-1">Ferramentas Recomendadas</h3>
-              <p className="text-gray-500 text-sm">Produtos digitais e ferramentas úteis.</p>
+              <h3 className="font-semibold text-lg mb-1 text-gray-900">{t("recommendedToolsTitle")}</h3>
+              <p className="text-gray-600 text-sm">{t("recommendedToolsDescription")}</p>
             </a>
           </div>
           <a href="/blog">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition">
-              Ver Mais Conteúdo
+            <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition">
+              {t("seeMoreContentButton")}
             </button>
           </a>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-    <EnhancedTestimonials />
+      <EnhancedTestimonials />
+
       {/* Features Grid */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-ultra-light-green border-t border-gray-200 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto relative z-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">🚀 {t("featuresGridTitle")}</h2>
+            <p className="text-lg text-gray-700">{t("featuresGridDescription")}</p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="bg-white shadow-sm hover:shadow-md transition-shadow">
+              <Card key={index} className="bg-white/80 backdrop-blur-sm border border-gray-200 shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 relative z-30">
                 <CardContent className="p-8 text-center">
-                  <div
-                    className={`w-16 h-16 ${feature.iconBg} rounded-full flex items-center justify-center mx-auto mb-6`}
-                  >
-                    <feature.icon className={`h-8 w-8 ${feature.iconColor}`} />
+                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <feature.icon className="h-6 w-6 text-gray-500" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
-                  <p className="text-gray-600 mb-6">{feature.description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                  <p className="text-gray-700 mb-6 leading-relaxed">{feature.description}</p>
                   <Link href={feature.href}>
-                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white">
+                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                       {feature.buttonText}
                     </Button>
                   </Link>
@@ -248,54 +236,48 @@ function AppContent() {
         </div>
       </section>
 
-      {/* AdSense Optimization Zone: Middle of page, after features */}
+      {/* AdSense Middle Banner */}
       <div className="adsense-middle-banner w-full text-center py-2 bg-gray-100 text-gray-500 my-4">
-        [AdSense Middle Banner Ad]
+        [{t("adsenseMiddleBanner")}]
       </div>
 
       {/* Stats Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => (
               <div key={index}>
                 <div className={`text-4xl md:text-5xl font-bold ${stat.color} mb-2`}>{stat.number}</div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
+                <div className="text-gray-700 font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Newsletter Signup Section (NEW) */}
       <NewsletterSignup />
 
       {/* CTA Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 overflow-hidden">
-        {/* Background Pattern */}
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-ultra-light-green overflow-hidden border-t border-gray-200">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 text-6xl">🌱</div>
-          <div className="absolute top-20 right-20 text-4xl">🌾</div>
-          <div className="absolute bottom-20 left-20 text-5xl">🚜</div>
-          <div className="absolute bottom-10 right-10 text-4xl">🌽</div>
-          <div className="absolute top-1/2 left-1/4 text-3xl">☀️</div>
-          <div className="absolute top-1/3 right-1/3 text-4xl">💧</div>
+          <div className="absolute top-10 left-10 text-6xl animate-float">🌱</div>
+          <div className="absolute top-32 right-20 text-4xl animate-float">🌾</div>
+          <div className="absolute bottom-20 left-1/4 text-5xl animate-float">🌿</div>
+          <div className="absolute bottom-32 right-1/3 text-3xl animate-float">🍃</div>
         </div>
-        
         <div className="relative max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column - Text Content */}
             <div className="text-center lg:text-left">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
                 {t("startPlanningTitle")}
               </h2>
-              <p className="text-xl text-orange-50 mb-2 font-medium">{t("startPlanningDescription")}</p>
-              <p className="text-lg text-orange-100 mb-8 leading-relaxed">{t("startPlanningDescription")}</p>
+              <p className="text-xl text-gray-700 mb-2 font-medium">{t("startPlanningDescription")}</p>
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">{t("startPlanningDescription")}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href="/calendario">
                   <Button
                     size="lg"
-                    className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                    className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                   >
                     📅 {t("viewCalendar")}
                   </Button>
@@ -303,28 +285,22 @@ function AppContent() {
                 <Link href="/baixar-app">
                   <Button
                     size="lg"
-                    variant="ghost"
-                    className="bg-white bg-opacity-20 border border-white border-opacity-30 text-white hover:bg-white hover:bg-opacity-30 px-6 py-4 text-base font-medium transition-all duration-200 backdrop-blur-sm"
+                    variant="outline"
+                    className="border-2 border-green-600 text-green-600 hover:bg-green-50 px-6 py-4 text-base font-medium transition-all duration-200"
                   >
                     📱 {t("downloadApp")}
                   </Button>
                 </Link>
               </div>
             </div>
-            {/* Right Column - Orange Circle with Sunset Image */}
             <div className="flex justify-center lg:justify-end">
               <div className="relative">
-                <div className="w-80 h-80 bg-orange-200 rounded-full flex items-center justify-center border-4 border-orange-300 shadow-lg">
-                  <img
-                    src="/images/sunset.png"
-                    alt="Sunset"
-                    className="w-72 h-72 object-cover rounded-full"
-                  />
+                <div className="w-80 h-80 bg-green-100 rounded-full flex items-center justify-center border-4 border-green-200 shadow-lg">
+                  <img src="/images/sunset.png" alt={t("sunsetImageAlt")} className="w-72 h-72 object-cover rounded-full" />
                 </div>
-                {/* Floating Elements */}
                 <div className="absolute -top-8 left-8 bg-white bg-opacity-90 rounded-lg p-3 shadow-lg animate-float">
                   <div className="text-2xl">📊</div>
-                  <div className="text-xs text-gray-600 font-medium">Analytics</div>
+                  <div className="text-xs text-gray-600 font-medium">{t("analytics")}</div>
                 </div>
                 <div className="absolute -bottom-8 right-8 bg-white bg-opacity-90 rounded-lg p-3 shadow-lg animate-float-delayed">
                   <div className="text-2xl">🌤️</div>
@@ -336,22 +312,21 @@ function AppContent() {
         </div>
       </section>
 
-      {/* AdSense Optimization Zone: Bottom of page, before footer */}
+      {/* AdSense Bottom Banner */}
       <div className="adsense-bottom-banner w-full text-center py-2 bg-gray-100 text-gray-500 mt-4">
-        [AdSense Bottom Banner Ad]
+        [{t("adsenseBottomBanner")}]
       </div>
     </div>
-  )
+  );
 }
 
+import ClientOnly from '../components/ClientOnly'
+
+// Only render AppContent; DO NOT wrap with providers here!
 export default function InicioPage() {
   return (
-    <LanguageProvider>
-      <RegionProvider>
-        <WeatherProvider>
-          <AppContent />
-        </WeatherProvider>
-      </RegionProvider>
-    </LanguageProvider>
-  )
+    <ClientOnly>
+      <AppContent />
+    </ClientOnly>
+  );
 }
