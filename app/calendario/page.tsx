@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import CalendarView from "../components/calendar-view"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ChevronDown, Trash2 } from "lucide-react"
+import { useState, useRef, useEffect } from "react";
+import { Calendar } from "@/components/ui/calendar"; // <-- Use your enhanced Calendar!
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ChevronDown, Trash2 } from "lucide-react";
 
 // Lista completa das províncias de Angola
 const angolaProvinces = [
@@ -140,82 +140,63 @@ function AddEventForm({ onAdd }: { onAdd: (date: string, type: string) => void }
 }
 
 function CalendarioContent() {
-  const [selectedRegion, setSelectedRegion] = useState("luanda")
+  const [selectedRegion, setSelectedRegion] = useState("luanda");
   const [provinceEventsState, setProvinceEventsState] = useState<Record<string, EventType>>(() => {
-    const state: Record<string, EventType> = {}
+    const state: Record<string, EventType> = {};
     for (const key in provinceEvents) {
       state[key] = {
         irrigation: [...provinceEvents[key].irrigation],
         planting: [...provinceEvents[key].planting],
         harvest: [...provinceEvents[key].harvest],
-      }
+      };
     }
-    return state
-  })
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+    return state;
+  });
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   useEffect(() => {
-    if (selectedDate === undefined) setSelectedDate(new Date())
-  }, [selectedDate])
+    if (selectedDate === undefined) setSelectedDate(new Date());
+  }, [selectedDate]);
 
-  const currentRegion = angolaProvinces.find(r => r.id === selectedRegion) || angolaProvinces[0]
-  const events = provinceEventsState[selectedRegion] || { irrigation: [], planting: [], harvest: [] }
+  const currentRegion = angolaProvinces.find(r => r.id === selectedRegion) || angolaProvinces[0];
+  const events = provinceEventsState[selectedRegion] || { irrigation: [], planting: [], harvest: [] };
 
   function handleAddEvent(dateString: string, type: string) {
-    const date = new Date(dateString)
+    const date = new Date(dateString);
     setProvinceEventsState(prev => {
-      const current = prev[selectedRegion] || { irrigation: [], planting: [], harvest: [] }
-      const updated = { ...current }
-      if (type === "Irrigação") updated.irrigation = [...current.irrigation, date]
-      if (type === "Plantio") updated.planting = [...current.planting, date]
-      if (type === "Colheita") updated.harvest = [...current.harvest, date]
-      return { ...prev, [selectedRegion]: updated }
-    })
+      const current = prev[selectedRegion] || { irrigation: [], planting: [], harvest: [] };
+      const updated = { ...current };
+      if (type === "Irrigação") updated.irrigation = [...current.irrigation, date];
+      if (type === "Plantio") updated.planting = [...current.planting, date];
+      if (type === "Colheita") updated.harvest = [...current.harvest, date];
+      return { ...prev, [selectedRegion]: updated };
+    });
   }
 
   function handleDeleteEvent(date: Date, type: string) {
     setProvinceEventsState(prev => {
-      const current = prev[selectedRegion] || { irrigation: [], planting: [], harvest: [] }
-      const updated = { ...current }
+      const current = prev[selectedRegion] || { irrigation: [], planting: [], harvest: [] };
+      const updated = { ...current };
       if (type === "Irrigação") {
-        updated.irrigation = current.irrigation.filter(d => d.getTime() !== date.getTime())
+        updated.irrigation = current.irrigation.filter(d => d.getTime() !== date.getTime());
       }
       if (type === "Plantio") {
-        updated.planting = current.planting.filter(d => d.getTime() !== date.getTime())
+        updated.planting = current.planting.filter(d => d.getTime() !== date.getTime());
       }
       if (type === "Colheita") {
-        updated.harvest = current.harvest.filter(d => d.getTime() !== date.getTime())
+        updated.harvest = current.harvest.filter(d => d.getTime() !== date.getTime());
       }
-      return { ...prev, [selectedRegion]: updated }
-    })
+      return { ...prev, [selectedRegion]: updated };
+    });
   }
 
-  // Editing event state and handlers
-  const [editingEvent, setEditingEvent] = useState<{type: string, oldDate: Date, newDate: string} | null>(null);
-
-  function onEditStart(date: Date, type: string) {
-    setEditingEvent({ type, oldDate: date, newDate: date.toISOString().slice(0, 10) });
-  }
-
-  function onEditChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    if (editingEvent) {
-      setEditingEvent({ ...editingEvent, newDate: e.target.value });
-    }
-  }
-
-  function onEditSave() {
-    // Implement event update logic here if needed
-    setEditingEvent(null);
-  }
-
-  function onEditCancel() {
-    setEditingEvent(null);
-  }
+  // Editing event state and handlers (not used in this version, but can be added if needed)
+  // const [editingEvent, setEditingEvent] = useState<{type: string, oldDate: Date, newDate: string} | null>(null);
 
   const upcomingEvents = [
     ...events.irrigation.map(date => ({ date, type: "Irrigação" })),
     ...events.planting.map(date => ({ date, type: "Plantio" })),
     ...events.harvest.map(date => ({ date, type: "Colheita" })),
-  ].sort((a, b) => a.date.getTime() - b.date.getTime())
+  ].sort((a, b) => a.date.getTime() - b.date.getTime());
 
   return (
     <div className="min-h-screen bg-white">
@@ -237,19 +218,18 @@ function CalendarioContent() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Calendário principal */}
           <div className="md:col-span-3">
-            <CalendarView
-              region={currentRegion}
-              events={events}
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
-              userProvinceEvents={events}
-              onDelete={handleDeleteEvent}
-              onEditStart={onEditStart}
-              editingEvent={editingEvent}
-              onEditChange={onEditChange}
-              onEditSave={onEditSave}
-              onEditCancel={onEditCancel}
+            <Calendar
+              irrigationDays={events.irrigation}
+              plantingDays={events.planting}
+              harvestDays={events.harvest}
+              selected={selectedDate}
+              onSelect={setSelectedDate}
             />
+            {selectedDate && (
+              <div className="mt-4">
+                <strong>Data selecionada:</strong> {selectedDate.toLocaleDateString("pt-AO")}
+              </div>
+            )}
           </div>
           {/* Barra lateral */}
           <div className="md:col-span-1">
@@ -281,9 +261,9 @@ function CalendarioContent() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default function CalendarioPage() {
-  return <CalendarioContent />
+  return <CalendarioContent />;
 }

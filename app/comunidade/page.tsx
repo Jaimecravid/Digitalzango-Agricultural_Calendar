@@ -11,7 +11,7 @@ function ComunidadeContent() {
       title: "Junte-se aos Grupos",
       description: "Conecte-se com outros agricultores da sua região e partilhe experiências",
       icon: Users,
-      href: "/groups",
+      href: "/comunidade/groups",
       color: "text-purple-600",
       bgColor: "bg-purple-100",
     },
@@ -19,7 +19,7 @@ function ComunidadeContent() {
       title: "Entrar no Fórum",
       description: "Participe em discussões sobre técnicas agrícolas e resolução de problemas",
       icon: MessageSquare,
-      href: "/forum",
+      href: "/comunidade/forum",
       color: "text-blue-600",
       bgColor: "bg-blue-100",
     },
@@ -27,7 +27,7 @@ function ComunidadeContent() {
       title: "Compartilhe Recursos",
       description: "Partilhe equipamentos, conhecimentos e recursos com outros membros",
       icon: Share2,
-      href: "/sharing",
+      href: "/comunidade/sharing",
       color: "text-green-600",
       bgColor: "bg-green-100",
     },
@@ -56,9 +56,9 @@ function ComunidadeContent() {
                 <CardDescription>{feature.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Link href={feature.href}>
+                <Link href={feature.href} onClick={(e) => !feature.href.startsWith('#') || e.preventDefault()}>
                   <Button className="w-full bg-green-600 hover:bg-green-700">
-                    Participar
+                    Acessar
                   </Button>
                 </Link>
               </CardContent>

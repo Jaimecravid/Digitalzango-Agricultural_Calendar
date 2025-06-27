@@ -1,3 +1,5 @@
+"use client";
+
 import Header from "../../components/header"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
