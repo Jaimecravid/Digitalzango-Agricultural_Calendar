@@ -37,12 +37,19 @@ export const Calendar: React.FC<CalendarProps> = React.memo(
   }) => {
     // Show 1 month on mobile, 2 on desktop. This avoids layout shifts on hydration.
     const [isMobile, setIsMobile] = React.useState(false);
+
     React.useEffect(() => {
       const checkMobile = () => setIsMobile(window.innerWidth < 640);
+      let timeoutId: NodeJS.Timeout;
+      const handleResize = () => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(checkMobile, 150);
+      };
       checkMobile(); // Initial check
-      window.addEventListener("resize", checkMobile);
-      return () => window.removeEventListener("resize", checkMobile);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
     }, []);
+
     const numberOfMonths = isMobile ? 1 : 2;
 
     // Merge agricultural modifiers
