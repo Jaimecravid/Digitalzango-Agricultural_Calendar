@@ -1,10 +1,16 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Calendar } from "@/components/ui/calendar"; // <-- Use your enhanced Calendar!
+import { useState, useRef, useEffect, useMemo, useCallback, memo } from "react";
+import dynamic from "next/dynamic";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChevronDown, Trash2 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
+// Dynamically import the Calendar component to reduce initial bundle size.
+const Calendar = dynamic(() => import("@/components/ui/calendar").then(mod => mod.Calendar), {
+  ssr: false,
+  loading: () => <CalendarSkeleton />,
+});
 // Lista completa das províncias de Angola
 const angolaProvinces = [
   { id: "bengo", name: "Bengo", capital: "Caxito" },
@@ -61,7 +67,7 @@ const provinceEvents: Record<string, EventType> = {
 };
 
 // --- WeatherDisplay com tipagem correta ---
-function WeatherDisplay({ region }: { region: { name: string; capital: string } }) {
+const WeatherDisplay = memo(function WeatherDisplay({ region }: { region: { name: string; capital: string } }) {
   const demoWeather: Record<string, { temp: string; desc: string }> = {
     "Luanda": { temp: "29", desc: "Ensolarado" },
     "Benguela": { temp: "27", desc: "Parcialmente nublado" },
@@ -77,9 +83,9 @@ function WeatherDisplay({ region }: { region: { name: string; capital: string } 
       <span>{weather.desc}</span>
     </div>
   );
-}
+});
 
-function RegionSelector({ selectedRegion, setSelectedRegion }: { selectedRegion: string, setSelectedRegion: (id: string) => void }) {
+const RegionSelector = memo(function RegionSelector({ selectedRegion, setSelectedRegion }: { selectedRegion: string, setSelectedRegion: (id: string) => void }) {
   return (
     <div className="mb-6">
       <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -100,9 +106,9 @@ function RegionSelector({ selectedRegion, setSelectedRegion }: { selectedRegion:
       </Select>
     </div>
   )
-}
+});
 
-function AddEventForm({ onAdd }: { onAdd: (date: string, type: string) => void }) {
+const AddEventForm = memo(function AddEventForm({ onAdd }: { onAdd: (date: string, type: string) => void }) {
   const dateRef = useRef<HTMLInputElement>(null)
   const typeRef = useRef<HTMLSelectElement>(null)
 
@@ -137,6 +143,21 @@ function AddEventForm({ onAdd }: { onAdd: (date: string, type: string) => void }
       </button>
     </form>
   )
+});
+
+function CalendarSkeleton() {
+  return (
+    <div className="flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0">
+      <div className="space-y-4">
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-64 w-full" />
+      </div>
+      <div className="space-y-4 hidden sm:block">
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-64 w-full" />
+      </div>
+    </div>
+  );
 }
 
 function CalendarioContent() {
@@ -160,43 +181,47 @@ function CalendarioContent() {
   const currentRegion = angolaProvinces.find(r => r.id === selectedRegion) || angolaProvinces[0];
   const events = provinceEventsState[selectedRegion] || { irrigation: [], planting: [], harvest: [] };
 
-  function handleAddEvent(dateString: string, type: string) {
+  const handleAddEvent = useCallback((dateString: string, type: string) => {
     const date = new Date(dateString);
     setProvinceEventsState(prev => {
       const current = prev[selectedRegion] || { irrigation: [], planting: [], harvest: [] };
       const updated = { ...current };
-      if (type === "Irrigação") updated.irrigation = [...current.irrigation, date];
-      if (type === "Plantio") updated.planting = [...current.planting, date];
-      if (type === "Colheita") updated.harvest = [...current.harvest, date];
+      const key = type === "Irrigação" ? "irrigation" : type === "Plantio" ? "planting" : "harvest";
+      updated[key] = [...current[key], date];
       return { ...prev, [selectedRegion]: updated };
     });
-  }
+  }, [selectedRegion]);
 
-  function handleDeleteEvent(date: Date, type: string) {
+  const handleDeleteEvent = useCallback((date: Date, type: string) => {
     setProvinceEventsState(prev => {
       const current = prev[selectedRegion] || { irrigation: [], planting: [], harvest: [] };
       const updated = { ...current };
       if (type === "Irrigação") {
         updated.irrigation = current.irrigation.filter(d => d.getTime() !== date.getTime());
       }
-      if (type === "Plantio") {
+      else if (type === "Plantio") {
         updated.planting = current.planting.filter(d => d.getTime() !== date.getTime());
       }
-      if (type === "Colheita") {
+      else if (type === "Colheita") {
         updated.harvest = current.harvest.filter(d => d.getTime() !== date.getTime());
       }
       return { ...prev, [selectedRegion]: updated };
     });
-  }
+  }, [selectedRegion]);
 
   // Editing event state and handlers (not used in this version, but can be added if needed)
   // const [editingEvent, setEditingEvent] = useState<{type: string, oldDate: Date, newDate: string} | null>(null);
 
-  const upcomingEvents = [
-    ...events.irrigation.map(date => ({ date, type: "Irrigação" })),
-    ...events.planting.map(date => ({ date, type: "Plantio" })),
-    ...events.harvest.map(date => ({ date, type: "Colheita" })),
-  ].sort((a, b) => a.date.getTime() - b.date.getTime());
+  // useMemo prevents this expensive calculation from running on every render
+  const upcomingEvents = useMemo(() => {
+    if (!events) return [];
+    const allEvents = [
+      ...events.irrigation.map(date => ({ date, type: "Irrigação" })),
+      ...events.planting.map(date => ({ date, type: "Plantio" })),
+      ...events.harvest.map(date => ({ date, type: "Colheita" })),
+    ];
+    return allEvents.sort((a, b) => a.date.getTime() - b.date.getTime());
+  }, [events]);
 
   return (
     <div className="min-h-screen bg-white">

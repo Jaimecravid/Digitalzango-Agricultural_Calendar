@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { DayPicker, type DayPickerSingleProps } from "react-day-picker";
+import { ChevronLeft, ChevronRight, type LucideIcon } from "lucide-react";
+import { DayPicker, type DayPickerSingleProps, type DayProps, type DayContentProps } from "react-day-picker";
 import { pt } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -15,6 +15,12 @@ export interface CalendarProps extends DayPickerSingleProps {
   plantingDays?: Date[];
   harvestDays?: Date[];
   locale?: Locale;
+}
+
+type DayEvent = {
+  type: "irrigation" | "planting" | "harvest";
+  label: string;
+  Icon: LucideIcon;
 }
 
 /**
@@ -35,22 +41,7 @@ export const Calendar: React.FC<CalendarProps> = React.memo(
     locale = pt,
     ...props
   }) => {
-    // Show 1 month on mobile, 2 on desktop. This avoids layout shifts on hydration.
-    const [isMobile, setIsMobile] = React.useState(false);
-
-    React.useEffect(() => {
-      const checkMobile = () => setIsMobile(window.innerWidth < 640);
-      let timeoutId: NodeJS.Timeout;
-      const handleResize = () => {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(checkMobile, 150);
-      };
-      checkMobile(); // Initial check
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    const numberOfMonths = isMobile ? 1 : 2;
+    const numberOfMonths = 2;
 
     // Merge agricultural modifiers
     const modifiers = {
@@ -67,6 +58,27 @@ export const Calendar: React.FC<CalendarProps> = React.memo(
       planting: "bg-green-100 dark:bg-green-900/50 text-green-900 dark:text-green-100 font-bold",
       harvest: "bg-yellow-100 dark:bg-yellow-900/50 text-yellow-900 dark:text-yellow-100 font-bold",
     };
+
+    // Custom DayContent to add screen-reader-only text for events
+    const DayContent = (dayProps: DayContentProps) => {
+      const { date, activeModifiers } = dayProps;
+      let eventText = "";
+      if (activeModifiers.irrigation) {
+        eventText = "Evento de Irrigação";
+      } else if (activeModifiers.planting) {
+        eventText = "Evento de Plantio";
+      } else if (activeModifiers.harvest) {
+        eventText = "Evento de Colheita";
+      }
+
+      return (
+        <>
+          {date.getDate()}
+          {eventText && <span className="sr-only">, {eventText}</span>}
+        </>
+      );
+    };
+
 
     return (
       <DayPicker
@@ -85,8 +97,8 @@ export const Calendar: React.FC<CalendarProps> = React.memo(
             buttonVariants({ variant: "outline" }),
             "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
           ),
-          nav_button_previous: "absolute left-1",
-          nav_button_next: "absolute right-1",
+          nav_button_previous: "absolute left-1", // ARIA label is added by DayPicker
+          nav_button_next: "absolute right-1", // ARIA label is added by DayPicker
           table: "w-full border-collapse space-y-1",
           head_row: "flex",
           head_cell:
@@ -112,8 +124,12 @@ export const Calendar: React.FC<CalendarProps> = React.memo(
         modifiers={modifiers}
         modifiersClassNames={modifiersClassNames}
         components={{
-          IconLeft: () => <ChevronLeft className="h-4 w-4" />,
-          IconRight: () => <ChevronRight className="h-4 w-4" />,
+          IconLeft: () => <ChevronLeft className="h-4 w-4" aria-hidden="true" />,
+          IconRight: () => <ChevronRight className="h-4 w-4" aria-hidden="true" />,
+          // Use the custom DayContent component
+          DayContent,
+          // Add explicit ARIA labels for navigation buttons
+          ...props.components,
           ...props.components,
         }}
         {...props}
