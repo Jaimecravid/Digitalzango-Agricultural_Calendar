@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { RegionProvider } from "./contexts/region-context";
-import { WeatherProvider } from "./contexts/weather-context";
-import Header from "./components/header";
-import Footer from "./components/footer";
-import HtmlLang from "./components/html-lang";
+import ClientLayout from "./client-layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,14 +18,9 @@ export default function RootLayout({
   return (
     <html lang="pt">
       <body className={inter.className}>
-        <RegionProvider>
-          <WeatherProvider>
-            <HtmlLang />
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </WeatherProvider>
-        </RegionProvider>
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );

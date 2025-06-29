@@ -21,7 +21,7 @@ This document explains how to set up the OpenWeatherMap API integration for the 
 Create a `.env.local` file in your project root:
 
 \`\`\`bash
-NEXT_PUBLIC_OPENWEATHER_API_KEY=your_api_key_here
+OPENWEATHER_API_KEY=your_api_key_here
 \`\`\`
 
 ### For Production (Vercel)
@@ -29,13 +29,13 @@ NEXT_PUBLIC_OPENWEATHER_API_KEY=your_api_key_here
 1. Go to your Vercel project dashboard
 2. Navigate to Settings → Environment Variables
 3. Add a new environment variable:
-   - **Name**: `NEXT_PUBLIC_OPENWEATHER_API_KEY`
-   - **Value**: Your OpenWeatherMap API key
-   - **Environment**: Production (and Preview if needed)
+   - **Name**: `OPENWEATHER_API_KEY`
+   - **Value**: your_api_key_here
+   - **Environment**: Production (and Preview, Development if needed)
 
 ### For Other Hosting Platforms
 
-Add the environment variable `NEXT_PUBLIC_OPENWEATHER_API_KEY` with your API key value according to your hosting platform's documentation.
+Add the environment variable `OPENWEATHER_API_KEY` with your API key value according to your hosting platform's documentation.
 
 ## API Features Used
 
@@ -133,8 +133,8 @@ The app is optimized for efficient API usage:
 
 ## Security Notes
 
-- The API key is exposed in the client-side code (required for browser requests)
-- Consider implementing a backend proxy for production applications with high traffic
+- The API key is now securely stored on the server and is not exposed to the client.
+- The application uses an API route (`/api/weather`) to act as a proxy, protecting the key.
 - Monitor your API usage regularly to prevent unexpected charges
 - Rotate your API key periodically for security
 
