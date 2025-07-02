@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 import { Button } from "./ui/button";
 
 export default function Header() {
-  // Determine the current path for aria-current
-  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  // Use Next.js usePathname hook instead of window.location for better SSR compatibility
+  const currentPath = usePathname();
+  
   // Helper to check if a link is active
   const isActive = (href: string) => currentPath === href;
 
@@ -28,25 +30,84 @@ export default function Header() {
 
         {/* Desktop Navigation Menu */}
         <nav className="hidden md:flex space-x-6" aria-label="Navegação principal">
-          <Link href="/" className="text-gray-600 hover:text-green-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50" aria-current={isActive('/') ? 'page' : undefined}>
+          <Link 
+            href="/" 
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50 ${
+              isActive('/') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600'
+            }`} 
+            aria-current={isActive('/') ? 'page' : undefined}
+          >
             <span aria-hidden="true">🏠</span> Início
           </Link>
-          <Link href="/calendario" className="text-gray-600 hover:text-green-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50" aria-current={isActive('/calendario') ? 'page' : undefined}>
+          
+          {/* NEW: Guias de Cultivo Link */}
+          <Link 
+            href="/guias" 
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50 ${
+              isActive('/guias') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600'
+            }`} 
+            aria-current={isActive('/guias') ? 'page' : undefined}
+          >
+            <span aria-hidden="true">📚</span> Guias
+          </Link>
+          
+          <Link 
+            href="/calendario" 
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50 ${
+              isActive('/calendario') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600'
+            }`} 
+            aria-current={isActive('/calendario') ? 'page' : undefined}
+          >
             <span aria-hidden="true">📅</span> Calendário
           </Link>
-          <Link href="/tempo" className="text-gray-600 hover:text-green-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50" aria-current={isActive('/tempo') ? 'page' : undefined}>
+          
+          <Link 
+            href="/tempo" 
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50 ${
+              isActive('/tempo') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600'
+            }`} 
+            aria-current={isActive('/tempo') ? 'page' : undefined}
+          >
             <span aria-hidden="true">🌤️</span> Tempo
           </Link>
-          <Link href="/pragas" className="text-gray-600 hover:text-green-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50" aria-current={isActive('/pragas') ? 'page' : undefined}>
+          
+          <Link 
+            href="/pragas" 
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50 ${
+              isActive('/pragas') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600'
+            }`} 
+            aria-current={isActive('/pragas') ? 'page' : undefined}
+          >
             <span aria-hidden="true">🐛</span> Pragas
           </Link>
-          <Link href="/recursos" className="text-gray-600 hover:text-green-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50" aria-current={isActive('/recursos') ? 'page' : undefined}>
-            <span aria-hidden="true">📚</span> Recursos
+          
+          <Link 
+            href="/recursos" 
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50 ${
+              isActive('/recursos') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600'
+            }`} 
+            aria-current={isActive('/recursos') ? 'page' : undefined}
+          >
+            <span aria-hidden="true">📖</span> Recursos
           </Link>
-          <Link href="/blog" className="text-gray-600 hover:text-green-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50" aria-current={isActive('/blog') ? 'page' : undefined}>
+          
+          <Link 
+            href="/blog" 
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50 ${
+              isActive('/blog') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600'
+            }`} 
+            aria-current={isActive('/blog') ? 'page' : undefined}
+          >
             <span aria-hidden="true">✍️</span> Blog
           </Link>
-          <Link href="/comunidade" className="text-gray-600 hover:text-green-600 font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50" aria-current={isActive('/comunidade') ? 'page' : undefined}>
+          
+          <Link 
+            href="/comunidade" 
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md hover:bg-green-50 ${
+              isActive('/comunidade') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600'
+            }`} 
+            aria-current={isActive('/comunidade') ? 'page' : undefined}
+          >
             <span aria-hidden="true">👥</span> Comunidade
           </Link>
         </nav>
@@ -67,7 +128,6 @@ export default function Header() {
             size="icon" 
             aria-label="Abrir menu de navegação"
             className="text-gray-600 hover:text-green-600 hover:bg-green-50"
-            aria-label="Abrir menu de navegação"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -85,6 +145,54 @@ export default function Header() {
             </svg>
           </Button>
         </div>
+      </div>
+      
+      {/* Mobile Navigation Menu (Hidden by default) */}
+      <div className="md:hidden mt-4 border-t border-gray-200 pt-4">
+        <nav className="flex flex-col space-y-2" aria-label="Navegação móvel">
+          <Link 
+            href="/" 
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md ${
+              isActive('/') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+            }`}
+          >
+            <span aria-hidden="true">🏠</span> Início
+          </Link>
+          
+          <Link 
+            href="/guias" 
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md ${
+              isActive('/guias') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+            }`}
+          >
+            <span aria-hidden="true">📚</span> Guias de Cultivo
+          </Link>
+          
+          <Link 
+            href="/calendario" 
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md ${
+              isActive('/calendario') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+            }`}
+          >
+            <span aria-hidden="true">📅</span> Calendário
+          </Link>
+          
+          <Link 
+            href="/pragas" 
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md ${
+              isActive('/pragas') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+            }`}
+          >
+            <span aria-hidden="true">🐛</span> Pragas
+          </Link>
+          
+          <Link 
+            href="/baixar-app" 
+            className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-lg text-center transition-colors duration-200"
+          >
+            📱 Baixar App
+          </Link>
+        </nav>
       </div>
     </header>
   );
