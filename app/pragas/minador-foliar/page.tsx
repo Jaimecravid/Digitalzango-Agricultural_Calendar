@@ -5,29 +5,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AlertTriangle, ArrowLeft, MapPin, Bug, Leaf, SprayCan } from "lucide-react";
 
-export default function TripesPage() {
+export default function MinadorFoliarPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-yellow-100">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-teal-100">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-yellow-600 to-yellow-700 text-white py-12">
+      <div className="bg-gradient-to-r from-teal-600 to-teal-700 text-white py-12">
         <div className="container mx-auto px-4">
           <Link 
             href="/pragas/insetos" 
-            className="inline-flex items-center text-yellow-100 hover:text-white mb-4 transition-colors"
+            className="inline-flex items-center text-teal-100 hover:text-white mb-4 transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Voltar para Insetos
           </Link>
           
           <div className="flex items-center gap-4 mb-4">
-            <span className="text-6xl">🦗</span>
+            <span className="text-6xl">🍃</span>
             <div>
-              <h1 className="text-4xl font-bold mb-2">Tripes</h1>
-              <p className="text-xl text-yellow-100 italic">Thysanoptera</p>
+              <h1 className="text-4xl font-bold mb-2">Minador-foliar</h1>
+              <p className="text-xl text-teal-100 italic">Liriomyza spp.</p>
             </div>
           </div>
           
-          <Badge variant="destructive" className="bg-yellow-800 text-white">
+          <Badge variant="destructive" className="bg-teal-800 text-white">
             <AlertTriangle className="w-4 h-4 mr-1" />
             Ameaça Média
           </Badge>
@@ -43,21 +43,21 @@ export default function TripesPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Bug className="w-5 h-5 text-yellow-600" />
+                  <Bug className="w-5 h-5 text-teal-600" />
                   Visão Geral
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  Os tripes são pequenos insetos alongados que causam danos significativos às 
-                  culturas angolanas através da alimentação raspadora nas folhas e flores. 
-                  Estes insetos microscópicos são particularmente problemáticos em culturas 
-                  hortícolas e ornamentais, causando danos estéticos e redução da produtividade.
+                  O minador-foliar é uma pequena mosca cujas larvas criam túneis característicos 
+                  nas folhas das plantas, causando danos estéticos e redução da capacidade 
+                  fotossintética. Em Angola, é uma praga significativa em culturas hortícolas, 
+                  especialmente em tomate, feijão e plantas ornamentais.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
-                  Em Angola, os tripes são mais ativos durante a estação seca, quando as 
-                  condições quentes e secas favorecem sua reprodução. São vetores de vírus 
-                  importantes, especialmente o vírus do bronzeado do tomateiro.
+                  As larvas alimentam-se do tecido foliar entre as superfícies superior e inferior 
+                  da folha, criando minas ou túneis serpentinos visíveis que são o sinal mais 
+                  característico desta praga.
                 </p>
               </CardContent>
             </Card>
@@ -75,23 +75,22 @@ export default function TripesPage() {
                   <div>
                     <h4 className="font-semibold text-gray-800 mb-2">Características Físicas:</h4>
                     <ul className="list-disc list-inside text-gray-700 space-y-1">
-                      <li>Tamanho: 1-3mm de comprimento</li>
-                      <li>Corpo alongado e estreito</li>
-                      <li>Cores: amarelo, marrom, preto ou listrado</li>
-                      <li>Asas franjadas características</li>
-                      <li>Movimentação rápida quando perturbados</li>
+                      <li>Adulto: mosca pequena (2-3mm), corpo amarelo-acinzentado</li>
+                      <li>Larva: amarelada, sem pernas, 2-3mm de comprimento</li>
+                      <li>Pupa: marrom, encontrada no solo ou na folha</li>
+                      <li>Ovos: inseridos no tecido foliar, invisíveis a olho nu</li>
                     </ul>
                   </div>
                   
                   <div>
                     <h4 className="font-semibold text-gray-800 mb-2">Sinais de Infestação:</h4>
                     <ul className="list-disc list-inside text-gray-700 space-y-1">
-                      <li>Manchas prateadas ou bronzeadas nas folhas</li>
-                      <li>Pontos pretos (excrementos) na superfície das folhas</li>
-                      <li>Folhas com aspecto raspado ou cicatrizado</li>
-                      <li>Flores deformadas ou com manchas</li>
-                      <li>Frutos com cicatrizes superficiais</li>
-                      <li>Sintomas virais em plantas suscetíveis</li>
+                      <li>Túneis serpentinos nas folhas (minas)</li>
+                      <li>Pontos de punctura para alimentação e oviposição</li>
+                      <li>Folhas com aspecto prateado ou esbranquiçado</li>
+                      <li>Redução da área foliar fotossintética</li>
+                      <li>Queda prematura de folhas severamente atacadas</li>
+                      <li>Presença de pequenas moscas voando ao redor das plantas</li>
                     </ul>
                   </div>
                 </div>
@@ -112,11 +111,11 @@ export default function TripesPage() {
                   <div className="border-l-4 border-green-500 pl-4">
                     <h4 className="font-semibold text-green-700 mb-2">Controle Biológico</h4>
                     <ul className="text-gray-700 space-y-1">
-                      <li>• Orius insidiosus (percevejo predador)</li>
-                      <li>• Amblyseius cucumeris (ácaro predador)</li>
-                      <li>• Chrysoperla carnea (bicho-lixeiro)</li>
-                      <li>• Fungos entomopatogênicos (Metarhizium anisopliae)</li>
-                      <li>• Nematóides entomopatogênicos</li>
+                      <li>• Diglyphus isaea (vespa parasitóide)</li>
+                      <li>• Dacnusa sibirica (parasitóide de larvas)</li>
+                      <li>• Chrysocharis parksi (parasitóide)</li>
+                      <li>• Predadores generalistas (aranhas, percevejos)</li>
+                      <li>• Nematóides entomopatogênicos no solo</li>
                     </ul>
                   </div>
 
@@ -124,23 +123,23 @@ export default function TripesPage() {
                   <div className="border-l-4 border-blue-500 pl-4">
                     <h4 className="font-semibold text-blue-700 mb-2">Controle Cultural</h4>
                     <ul className="text-gray-700 space-y-1">
-                      <li>• Armadilhas adesivas azuis (atraem tripes)</li>
-                      <li>• Eliminação de plantas daninhas hospedeiras</li>
-                      <li>• Irrigação adequada (evitar stress hídrico)</li>
-                      <li>• Mulching para reduzir populações no solo</li>
+                      <li>• Remoção e destruição de folhas atacadas</li>
+                      <li>• Armadilhas amarelas adesivas</li>
                       <li>• Rotação de culturas</li>
+                      <li>• Eliminação de plantas daninhas hospedeiras</li>
+                      <li>• Cultivo em ambiente protegido com telas</li>
                     </ul>
                   </div>
 
                   {/* Chemical Control */}
-                  <div className="border-l-4 border-orange-500 pl-4">
-                    <h4 className="font-semibold text-orange-700 mb-2">Controle Químico</h4>
+                  <div className="border-l-4 border-teal-500 pl-4">
+                    <h4 className="font-semibold text-teal-700 mb-2">Controle Químico</h4>
                     <ul className="text-gray-700 space-y-1">
+                      <li>• Abamectina (penetra nas minas)</li>
+                      <li>• Cyromazine (regulador de crescimento)</li>
                       <li>• Spinosad (origem biológica)</li>
-                      <li>• Imidacloprid (sistêmico)</li>
                       <li>• Óleo de neem</li>
-                      <li>• Sabão inseticida</li>
-                      <li>• Abamectina (acaricida-inseticida)</li>
+                      <li>• Aplicações dirigidas às folhas novas</li>
                     </ul>
                   </div>
                 </div>
@@ -158,40 +157,40 @@ export default function TripesPage() {
               <CardContent className="space-y-3">
                 <div>
                   <span className="font-semibold text-gray-800">Nível de Ameaça:</span>
-                  <Badge variant="secondary" className="ml-2 bg-yellow-100 text-yellow-800">Médio</Badge>
+                  <Badge variant="secondary" className="ml-2 bg-teal-100 text-teal-800">Médio</Badge>
                 </div>
                 <div>
                   <span className="font-semibold text-gray-800">Culturas Afetadas:</span>
-                  <p className="text-sm text-gray-600 mt-1">Tomate, pimentão, cebola, alho, flores ornamentais</p>
+                  <p className="text-sm text-gray-600 mt-1">Tomate, feijão, batata, plantas ornamentais</p>
                 </div>
                 <div>
                   <span className="font-semibold text-gray-800">Época Crítica:</span>
-                  <p className="text-sm text-gray-600 mt-1">Estação seca (Maio-Setembro)</p>
+                  <p className="text-sm text-gray-600 mt-1">Todo o ano (picos na estação quente)</p>
                 </div>
                 <div>
                   <span className="font-semibold text-gray-800">Ciclo de Vida:</span>
-                  <p className="text-sm text-gray-600 mt-1">15-30 dias (dependente da temperatura)</p>
+                  <p className="text-sm text-gray-600 mt-1">15-25 dias (ovo a adulto)</p>
                 </div>
                 <div>
-                  <span className="font-semibold text-gray-800">Habitat:</span>
-                  <p className="text-sm text-gray-600 mt-1">Flores, folhas jovens, frutos em desenvolvimento</p>
+                  <span className="font-semibold text-gray-800">Gerações/Ano:</span>
+                  <p className="text-sm text-gray-600 mt-1">8-12 gerações anuais</p>
                 </div>
               </CardContent>
             </Card>
 
             {/* Regional Alert */}
-            <Card className="border-yellow-200 bg-yellow-50">
+            <Card className="border-teal-200 bg-teal-50">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-yellow-800">
+                <CardTitle className="flex items-center gap-2 text-teal-800">
                   <MapPin className="w-5 h-5" />
                   Alerta Regional - Angola
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-yellow-700 leading-relaxed">
-                  <strong>Atenção especial nas regiões de Luanda e Benguela</strong> 
-                  em cultivos protegidos e horticultura. Tripes podem causar danos 
-                  severos em tomateiros e flores ornamentais durante a estação seca.
+                <p className="text-sm text-teal-700 leading-relaxed">
+                  <strong>Atenção especial na região de Luanda e Benguela</strong> 
+                  em cultivos protegidos de hortaliças. Minador-foliar prolifera 
+                  rapidamente em estufas e pode causar danos severos em tomateiros.
                 </p>
               </CardContent>
             </Card>
@@ -204,6 +203,12 @@ export default function TripesPage() {
               <CardContent>
                 <div className="space-y-2">
                   <Link 
+                    href="/pragas/trips" 
+                    className="block text-blue-600 hover:text-blue-800 text-sm transition-colors"
+                  >
+                    → Tripes (Thysanoptera)
+                  </Link>
+                  <Link 
                     href="/pragas/mosca-branca" 
                     className="block text-blue-600 hover:text-blue-800 text-sm transition-colors"
                   >
@@ -214,12 +219,6 @@ export default function TripesPage() {
                     className="block text-blue-600 hover:text-blue-800 text-sm transition-colors"
                   >
                     → Pulgão (Aphididae)
-                  </Link>
-                  <Link 
-                    href="/pragas/minador-foliar" 
-                    className="block text-blue-600 hover:text-blue-800 text-sm transition-colors"
-                  >
-                    → Minador-foliar (Liriomyza)
                   </Link>
                 </div>
               </CardContent>

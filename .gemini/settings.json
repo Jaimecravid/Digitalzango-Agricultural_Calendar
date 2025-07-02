@@ -1,15 +1,14 @@
 {
   "mcpServers": {
-    "github": {
-      "command": "docker",
+    "puppeteer": {
+      "command": "npx",
       "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "GITHUB_PERSONAL_ACCESS_TOKEN",
-        "ghcr.io/github/github-mcp-server"
-      ]
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ],
+      "env": {
+        "ALLOW_DANGEROUS": "true"
+      }
     }
   }
 }

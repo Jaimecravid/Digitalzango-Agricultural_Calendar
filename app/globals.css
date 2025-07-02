@@ -1,3 +1,5 @@
+@import './enhanced-calendar-styles.css';
+@import './mobile-responsive-styles.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
