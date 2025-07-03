@@ -1,31 +1,43 @@
-/** @type {import('next').NextConfig} */
+﻿/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Solution 1: Enable SWC Minification (reduces compile time)
-  swcMinify: true,
-  
-  // Solution 2: Enable concurrent features
   experimental: {
-    // Optimize for App Router performance
-    appDir: true,
-    serverComponentsExternalPackages: ['react-big-calendar'],
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
-  
-  // Solution 3: Optimize webpack for development
-  webpack: (config, { dev }) => {
-    if (dev) {
-      // Reduce memory usage in development
-      config.watchOptions = {
-        poll: 1000,
-        aggregateTimeout: 300,
-      }
-    }
-    return config
+  images: {
+    domains: ['lh3.googleusercontent.com'],
+    deviceSizes: [360, 640, 750, 828, 1080, 1200],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    minimumCacheTTL: 60,
+    formats: ['image/webp', 'image/avif'],
   },
-  
-  // Optimize bundle size
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  }
-}
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+        ],
+      },
+    ];
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

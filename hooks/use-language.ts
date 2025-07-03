@@ -1,43 +1,18 @@
-"use client";
+﻿import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-import React, { createContext, useContext, ReactNode } from 'react';
-
-// Define the shape of the translation data
-type Translations = {
-  [key: string]: string;
-};
-
-// Define the context type
 interface LanguageContextType {
-  translations: Translations;
-  t: (key: string) => string;
+  language: string;
+  setLanguage: (lang: string) => void;
 }
 
-// Create the context with a default value
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-// Define the props for the provider component
-interface LanguageProviderProps {
-  children: ReactNode;
-  translations: Translations;
-}
+export const LanguageProvider = ({ children }: { children: ReactNode }) => {
+  const [language, setLanguage] = useState('pt');
 
-/**
- * Provides translation data to its children components.
- */
-export function LanguageProvider({ children, translations }: LanguageProviderProps) {
-  
-  /**
-   * Translation function 't'.
-   * Takes a key and returns the corresponding string from the translations object.
-   */
-  const t = (key: string): string => {
-    return translations[key] || key;
-  };
-
-  const value: LanguageContextType = {
-    translations,
-    t,
+  const value = {
+    language,
+    setLanguage,
   };
 
   return (
@@ -45,15 +20,12 @@ export function LanguageProvider({ children, translations }: LanguageProviderPro
       {children}
     </LanguageContext.Provider>
   );
-}
+};
 
-/**
- * Custom hook to use the language context.
- */
-export function useLanguage(): LanguageContextType {
+export const useLanguage = () => {
   const context = useContext(LanguageContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;
-}
+};

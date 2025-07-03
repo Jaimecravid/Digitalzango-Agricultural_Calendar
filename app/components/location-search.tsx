@@ -1,184 +1,205 @@
-"use client"
+﻿"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent } from "@/components/ui/card"
-import { MapPin, Search, Loader2, Navigation } from "lucide-react"
-import { weatherService, type LocationData } from "../services/weather-service"
-import { useLanguage } from "../contexts/language-context"
+import React, { useState, useRef, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { MapPin, Search, X } from "lucide-react";
 
-interface LocationSearchProps {
-  onLocationSelect: (location: { lat: number; lon: number; name: string }) => void
-  currentLocation?: string
+interface LocationResult {
+  id: string;
+  name: string;
+  province: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
 }
 
-export default function LocationSearch({ onLocationSelect, currentLocation }: LocationSearchProps) {
+interface LocationSearchProps {
+  onLocationSelect: (location: LocationResult) => void;
+  placeholder?: string;
+}
 
-  const [query, setQuery] = useState("")
-  const [results, setResults] = useState<LocationData[]>([])
-  const [isSearching, setIsSearching] = useState(false)
-  const [isGettingLocation, setIsGettingLocation] = useState(false)
-  const [showResults, setShowResults] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const searchTimeoutRef = useRef<NodeJS.Timeout>()
-  const resultsRef = useRef<HTMLDivElement>(null)
+const LocationSearch = ({ onLocationSelect, placeholder = "Procurar localização..." }: LocationSearchProps) => {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<LocationResult[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  // Sample Angola locations for demonstration
+  const angolaLocations: LocationResult[] = [
+    { id: "1", name: "Luanda", province: "Luanda", coordinates: { lat: -8.8390, lng: 13.2894 } },
+    { id: "2", name: "Benguela", province: "Benguela", coordinates: { lat: -12.5763, lng: 13.4055 } },
+    { id: "3", name: "Huambo", province: "Huambo", coordinates: { lat: -12.7756, lng: 15.7394 } },
+    { id: "4", name: "Lubango", province: "Huíla", coordinates: { lat: -14.9177, lng: 13.4925 } },
+    { id: "5", name: "Cabinda", province: "Cabinda", coordinates: { lat: -5.5500, lng: 12.2000 } },
+    { id: "6", name: "Kuito", province: "Bié", coordinates: { lat: -12.3848, lng: 16.9323 } },
+    { id: "7", name: "Caxito", province: "Bengo", coordinates: { lat: -8.5783, lng: 13.6644 } },
+    { id: "8", name: "Menongue", province: "Cuando Cubango", coordinates: { lat: -14.6586, lng: 17.6911 } },
+    { id: "9", name: "Ondjiva", province: "Cunene", coordinates: { lat: -17.0667, lng: 15.7333 } },
+    { id: "10", name: "N'dalatando", province: "Kwanza Norte", coordinates: { lat: -9.2968, lng: 14.9111 } }
+  ];
 
   // Handle search with debouncing
-  useEffect(() => {
+  const handleSearch = (searchQuery: string) => {
+    setQuery(searchQuery);
+    setError(null);
+
     if (searchTimeoutRef.current) {
-      clearTimeout(searchTimeoutRef.current)
+      clearTimeout(searchTimeoutRef.current);
     }
 
-    if (query.trim().length < 2) {
-      setResults([])
-      setShowResults(false)
-      return
+    if (searchQuery.trim().length < 2) {
+      setResults([]);
+      setShowResults(false);
+      return;
     }
 
-    searchTimeoutRef.current = setTimeout(async () => {
-      setIsSearching(true)
-      setError(null)
+    setIsLoading(true);
+    searchTimeoutRef.current = setTimeout(() => {
+      performSearch(searchQuery);
+    }, 300);
+  };
 
-      try {
-        const locations = await weatherService.searchLocations(query)
-        setResults(locations)
-        setShowResults(true)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Search failed")
-        setResults([])
-      } finally {
-        setIsSearching(false)
+  const performSearch = (searchQuery: string) => {
+    try {
+      const filteredResults = angolaLocations.filter(location =>
+        location.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        location.province.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+      setResults(filteredResults);
+      setShowResults(true);
+      setIsLoading(false);
+    } catch (err) {
+      setError("Erro ao procurar localização");
+      setIsLoading(false);
+    }
+  };
+
+  const handleLocationSelect = (location: LocationResult) => {
+    setQuery(location.name);
+    setShowResults(false);
+    onLocationSelect(location);
+  };
+
+  const clearSearch = () => {
+    setQuery("");
+    setResults([]);
+    setShowResults(false);
+    setError(null);
+  };
+
+  // Close results when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (resultsRef.current && !resultsRef.current.contains(event.target as Node)) {
+        setShowResults(false);
       }
-    }, 500)
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
     return () => {
       if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current)
+        clearTimeout(searchTimeoutRef.current);
       }
-    }
-  }, [query])
-
-  // Handle clicking outside to close results
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (resultsRef.current && !resultsRef.current.contains(event.target as Node)) {
-        setShowResults(false)
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [])
-
-  const handleLocationSelect = (location: LocationData) => {
-    onLocationSelect({
-      lat: location.lat,
-      lon: location.lon,
-      name: `${location.name}, ${location.country}`,
-    })
-    setQuery(`${location.name}, ${location.country}`)
-    setShowResults(false)
-  }
-
-  const handleCurrentLocation = async () => {
-    setIsGettingLocation(true)
-    setError(null)
-
-    try {
-      const coords = await weatherService.getCurrentLocation()
-      onLocationSelect({
-        lat: coords.lat,
-        lon: coords.lon,
-        name: "Current Location",
-      })
-      setQuery("Current Location")
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to get current location")
-    } finally {
-      setIsGettingLocation(false)
-    }
-  }
+    };
+  }, []);
 
   return (
-    <div className="relative w-full max-w-md">
-      <div className="flex gap-2">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-          <Input
-            type="text"
-            placeholder={t("searchLocation") || "Search for a city..."}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onFocus={() => results.length > 0 && setShowResults(true)}
-            className="pl-10 pr-4"
-            aria-label="Search for location"
-            aria-expanded={showResults}
-            aria-haspopup="listbox"
-          />
-          {isSearching && (
-            <Loader2 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 animate-spin" />
-          )}
-        </div>
-
-        <Button
-          onClick={handleCurrentLocation}
-          disabled={isGettingLocation}
-          variant="outline"
-          size="icon"
-          aria-label="Use current location"
-          title="Use current location"
-        >
-          {isGettingLocation ? <Loader2 className="h-4 w-4 animate-spin" /> : <Navigation className="h-4 w-4" />}
-        </Button>
+    <div className="relative w-full" ref={resultsRef}>
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+        <Input
+          type="text"
+          placeholder={placeholder}
+          value={query}
+          onChange={(e) => handleSearch(e.target.value)}
+          onFocus={() => query.length >= 2 && setShowResults(true)}
+          className="pl-10 pr-10"
+        />
+        {query && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={clearSearch}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
+          >
+            <X className="h-3 w-3" />
+          </Button>
+        )}
       </div>
 
-      {/* Search Results */}
-      {showResults && (
-        <Card className="absolute top-full left-0 right-0 mt-1 z-50 shadow-lg" ref={resultsRef}>
-          <CardContent className="p-0">
-            {results.length > 0 ? (
-              <ul role="listbox" className="max-h-60 overflow-y-auto">
-                {results.map((location, index) => (
-                  <li key={`${location.lat}-${location.lon}`} role="option">
-                    <button
-                      onClick={() => handleLocationSelect(location)}
-                      className="w-full text-left px-4 py-3 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none border-b border-gray-100 last:border-b-0 transition-colors"
-                      tabIndex={0}
-                    >
-                      <div className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4 text-gray-400 flex-shrink-0" />
-                        <div>
-                          <div className="font-medium text-gray-900">{location.name}</div>
-                          <div className="text-sm text-gray-500">
-                            {location.state && `${location.state}, `}
-                            {location.country}
-                          </div>
-                        </div>
-                      </div>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            ) : query.trim().length >= 2 && !isSearching ? (
-              <div className="px-4 py-3 text-gray-500 text-center">No locations found for "{query}"</div>
-            ) : null}
-          </CardContent>
-        </Card>
+      {/* Loading indicator */}
+      {isLoading && (
+        <div className="absolute top-full left-0 right-0 z-10 mt-1">
+          <Card>
+            <CardContent className="p-3 text-center">
+              <div className="text-sm text-gray-500">A procurar...</div>
+            </CardContent>
+          </Card>
+        </div>
       )}
 
-      {/* Error Message */}
+      {/* Error message */}
       {error && (
-        <div className="mt-2 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">{error}</div>
+        <div className="absolute top-full left-0 right-0 z-10 mt-1">
+          <Card>
+            <CardContent className="p-3 text-center">
+              <div className="text-sm text-red-500">{error}</div>
+            </CardContent>
+          </Card>
+        </div>
       )}
 
-      {/* Current Location Display */}
-      {currentLocation && (
-        <div className="mt-2 text-sm text-gray-600 flex items-center gap-1">
-          <MapPin className="h-3 w-3" />
-          Current: {currentLocation}
+      {/* Search results */}
+      {showResults && results.length > 0 && !isLoading && (
+        <div className="absolute top-full left-0 right-0 z-10 mt-1">
+          <Card>
+            <CardContent className="p-0">
+              <div className="max-h-60 overflow-y-auto">
+                {results.map((location) => (
+                  <div
+                    key={location.id}
+                    onClick={() => handleLocationSelect(location)}
+                    className="flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
+                  >
+                    <MapPin className="h-4 w-4 text-gray-400 flex-shrink-0" />
+                    <div className="flex-1">
+                      <div className="font-medium">{location.name}</div>
+                      <div className="text-sm text-gray-500">{location.province}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* No results message */}
+      {showResults && results.length === 0 && !isLoading && query.length >= 2 && (
+        <div className="absolute top-full left-0 right-0 z-10 mt-1">
+          <Card>
+            <CardContent className="p-3 text-center">
+              <div className="text-sm text-gray-500">Nenhuma localização encontrada</div>
+            </CardContent>
+          </Card>
         </div>
       )}
     </div>
-  )
-}
+  );
+};
+
+export default LocationSearch;

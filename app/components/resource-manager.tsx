@@ -1,543 +1,370 @@
-"use client"
+﻿"use client";
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Plus, Package, AlertTriangle, Edit, Trash2 } from "lucide-react"
-import { useLanguage } from "../contexts/language-context"
+import React, { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import { Package, Plus, Edit, Trash2, AlertTriangle, CheckCircle } from "lucide-react";
 
 interface Resource {
-  id: string
-  name: string
-  type: "seed" | "fertilizer" | "equipment" | "pesticide"
-  quantity: number
-  unit: string
-  cost: number
-  supplier: string
-  purchaseDate: string
-  expiryDate?: string
-  status: "available" | "low" | "expired" | "out-of-stock"
-  notes: string
+  id: string;
+  type: "seeds" | "fertilizer" | "equipment" | "pesticide" | "other";
+  name: string;
+  quantity: number;
+  unit: string;
+  location: string;
+  expiryDate?: string;
+  notes: string;
+  status: "available" | "low" | "expired" | "out-of-stock";
 }
 
-const resourceTypes = {
-  seed: { icon: "🌱", label: "Sementes", color: "bg-green-100 text-green-800" },
-  fertilizer: { icon: "🌿", label: "Fertilizantes", color: "bg-blue-100 text-blue-800" },
-  equipment: { icon: "🚜", label: "Equipamentos", color: "bg-gray-100 text-gray-800" },
-  pesticide: { icon: "🧪", label: "Pesticidas", color: "bg-red-100 text-red-800" },
-}
-
-export default function ResourceManager() {
-
-  const [resources, setResources] = useState<Resource[]>([])
-  const [showAddForm, setShowAddForm] = useState(false)
-  const [editingResource, setEditingResource] = useState<Resource | null>(null)
-  const [activeTab, setActiveTab] = useState("all")
+const ResourceManager = () => {
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [editingResource, setEditingResource] = useState<Resource | null>(null);
   const [newResource, setNewResource] = useState<Partial<Resource>>({
+    type: "seeds",
     name: "",
-    type: "seed",
     quantity: 0,
-    unit: "",
-    cost: 0,
-    supplier: "",
-    purchaseDate: "",
+    unit: "kg",
+    location: "",
     expiryDate: "",
     notes: "",
-  })
-
-  useEffect(() => {
-    const savedResources = localStorage.getItem("farm-resources")
-    if (savedResources) {
-      setResources(JSON.parse(savedResources))
-    } else {
-      // Add some sample data
-      const sampleResources: Resource[] = [
-        {
-          id: "1",
-          name: "Sementes de Milho Híbrido",
-          type: "seed",
-          quantity: 50,
-          unit: "kg",
-          cost: 15000,
-          supplier: "AgroSementes Lda",
-          purchaseDate: "2024-01-15",
-          expiryDate: "2024-12-31",
-          status: "available",
-          notes: "Variedade resistente à seca",
-        },
-        {
-          id: "2",
-          name: "NPK 20-10-10",
-          type: "fertilizer",
-          quantity: 5,
-          unit: "sacos 50kg",
-          cost: 8000,
-          supplier: "FertilAngola",
-          purchaseDate: "2024-02-01",
-          status: "low",
-          notes: "Para aplicação na fase inicial",
-        },
-        {
-          id: "3",
-          name: "Tractor John Deere",
-          type: "equipment",
-          quantity: 1,
-          unit: "unidade",
-          cost: 2500000,
-          supplier: "Máquinas Agrícolas SA",
-          purchaseDate: "2023-06-15",
-          status: "available",
-          notes: "Manutenção em dia",
-        },
-      ]
-      setResources(sampleResources)
-    }
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem("farm-resources", JSON.stringify(resources))
-  }, [resources])
-
-  const calculateStatus = (resource: Partial<Resource>): Resource["status"] => {
-    if (resource.quantity === 0) return "out-of-stock"
-    if (resource.expiryDate && new Date(resource.expiryDate) < new Date()) return "expired"
-    if (resource.type === "seed" && resource.quantity && resource.quantity < 10) return "low"
-    if (resource.type === "fertilizer" && resource.quantity && resource.quantity < 3) return "low"
-    return "available"
-  }
+    status: "available"
+  });
 
   const addResource = () => {
-    if (!newResource.name || !newResource.type) return
+    if (!newResource.name || !newResource.quantity) return;
 
     const resource: Resource = {
       id: Date.now().toString(),
+      type: newResource.type as Resource['type'],
       name: newResource.name,
-      type: newResource.type as Resource["type"],
-      quantity: newResource.quantity || 0,
-      unit: newResource.unit || "",
-      cost: newResource.cost || 0,
-      supplier: newResource.supplier || "",
-      purchaseDate: newResource.purchaseDate || new Date().toISOString().split("T")[0],
+      quantity: newResource.quantity,
+      unit: newResource.unit || "kg",
+      location: newResource.location || "",
       expiryDate: newResource.expiryDate,
-      status: calculateStatus(newResource),
       notes: newResource.notes || "",
-    }
+      status: newResource.status as Resource['status']
+    };
 
-    setResources([...resources, resource])
-    resetForm()
-  }
-
-  const updateResource = () => {
-    if (!editingResource) return
-
-    const updatedResource = {
-      ...editingResource,
-      status: calculateStatus(editingResource),
-    }
-
-    setResources(resources.map((r) => (r.id === editingResource.id ? updatedResource : r)))
-    setEditingResource(null)
-    setShowAddForm(false)
-  }
-
-  const deleteResource = (id: string) => {
-    setResources(resources.filter((r) => r.id !== id))
-  }
-
-  const resetForm = () => {
+    setResources([...resources, resource]);
     setNewResource({
+      type: "seeds",
       name: "",
-      type: "seed",
       quantity: 0,
-      unit: "",
-      cost: 0,
-      supplier: "",
-      purchaseDate: "",
+      unit: "kg",
+      location: "",
       expiryDate: "",
       notes: "",
-    })
-    setShowAddForm(false)
-    setEditingResource(null)
-  }
+      status: "available"
+    });
+    setShowAddForm(false);
+  };
 
-  const startEdit = (resource: Resource) => {
-    setEditingResource(resource)
-    setShowAddForm(true)
-  }
+  const updateResource = () => {
+    if (!editingResource) return;
 
-  const getStatusColor = (status: Resource["status"]) => {
+    setResources(resources.map((r) => (r.id === editingResource.id ? editingResource : r)));
+    setEditingResource(null);
+  };
+
+  const deleteResource = (id: string) => {
+    setResources(resources.filter((r) => r.id !== id));
+  };
+
+  const getStatusColor = (status: string) => {
+    const colors = {
+      available: "bg-green-100 text-green-800",
+      low: "bg-yellow-100 text-yellow-800",
+      expired: "bg-red-100 text-red-800",
+      "out-of-stock": "bg-gray-100 text-gray-800"
+    };
+    return colors[status as keyof typeof colors] || colors.available;
+  };
+
+  const getStatusIcon = (status: string) => {
     switch (status) {
       case "available":
-        return "bg-green-100 text-green-800"
+        return <CheckCircle className="h-4 w-4" />;
       case "low":
-        return "bg-yellow-100 text-yellow-800"
       case "expired":
-        return "bg-red-100 text-red-800"
       case "out-of-stock":
-        return "bg-gray-100 text-gray-800"
+        return <AlertTriangle className="h-4 w-4" />;
       default:
-        return "bg-gray-100 text-gray-800"
+        return <Package className="h-4 w-4" />;
     }
-  }
+  };
 
-  const getStatusLabel = (status: Resource["status"]) => {
-    switch (status) {
-      case "available":
-        return "Disponível"
-      case "low":
-        return "Baixo"
-      case "expired":
-        return "Expirado"
-      case "out-of-stock":
-        return "Esgotado"
-      default:
-        return status
-    }
-  }
-
-  const filteredResources = resources.filter((resource) => {
-    if (activeTab === "all") return true
-    return resource.type === activeTab
-  })
-
-  const lowStockResources = resources.filter((r) => r.status === "low" || r.status === "out-of-stock")
-  const expiredResources = resources.filter((r) => r.status === "expired")
-
-  const currentResource = editingResource || newResource
+  const getTypeLabel = (type: string) => {
+    const labels = {
+      seeds: "Sementes",
+      fertilizer: "Fertilizante",
+      equipment: "Equipamento",
+      pesticide: "Pesticida",
+      other: "Outro"
+    };
+    return labels[type as keyof typeof labels] || type;
+  };
 
   return (
-    <div className="space-y-6">
+    <div className="container mx-auto p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">{t("resourceManagement")}</h2>
+          <h2 className="text-2xl font-bold">Gestão de Recursos</h2>
           <p className="text-gray-600">Gerir sementes, fertilizantes e equipamentos</p>
         </div>
         <Button onClick={() => setShowAddForm(true)}>
           <Plus className="h-4 w-4 mr-2" />
-          {t("addResource")}
+          Adicionar Recurso
         </Button>
       </div>
 
-      {/* Alerts */}
-      {(lowStockResources.length > 0 || expiredResources.length > 0) && (
-        <div className="space-y-3">
-          {lowStockResources.length > 0 && (
-            <Card className="border-yellow-200 bg-yellow-50">
-              <CardContent className="p-4">
-                <div className="flex items-start space-x-3">
-                  <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5" />
-                  <div>
-                    <h4 className="font-medium text-yellow-800">Stock Baixo</h4>
-                    <p className="text-sm text-yellow-700">
-                      {lowStockResources.length} recurso(s) com stock baixo ou esgotado
-                    </p>
-                    <div className="mt-2 space-x-2">
-                      {lowStockResources.slice(0, 3).map((resource) => (
-                        <Badge key={resource.id} variant="secondary" className="text-xs">
-                          {resource.name}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2">
+              <Package className="h-5 w-5 text-blue-600" />
+              <div>
+                <p className="text-sm text-gray-600">Total de Recursos</p>
+                <p className="text-xl font-bold">{resources.length}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 text-green-600" />
+              <div>
+                <p className="text-sm text-gray-600">Disponíveis</p>
+                <p className="text-xl font-bold">
+                  {resources.filter(r => r.status === "available").length}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-yellow-600" />
+              <div>
+                <p className="text-sm text-gray-600">Estoque Baixo</p>
+                <p className="text-xl font-bold">
+                  {resources.filter(r => r.status === "low").length}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-red-600" />
+              <div>
+                <p className="text-sm text-gray-600">Expirados</p>
+                <p className="text-xl font-bold">
+                  {resources.filter(r => r.status === "expired").length}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-          {expiredResources.length > 0 && (
-            <Card className="border-red-200 bg-red-50">
-              <CardContent className="p-4">
-                <div className="flex items-start space-x-3">
-                  <AlertTriangle className="h-5 w-5 text-red-600 mt-0.5" />
-                  <div>
-                    <h4 className="font-medium text-red-800">Recursos Expirados</h4>
-                    <p className="text-sm text-red-700">{expiredResources.length} recurso(s) expirado(s)</p>
-                    <div className="mt-2 space-x-2">
-                      {expiredResources.slice(0, 3).map((resource) => (
-                        <Badge key={resource.id} variant="secondary" className="text-xs">
-                          {resource.name}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-      )}
-
-      {/* Add/Edit Form */}
+      {/* Add Resource Form */}
       {showAddForm && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingResource ? "Editar Recurso" : "Adicionar Novo Recurso"}</CardTitle>
+            <CardTitle>Novo Recurso</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="name">Nome do Recurso</Label>
-                <Input
-                  id="name"
-                  value={editingResource ? editingResource.name : newResource.name}
-                  onChange={(e) => {
-                    if (editingResource) {
-                      setEditingResource({ ...editingResource, name: e.target.value })
-                    } else {
-                      setNewResource({ ...newResource, name: e.target.value })
-                    }
-                  }}
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="type">Tipo</Label>
-                <Select
-                  value={editingResource ? editingResource.type : newResource.type}
-                  onValueChange={(value) => {
-                    if (editingResource) {
-                      setEditingResource({ ...editingResource, type: value as Resource["type"] })
-                    } else {
-                      setNewResource({ ...newResource, type: value as Resource["type"] })
-                    }
-                  }}
+                <Label htmlFor="type">Tipo de Recurso</Label>
+                <Select 
+                  value={newResource.type} 
+                  onValueChange={(value) => setNewResource({...newResource, type: value as Resource['type']})}
                 >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.entries(resourceTypes).map(([key, type]) => (
-                      <SelectItem key={key} value={key}>
-                        {type.icon} {type.label}
-                      </SelectItem>
-                    ))}
+                    <SelectItem value="seeds">Sementes</SelectItem>
+                    <SelectItem value="fertilizer">Fertilizante</SelectItem>
+                    <SelectItem value="equipment">Equipamento</SelectItem>
+                    <SelectItem value="pesticide">Pesticida</SelectItem>
+                    <SelectItem value="other">Outro</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-
+              
+              <div>
+                <Label htmlFor="name">Nome do Recurso</Label>
+                <Input
+                  id="name"
+                  value={newResource.name}
+                  onChange={(e) => setNewResource({...newResource, name: e.target.value})}
+                  placeholder="Ex: Sementes de Milho"
+                />
+              </div>
+              
               <div>
                 <Label htmlFor="quantity">Quantidade</Label>
                 <Input
                   id="quantity"
                   type="number"
-                  value={editingResource ? editingResource.quantity : newResource.quantity}
-                  onChange={(e) => {
-                    const quantity = Number.parseFloat(e.target.value)
-                    if (editingResource) {
-                      setEditingResource({ ...editingResource, quantity })
-                    } else {
-                      setNewResource({ ...newResource, quantity })
-                    }
-                  }}
+                  value={newResource.quantity}
+                  onChange={(e) => setNewResource({...newResource, quantity: parseInt(e.target.value)})}
+                  min="0"
                 />
               </div>
-
+              
               <div>
                 <Label htmlFor="unit">Unidade</Label>
-                <Input
-                  id="unit"
-                  placeholder="kg, sacos, unidades..."
-                  value={editingResource ? editingResource.unit : newResource.unit}
-                  onChange={(e) => {
-                    if (editingResource) {
-                      setEditingResource({ ...editingResource, unit: e.target.value })
-                    } else {
-                      setNewResource({ ...newResource, unit: e.target.value })
-                    }
-                  }}
-                />
+                <Select 
+                  value={newResource.unit} 
+                  onValueChange={(value) => setNewResource({...newResource, unit: value})}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="kg">Quilogramas (kg)</SelectItem>
+                    <SelectItem value="g">Gramas (g)</SelectItem>
+                    <SelectItem value="l">Litros (l)</SelectItem>
+                    <SelectItem value="ml">Mililitros (ml)</SelectItem>
+                    <SelectItem value="unidade">Unidade</SelectItem>
+                    <SelectItem value="saco">Saco</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
-
+              
               <div>
-                <Label htmlFor="cost">Custo (Kz)</Label>
+                <Label htmlFor="location">Localização</Label>
                 <Input
-                  id="cost"
-                  type="number"
-                  value={editingResource ? editingResource.cost : newResource.cost}
-                  onChange={(e) => {
-                    const cost = Number.parseFloat(e.target.value)
-                    if (editingResource) {
-                      setEditingResource({ ...editingResource, cost })
-                    } else {
-                      setNewResource({ ...newResource, cost })
-                    }
-                  }}
+                  id="location"
+                  value={newResource.location}
+                  onChange={(e) => setNewResource({...newResource, location: e.target.value})}
+                  placeholder="Ex: Armazém A, Prateleira 2"
                 />
               </div>
-
-              <div>
-                <Label htmlFor="supplier">Fornecedor</Label>
-                <Input
-                  id="supplier"
-                  value={editingResource ? editingResource.supplier : newResource.supplier}
-                  onChange={(e) => {
-                    if (editingResource) {
-                      setEditingResource({ ...editingResource, supplier: e.target.value })
-                    } else {
-                      setNewResource({ ...newResource, supplier: e.target.value })
-                    }
-                  }}
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="purchaseDate">Data de Compra</Label>
-                <Input
-                  id="purchaseDate"
-                  type="date"
-                  value={editingResource ? editingResource.purchaseDate : newResource.purchaseDate}
-                  onChange={(e) => {
-                    if (editingResource) {
-                      setEditingResource({ ...editingResource, purchaseDate: e.target.value })
-                    } else {
-                      setNewResource({ ...newResource, purchaseDate: e.target.value })
-                    }
-                  }}
-                />
-              </div>
-
+              
               <div>
                 <Label htmlFor="expiryDate">Data de Validade (opcional)</Label>
                 <Input
                   id="expiryDate"
                   type="date"
-                  value={editingResource ? editingResource.expiryDate || "" : newResource.expiryDate || ""}
-                  onChange={(e) => {
-                    if (editingResource) {
-                      setEditingResource({ ...editingResource, expiryDate: e.target.value })
-                    } else {
-                      setNewResource({ ...newResource, expiryDate: e.target.value })
-                    }
-                  }}
+                  value={newResource.expiryDate}
+                  onChange={(e) => setNewResource({...newResource, expiryDate: e.target.value})}
                 />
               </div>
             </div>
-
+            
             <div>
-              <Label htmlFor="notes">Notas</Label>
-              <Input
+              <Label htmlFor="notes">Observações</Label>
+              <Textarea
                 id="notes"
-                placeholder="Observações adicionais..."
-                value={editingResource ? editingResource.notes : newResource.notes}
-                onChange={(e) => {
-                  if (editingResource) {
-                    setEditingResource({ ...editingResource, notes: e.target.value })
-                  } else {
-                    setNewResource({ ...newResource, notes: e.target.value })
-                  }
-                }}
+                value={newResource.notes}
+                onChange={(e) => setNewResource({...newResource, notes: e.target.value})}
+                placeholder="Observações adicionais sobre o recurso"
+                rows={3}
               />
             </div>
-
-            <div className="flex space-x-2">
-              <Button onClick={editingResource ? updateResource : addResource}>
-                {editingResource ? "Actualizar" : "Adicionar"} Recurso
-              </Button>
-              <Button variant="outline" onClick={resetForm}>
-                Cancelar
-              </Button>
+            
+            <div className="flex gap-2">
+              <Button onClick={addResource}>Adicionar</Button>
+              <Button variant="outline" onClick={() => setShowAddForm(false)}>Cancelar</Button>
             </div>
           </CardContent>
         </Card>
       )}
 
-      {/* Resources Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="all">Todos</TabsTrigger>
-          <TabsTrigger value="seed">🌱 Sementes</TabsTrigger>
-          <TabsTrigger value="fertilizer">🌿 Fertilizantes</TabsTrigger>
-          <TabsTrigger value="equipment">🚜 Equipamentos</TabsTrigger>
-          <TabsTrigger value="pesticide">🧪 Pesticidas</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value={activeTab} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredResources.map((resource) => (
-              <Card key={resource.id}>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg flex items-center gap-2">
-                      <span className="text-2xl">{resourceTypes[resource.type].icon}</span>
-                      {resource.name}
-                    </CardTitle>
-                    <div className="flex space-x-1">
-                      <Button variant="ghost" size="icon" onClick={() => startEdit(resource)}>
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => deleteResource(resource.id)}>
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                  <CardDescription>{resourceTypes[resource.type].label}</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <Badge className={getStatusColor(resource.status)}>{getStatusLabel(resource.status)}</Badge>
-                    <span className="text-sm font-medium">
-                      {resource.quantity} {resource.unit}
-                    </span>
-                  </div>
-
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Custo:</span>
-                      <span className="font-medium">{resource.cost.toLocaleString()} Kz</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Fornecedor:</span>
-                      <span className="font-medium">{resource.supplier}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Compra:</span>
-                      <span className="font-medium">{new Date(resource.purchaseDate).toLocaleDateString("pt-AO")}</span>
-                    </div>
-                    {resource.expiryDate && (
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Validade:</span>
-                        <span
-                          className={`font-medium ${new Date(resource.expiryDate) < new Date() ? "text-red-600" : ""}`}
-                        >
-                          {new Date(resource.expiryDate).toLocaleDateString("pt-AO")}
+      {/* Resources List */}
+      <div className="grid gap-4">
+        {resources.length === 0 ? (
+          <Card>
+            <CardContent className="text-center py-8">
+              <Package className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+              <p className="text-gray-500">Nenhum recurso registado ainda</p>
+              <p className="text-sm text-gray-400">Comece por adicionar o seu primeiro recurso</p>
+            </CardContent>
+          </Card>
+        ) : (
+          resources.map((resource) => (
+            <Card key={resource.id}>
+              <CardContent className="p-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="outline">{getTypeLabel(resource.type)}</Badge>
+                      <span className="font-semibold">{resource.name}</span>
+                      <Badge className={getStatusColor(resource.status)}>
+                        {getStatusIcon(resource.status)}
+                        <span className="ml-1">
+                          {resource.status === "available" && "Disponível"}
+                          {resource.status === "low" && "Estoque Baixo"}
+                          {resource.status === "expired" && "Expirado"}
+                          {resource.status === "out-of-stock" && "Sem Estoque"}
                         </span>
+                      </Badge>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm text-gray-600">
+                      <div>
+                        <span className="font-medium">Quantidade:</span> {resource.quantity} {resource.unit}
                       </div>
+                      {resource.location && (
+                        <div>
+                          <span className="font-medium">Local:</span> {resource.location}
+                        </div>
+                      )}
+                      {resource.expiryDate && (
+                        <div>
+                          <span className="font-medium">Validade:</span> {new Date(resource.expiryDate).toLocaleDateString('pt-PT')}
+                        </div>
+                      )}
+                    </div>
+                    
+                    {resource.notes && (
+                      <p className="text-sm text-gray-600 mt-2">{resource.notes}</p>
                     )}
                   </div>
-
-                  {resource.notes && <p className="text-sm text-gray-600 bg-gray-50 p-2 rounded">{resource.notes}</p>}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {filteredResources.length === 0 && (
-            <Card>
-              <CardContent className="flex flex-col items-center justify-center h-48 space-y-4">
-                <Package className="h-12 w-12 text-gray-400" />
-                <div className="text-center">
-                  <h3 className="font-medium text-gray-900">Nenhum recurso encontrado</h3>
-                  <p className="text-gray-600">
-                    {activeTab === "all"
-                      ? "Comece por adicionar recursos"
-                      : `Nenhum ${resourceTypes[activeTab as keyof typeof resourceTypes]?.label.toLowerCase()} encontrado`}
-                  </p>
+                  
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setEditingResource(resource)}
+                    >
+                      <Edit className="h-3 w-3" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => deleteResource(resource.id)}
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
+                  </div>
                 </div>
-                <Button onClick={() => setShowAddForm(true)}>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Adicionar Recurso
-                </Button>
               </CardContent>
             </Card>
-          )}
-        </TabsContent>
-      </Tabs>
+          ))
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};
+
+export default ResourceManager;
