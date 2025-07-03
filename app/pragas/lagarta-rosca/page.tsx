@@ -1,244 +1,232 @@
-// app/pragas/lagarta-rosca/page.tsx
-import { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowLeft, Bug, Calendar, MapPin, AlertTriangle } from 'lucide-react'
+"use client";
 
-export const metadata: Metadata = {
-  title: 'Lagarta-rosca - Controle e Prevenção | Digitalzango',
-  description: 'Guia completo sobre lagarta-rosca em Angola: identificação, controle e prevenção de Agrotis ipsilon em culturas.',
-  keywords: 'lagarta-rosca, Agrotis ipsilon, praga solo, corta plantas, Angola, Digitalzango'
-}
+import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { AlertTriangle, ArrowLeft, MapPin, Bug, Leaf, SprayCan } from "lucide-react";
 
 export default function LagartaRoscaPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-6">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-orange-600 to-orange-700 text-white py-12">
+        <div className="container mx-auto px-4">
           <Link 
-            href="/pragas" 
-            className="inline-flex items-center text-green-600 hover:text-green-800 transition-colors"
+            href="/pragas/insetos" 
+            className="inline-flex items-center text-orange-100 hover:text-white mb-4 transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Voltar para Pragas
+            Voltar para Insetos
           </Link>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <div className="flex items-center mb-4">
-            <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
-              <Bug className="w-6 h-6 text-orange-600" />
-            </div>
+          
+          <div className="flex items-center gap-4 mb-4">
+            <span className="text-6xl">🐛</span>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Lagarta-rosca</h1>
-              <p className="text-gray-600 mt-1">Agrotis ipsilon</p>
+              <h1 className="text-4xl font-bold mb-2">Lagarta-rosca</h1>
+              <p className="text-xl text-orange-100 italic">Agrotis spp.</p>
             </div>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-4 mt-6">
-            <div className="flex items-center text-sm text-gray-600">
-              <Calendar className="w-4 h-4 mr-2" />
-              <span>Início das chuvas</span>
-            </div>
-            <div className="flex items-center text-sm text-gray-600">
-              <MapPin className="w-4 h-4 mr-2" />
-              <span>Todas as províncias</span>
-            </div>
-            <div className="flex items-center text-sm text-orange-600">
-              <AlertTriangle className="w-4 h-4 mr-2" />
-              <span>Risco: Médio</span>
-            </div>
-          </div>
+          <Badge variant="destructive" className="bg-orange-800 text-white">
+            <AlertTriangle className="w-4 h-4 mr-1" />
+            Ameaça Média
+          </Badge>
         </div>
+      </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Identificação</h2>
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-medium text-gray-800 mb-2">Características da Lagarta:</h3>
-                <ul className="space-y-1 text-gray-600">
-                  <li>• Lagarta robusta de 35-50mm</li>
-                  <li>• Cor cinza-escura a preta</li>
-                  <li>• Enrola-se quando perturbada</li>
-                  <li>• Ativa durante a noite</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-800 mb-2">Comportamento:</h3>
-                <ul className="space-y-1 text-gray-600">
-                  <li>• Esconde-se no solo durante o dia</li>
-                  <li>• Corta plantas na base do caule</li>
-                  <li>• Alimenta-se à noite</li>
-                  <li>• Migra entre plantas</li>
-                </ul>
-              </div>
-            </div>
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Overview */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Bug className="w-5 h-5 text-orange-600" />
+                  Visão Geral
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  A lagarta-rosca é uma praga polífaga que ataca diversas culturas em Angola, 
+                  sendo especialmente problemática em hortaliças e culturas anuais. As larvas 
+                  cortam as plantas jovens ao nível do solo durante a noite, causando danos 
+                  significativos em plantios recém-estabelecidos.
+                </p>
+                <p className="text-gray-700 leading-relaxed">
+                  Esta praga é particularmente ativa durante os meses mais frescos e húmidos, 
+                  representando uma ameaça média mas constante para a agricultura angolana, 
+                  especialmente em cultivos de sequeiro e horticultura.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Identification */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Leaf className="w-5 h-5 text-green-600" />
+                  Identificação
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-gray-800 mb-2">Características Físicas:</h4>
+                    <ul className="list-disc list-inside text-gray-700 space-y-1">
+                      <li>Adulto: mariposa cinza-acastanhada, 35-40mm de envergadura</li>
+                      <li>Larva: cinza-escura, lisa, até 45mm de comprimento</li>
+                      <li>Comportamento: enrola-se quando perturbada (daí o nome "rosca")</li>
+                      <li>Pupa: marrom, encontrada no solo</li>
+                      <li>Ovos: depositados no solo ou em detritos vegetais</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-gray-800 mb-2">Sinais de Infestação:</h4>
+                    <ul className="list-disc list-inside text-gray-700 space-y-1">
+                      <li>Plantas jovens cortadas ao nível do solo</li>
+                      <li>Folhas com bordas mastigadas</li>
+                      <li>Presença de lagartas no solo durante o dia</li>
+                      <li>Danos noturnos em mudas e plântulas</li>
+                      <li>Falhas no stand de plantas</li>
+                      <li>Excrementos escuros próximos às plantas</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Control Methods */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <SprayCan className="w-5 h-5 text-blue-600" />
+                  Métodos de Controle
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {/* Biological Control */}
+                  <div className="border-l-4 border-green-500 pl-4">
+                    <h4 className="font-semibold text-green-700 mb-2">Controle Biológico</h4>
+                    <ul className="text-gray-700 space-y-1">
+                      <li>• Bacillus thuringiensis (bactéria entomopatogênica)</li>
+                      <li>• Vírus da poliedrose nuclear (NPV)</li>
+                      <li>• Trichogramma spp. (parasitóide de ovos)</li>
+                      <li>• Predadores naturais (carabídeos, aranhas)</li>
+                      <li>• Nematóides entomopatogênicos</li>
+                    </ul>
+                  </div>
+
+                  {/* Cultural Control */}
+                  <div className="border-l-4 border-blue-500 pl-4">
+                    <h4 className="font-semibold text-blue-700 mb-2">Controle Cultural</h4>
+                    <ul className="text-gray-700 space-y-1">
+                      <li>• Preparo do solo para expor pupas</li>
+                      <li>• Eliminação de plantas daninhas hospedeiras</li>
+                      <li>• Irrigação adequada (evitar encharcamento)</li>
+                      <li>• Coleta manual noturna das lagartas</li>
+                      <li>• Rotação com culturas não hospedeiras</li>
+                    </ul>
+                  </div>
+
+                  {/* Chemical Control */}
+                  <div className="border-l-4 border-orange-500 pl-4">
+                    <h4 className="font-semibold text-orange-700 mb-2">Controle Químico</h4>
+                    <ul className="text-gray-700 space-y-1">
+                      <li>• Chlorpyrifos (aplicação no solo)</li>
+                      <li>• Carbaryl (pulverização dirigida)</li>
+                      <li>• Deltamethrin (aplicação noturna)</li>
+                      <li>• Iscas tóxicas (farelo + inseticida)</li>
+                      <li>• Tratamento preventivo do solo</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Danos Causados</h2>
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-medium text-gray-800 mb-2">Danos Típicos:</h3>
-                <ul className="space-y-1 text-gray-600">
-                  <li>• Corte de plantas jovens na base</li>
-                  <li>• Morte de mudas recém-transplantadas</li>
-                  <li>• Falhas no estande da cultura</li>
-                  <li>• Necessidade de replantio</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-800 mb-2">Impacto Econômico:</h3>
-                <ul className="space-y-1 text-gray-600">
-                  <li>• Perdas de 10-50% no estande</li>
-                  <li>• Atraso no desenvolvimento</li>
-                  <li>• Custos de replantio</li>
-                  <li>• Redução da produtividade</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* Quick Facts */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Factos Rápidos</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div>
+                  <span className="font-semibold text-gray-800">Nível de Ameaça:</span>
+                  <Badge variant="secondary" className="ml-2 bg-orange-100 text-orange-800">Médio</Badge>
+                </div>
+                <div>
+                  <span className="font-semibold text-gray-800">Culturas Afetadas:</span>
+                  <p className="text-sm text-gray-600 mt-1">Tomate, repolho, alface, feijão, milho</p>
+                </div>
+                <div>
+                  <span className="font-semibold text-gray-800">Época Crítica:</span>
+                  <p className="text-sm text-gray-600 mt-1">Estação fresca (Maio-Agosto)</p>
+                </div>
+                <div>
+                  <span className="font-semibold text-gray-800">Ciclo de Vida:</span>
+                  <p className="text-sm text-gray-600 mt-1">30-50 dias (dependente da temperatura)</p>
+                </div>
+                <div>
+                  <span className="font-semibold text-gray-800">Atividade:</span>
+                  <p className="text-sm text-gray-600 mt-1">Noturna (esconde-se no solo durante o dia)</p>
+                </div>
+              </CardContent>
+            </Card>
 
-        <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Culturas Mais Afetadas em Angola</h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <h3 className="font-medium text-gray-900 mb-2">Cereais</h3>
-              <ul className="text-sm text-gray-600 space-y-1">
-                <li>• Milho</li>
-                <li>• Sorgo</li>
-                <li>• Arroz</li>
-              </ul>
-            </div>
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <h3 className="font-medium text-gray-900 mb-2">Hortaliças</h3>
-              <ul className="text-sm text-gray-600 space-y-1">
-                <li>• Tomate</li>
-                <li>• Repolho</li>
-                <li>• Alface</li>
-              </ul>
-            </div>
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <h3 className="font-medium text-gray-900 mb-2">Leguminosas</h3>
-              <ul className="text-sm text-gray-600 space-y-1">
-                <li>• Feijão</li>
-                <li>• Soja</li>
-                <li>• Amendoim</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+            {/* Regional Alert */}
+            <Card className="border-orange-200 bg-orange-50">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-orange-800">
+                  <MapPin className="w-5 h-5" />
+                  Alerta Regional - Angola
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-orange-700 leading-relaxed">
+                  <strong>Atenção especial no Planalto Central (Huambo, Bié)</strong> 
+                  durante os meses mais frescos. Lagarta-rosca pode causar perdas 
+                  significativas em hortaliças e culturas de sequeiro.
+                </p>
+              </CardContent>
+            </Card>
 
-        <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Ciclo de Vida</h2>
-          <div className="grid md:grid-cols-4 gap-4">
-            <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-xs font-semibold text-blue-600">1</span>
-              </div>
-              <h4 className="font-medium text-gray-800">Ovo</h4>
-              <p className="text-sm text-gray-600">3-7 dias</p>
-            </div>
-            <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-xs font-semibold text-blue-600">2</span>
-              </div>
-              <h4 className="font-medium text-gray-800">Lagarta</h4>
-              <p className="text-sm text-gray-600">25-40 dias</p>
-            </div>
-            <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-xs font-semibold text-blue-600">3</span>
-              </div>
-              <h4 className="font-medium text-gray-800">Pupa</h4>
-              <p className="text-sm text-gray-600">10-25 dias</p>
-            </div>
-            <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-xs font-semibold text-blue-600">4</span>
-              </div>
-              <h4 className="font-medium text-gray-800">Adulto</h4>
-              <p className="text-sm text-gray-600">10-15 dias</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Métodos de Controle</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="font-medium text-green-700 mb-3">Controle Cultural:</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li>• Preparo adequado do solo</li>
-                <li>• Eliminação de plantas daninhas</li>
-                <li>• Irrigação após o plantio</li>
-                <li>• Rotação de culturas</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-medium text-blue-700 mb-3">Controle Biológico:</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li>• Bacillus thuringiensis</li>
-                <li>• Vírus da poliedrose nuclear</li>
-                <li>• Predadores naturais</li>
-                <li>• Parasitoides</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Recomendações para Angola</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="font-medium text-gray-800 mb-3">Início das Chuvas (Crítico):</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li>• Monitoramento intensivo</li>
-                <li>• Inspeção noturna com lanterna</li>
-                <li>• Controle preventivo</li>
-                <li>• Plantio em época adequada</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-medium text-gray-800 mb-3">Manejo Preventivo:</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li>• Preparo antecipado do solo</li>
-                <li>• Eliminação de hospedeiros</li>
-                <li>• Irrigação adequada</li>
-                <li>• Proteção física de mudas</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Pragas Relacionadas</h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            <Link 
-              href="/pragas/lagarta-do-cartucho" 
-              className="p-4 border border-gray-200 rounded-lg hover:border-green-300 hover:bg-green-50 transition-colors"
-            >
-              <h3 className="font-medium text-gray-900">Lagarta-do-cartucho</h3>
-              <p className="text-sm text-gray-600 mt-1">Spodoptera frugiperda</p>
-            </Link>
-            <Link 
-              href="/pragas/curuquere" 
-              className="p-4 border border-gray-200 rounded-lg hover:border-green-300 hover:bg-green-50 transition-colors"
-            >
-              <h3 className="font-medium text-gray-900">Curuquerê</h3>
-              <p className="text-sm text-gray-600 mt-1">Alabama argillacea</p>
-            </Link>
-            <Link 
-              href="/pragas/insetos" 
-              className="p-4 border border-gray-200 rounded-lg hover:border-green-300 hover:bg-green-50 transition-colors"
-            >
-              <h3 className="font-medium text-gray-900">Outros Insetos</h3>
-              <p className="text-sm text-gray-600 mt-1">Ver categoria completa</p>
-            </Link>
+            {/* Related Links */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Pragas Relacionadas</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <Link 
+                    href="/pragas/lagarta-do-cartucho" 
+                    className="block text-blue-600 hover:text-blue-800 text-sm transition-colors"
+                  >
+                    → Lagarta-do-cartucho (Spodoptera frugiperda)
+                  </Link>
+                  <Link 
+                    href="/pragas/broca-do-cafe" 
+                    className="block text-blue-600 hover:text-blue-800 text-sm transition-colors"
+                  >
+                    → Broca-do-café (Hypothenemus hampei)
+                  </Link>
+                  <Link 
+                    href="/pragas/gafanhoto" 
+                    className="block text-blue-600 hover:text-blue-800 text-sm transition-colors"
+                  >
+                    → Gafanhoto (Locusta spp.)
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
