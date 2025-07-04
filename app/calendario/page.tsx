@@ -1,4 +1,4 @@
-Ôªø'use client';
+'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -37,7 +37,7 @@ function ClientOnly({ children }: { children: React.ReactNode }) {
           <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
             <span className="text-white font-bold text-lg">DZ</span>
           </div>
-          <p>Carregando Calend√°rio Agr√≠cola...</p>
+          <p>Carregando Calend·rio AgrÌcola...</p>
         </div>
       </div>
     );
@@ -48,7 +48,7 @@ function ClientOnly({ children }: { children: React.ReactNode }) {
 
 // Dynamically import the heavy calendar component
 const BigCalendar = dynamic(() => import('react-big-calendar').then(mod => ({ default: mod.Calendar })), {
-  loading: () => <div className="h-96 flex items-center justify-center">Carregando calend√°rio...</div>,
+  loading: () => <div className="h-96 flex items-center justify-center">Carregando calend·rio...</div>,
   ssr: false
 });
 
@@ -73,17 +73,17 @@ const localizer = dateFnsLocalizer({
 const allAngolaProvinces = [
   { id: 'luanda', name: 'Luanda', capital: 'Luanda', climate: 'tropical', avgTemp: 26, humidity: 75, rainfall: 350 },
   { id: 'benguela', name: 'Benguela', capital: 'Benguela', climate: 'tropical', avgTemp: 24, humidity: 70, rainfall: 300 },
-  { id: 'huila', name: 'Hu√≠la', capital: 'Lubango', climate: 'subtropical', avgTemp: 22, humidity: 65, rainfall: 800 },
+  { id: 'huila', name: 'HuÌla', capital: 'Lubango', climate: 'subtropical', avgTemp: 22, humidity: 65, rainfall: 800 },
   { id: 'huambo', name: 'Huambo', capital: 'Huambo', climate: 'subtropical', avgTemp: 20, humidity: 70, rainfall: 1200 },
-  { id: 'bie', name: 'Bi√©', capital: 'Kuito', climate: 'subtropical', avgTemp: 21, humidity: 68, rainfall: 1100 },
-  { id: 'namibe', name: 'Namibe', capital: 'Mo√ß√¢medes', climate: 'arid', avgTemp: 25, humidity: 45, rainfall: 50 },
+  { id: 'bie', name: 'BiÈ', capital: 'Kuito', climate: 'subtropical', avgTemp: 21, humidity: 68, rainfall: 1100 },
+  { id: 'namibe', name: 'Namibe', capital: 'MoÁ‚medes', climate: 'arid', avgTemp: 25, humidity: 45, rainfall: 50 },
   { id: 'cunene', name: 'Cunene', capital: 'Ondjiva', climate: 'semi-arid', avgTemp: 28, humidity: 50, rainfall: 400 },
   { id: 'cuando-cubango', name: 'Cuando Cubango', capital: 'Menongue', climate: 'semi-arid', avgTemp: 25, humidity: 55, rainfall: 600 },
   { id: 'moxico', name: 'Moxico', capital: 'Luena', climate: 'tropical', avgTemp: 24, humidity: 72, rainfall: 1000 },
   { id: 'lunda-norte', name: 'Lunda Norte', capital: 'Dundo', climate: 'tropical', avgTemp: 25, humidity: 78, rainfall: 1300 },
   { id: 'lunda-sul', name: 'Lunda Sul', capital: 'Saurimo', climate: 'tropical', avgTemp: 24, humidity: 76, rainfall: 1250 },
   { id: 'malanje', name: 'Malanje', capital: 'Malanje', climate: 'tropical', avgTemp: 23, humidity: 74, rainfall: 1100 },
-  { id: 'uige', name: 'U√≠ge', capital: 'U√≠ge', climate: 'tropical', avgTemp: 22, humidity: 80, rainfall: 1400 },
+  { id: 'uige', name: 'UÌge', capital: 'UÌge', climate: 'tropical', avgTemp: 22, humidity: 80, rainfall: 1400 },
   { id: 'zaire', name: 'Zaire', capital: 'Mbanza Congo', climate: 'tropical', avgTemp: 25, humidity: 78, rainfall: 1200 },
   { id: 'cabinda', name: 'Cabinda', capital: 'Cabinda', climate: 'tropical', avgTemp: 26, humidity: 82, rainfall: 1300 },
   { id: 'kwanza-norte', name: 'Kwanza Norte', capital: 'Ndalatando', climate: 'tropical', avgTemp: 25, humidity: 76, rainfall: 1000 },
@@ -100,7 +100,7 @@ const enhancedCropDatabase = [
       { season: 'Chuvas', start: 10, end: 12 },
       { season: 'Seca', start: 4, end: 6 }
     ],
-    commonPests: ['lagarta-do-cartucho', 'pulg√£o', 'broca'],
+    commonPests: ['lagarta-do-cartucho', 'pulg„o', 'broca'],
     suitableProvinces: ['luanda', 'benguela', 'huila', 'huambo', 'malanje'],
     marketPrice: 'Kz 180-220/kg',
     growthDuration: 120,
@@ -108,16 +108,16 @@ const enhancedCropDatabase = [
     soilType: ['argiloso', 'franco'],
     expectedYield: '3-5 ton/hectare',
     profitMargin: '40-60%',
-    riskFactors: ['seca', 'pragas', 'pre√ßos vol√°teis']
+    riskFactors: ['seca', 'pragas', 'preÁos vol·teis']
   },
   {
     id: 'feijao',
-    name: 'Feij√£o',
+    name: 'Feij„o',
     plantingSeasons: [
       { season: 'Chuvas', start: 9, end: 11 },
       { season: 'Seca', start: 3, end: 5 }
     ],
-    commonPests: ['mosca-branca', 'pulg√£o'],
+    commonPests: ['mosca-branca', 'pulg„o'],
     suitableProvinces: ['huila', 'huambo', 'bie', 'benguela'],
     marketPrice: 'Kz 350-450/kg',
     growthDuration: 90,
@@ -125,7 +125,7 @@ const enhancedCropDatabase = [
     soilType: ['franco', 'arenoso'],
     expectedYield: '1-2 ton/hectare',
     profitMargin: '50-70%',
-    riskFactors: ['doen√ßas', 'chuva excessiva']
+    riskFactors: ['doenÁas', 'chuva excessiva']
   },
   {
     id: 'mandioca',
@@ -133,7 +133,7 @@ const enhancedCropDatabase = [
     plantingSeasons: [
       { season: 'Todo ano', start: 1, end: 12 }
     ],
-    commonPests: ['cochonilha', '√°caro'],
+    commonPests: ['cochonilha', '·caro'],
     suitableProvinces: ['luanda', 'uige', 'malanje', 'kwanza-norte'],
     marketPrice: 'Kz 80-120/kg',
     growthDuration: 365,
@@ -141,15 +141,15 @@ const enhancedCropDatabase = [
     soilType: ['arenoso', 'franco'],
     expectedYield: '10-15 ton/hectare',
     profitMargin: '30-50%',
-    riskFactors: ['pragas', 'doen√ßas virais']
+    riskFactors: ['pragas', 'doenÁas virais']
   },
   {
     id: 'cafe',
-    name: 'Caf√©',
+    name: 'CafÈ',
     plantingSeasons: [
       { season: 'Chuvas', start: 10, end: 12 }
     ],
-    commonPests: ['broca-do-caf√©', 'ferrugem'],
+    commonPests: ['broca-do-cafÈ', 'ferrugem'],
     suitableProvinces: ['huila', 'kwanza-sul', 'uige'],
     marketPrice: 'Kz 800-1200/kg',
     growthDuration: 1095,
@@ -157,7 +157,7 @@ const enhancedCropDatabase = [
     soilType: ['argiloso', 'franco'],
     expectedYield: '1-2 ton/hectare',
     profitMargin: '60-80%',
-    riskFactors: ['mudan√ßas clim√°ticas', 'pragas', 'mercado internacional']
+    riskFactors: ['mudanÁas clim·ticas', 'pragas', 'mercado internacional']
   },
   {
     id: 'banana',
@@ -165,7 +165,7 @@ const enhancedCropDatabase = [
     plantingSeasons: [
       { season: 'Todo ano', start: 1, end: 12 }
     ],
-    commonPests: ['nemat√≥ides', 'sigatoka'],
+    commonPests: ['nematÛides', 'sigatoka'],
     suitableProvinces: ['benguela', 'kwanza-sul', 'cabinda'],
     marketPrice: 'Kz 200-300/kg',
     growthDuration: 365,
@@ -173,7 +173,7 @@ const enhancedCropDatabase = [
     soilType: ['franco', 'argiloso'],
     expectedYield: '20-30 ton/hectare',
     profitMargin: '50-70%',
-    riskFactors: ['doen√ßas', 'vento forte']
+    riskFactors: ['doenÁas', 'vento forte']
   },
   {
     id: 'batata-doce',
@@ -198,18 +198,18 @@ const enhancedCropDatabase = [
 const affiliateProducts = [
   {
     id: '1',
-    name: 'Kit de Irriga√ß√£o Inteligente',
+    name: 'Kit de IrrigaÁ„o Inteligente',
     description: 'Sistema automatizado com sensores IoT',
     price: 'Kz 85.000',
     rating: 4.8,
-    category: 'Irriga√ß√£o',
+    category: 'IrrigaÁ„o',
     relevantFor: ['milho', 'feijao', 'cafe'],
     commission: 15,
     discount: { percentage: 20, validUntil: '2025-08-31' }
   },
   {
     id: '2',
-    name: 'Fertilizante Org√¢nico Premium',
+    name: 'Fertilizante Org‚nico Premium',
     description: 'Desenvolvido para solos angolanos',
     price: 'Kz 12.500',
     rating: 4.7,
@@ -219,7 +219,7 @@ const affiliateProducts = [
   },
   {
     id: '3',
-    name: 'Sementes H√≠bridas Resistentes',
+    name: 'Sementes HÌbridas Resistentes',
     description: 'Adaptadas ao clima angolano',
     price: 'Kz 18.000',
     rating: 4.9,
@@ -230,8 +230,8 @@ const affiliateProducts = [
   },
   {
     id: '4',
-    name: 'Pulverizador El√©trico Profissional',
-    description: 'Equipamento para aplica√ß√£o de defensivos',
+    name: 'Pulverizador ElÈtrico Profissional',
+    description: 'Equipamento para aplicaÁ„o de defensivos',
     price: 'Kz 35.000',
     rating: 4.6,
     category: 'Equipamentos',
@@ -261,20 +261,20 @@ const EnhancedWeatherDisplay = ({ selectedProvinceData }: { selectedProvinceData
   };
 
   const getWeatherIcon = (climate: string, temp: number) => {
-    if (temp > 35) return 'üå°Ô∏è';
-    if (climate === 'arid') return '‚òÄÔ∏è';
-    if (climate === 'tropical') return 'üå§Ô∏è';
-    return '‚õÖ';
+    if (temp > 35) return '???';
+    if (climate === 'arid') return '??';
+    if (climate === 'tropical') return '???';
+    return '?';
   };
 
   return (
-    <Card className={`border-2 ${getTemperatureColor(selectedProvinceData.avgTemp)} mb-4 shadow-lg`}>
+    <Card className={`border-2 ${getTemperatureColor(selectedProvinceData?.avgTemp)} mb-4 shadow-lg`}>
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-3 text-lg">
-          <span className="text-2xl">{getWeatherIcon(selectedProvinceData.climate, selectedProvinceData.avgTemp)}</span>
+          <span className="text-2xl">{getWeatherIcon(selectedProvinceData?.climate, selectedProvinceData?.avgTemp)}</span>
           <div>
             <div className="font-bold">Clima Atual</div>
-            <div className="text-sm font-normal text-gray-600">{selectedProvinceData.name}</div>
+            <div className="text-sm font-normal text-gray-600">{selectedProvinceData?.name}</div>
           </div>
         </CardTitle>
       </CardHeader>
@@ -282,22 +282,22 @@ const EnhancedWeatherDisplay = ({ selectedProvinceData }: { selectedProvinceData
         <div className="grid grid-cols-3 gap-3 mb-4">
           <div className="text-center bg-white p-3 rounded-lg border">
             <Thermometer className="h-6 w-6 mx-auto mb-1 text-red-500" />
-            <div className="text-2xl font-bold">{selectedProvinceData.avgTemp}¬∞C</div>
+            <div className="text-2xl font-bold">{selectedProvinceData?.avgTemp}∞C</div>
             <div className="text-xs text-gray-600">Temperatura</div>
           </div>
           <div className="text-center bg-white p-3 rounded-lg border">
             <Droplets className="h-6 w-6 mx-auto mb-1 text-blue-500" />
-            <div className="text-2xl font-bold">{selectedProvinceData.humidity}%</div>
+            <div className="text-2xl font-bold">{selectedProvinceData?.humidity}%</div>
             <div className="text-xs text-gray-600">Umidade</div>
           </div>
           <div className="text-center bg-white p-3 rounded-lg border">
             <Cloud className="h-6 w-6 mx-auto mb-1 text-gray-500" />
-            <div className="text-2xl font-bold">{selectedProvinceData.rainfall}</div>
+            <div className="text-2xl font-bold">{selectedProvinceData?.rainfall}</div>
             <div className="text-xs text-gray-600">mm/ano</div>
           </div>
         </div>
         <Badge variant="outline" className="w-full justify-center py-2">
-          Clima {selectedProvinceData.climate}
+          Clima {selectedProvinceData?.climate}
         </Badge>
       </CardContent>
     </Card>
@@ -315,9 +315,9 @@ const WeatherAlerts = ({ weatherData, selectedProvince }: { weatherData: any, se
       alerts.push({
         id: 'heat-stress',
         type: 'critical',
-        title: 'üå°Ô∏è Temperatura Extrema',
-        message: `${weatherData.avgTemp}¬∞C em ${selectedProvince} - Risco para culturas`,
-        actions: ['Aumentar irriga√ß√£o', 'Aplicar sombreamento', 'Monitorar gado'],
+        title: '??? Temperatura Extrema',
+        message: `${weatherData.avgTemp}∞C em ${selectedProvince} - Risco para culturas`,
+        actions: ['Aumentar irrigaÁ„o', 'Aplicar sombreamento', 'Monitorar gado'],
         urgency: 'critical'
       });
     }
@@ -326,9 +326,9 @@ const WeatherAlerts = ({ weatherData, selectedProvince }: { weatherData: any, se
       alerts.push({
         id: 'drought-warning',
         type: 'warning',
-        title: 'üíß Alerta de Seca',
-        message: `Baixa precipita√ß√£o (${weatherData.rainfall}mm/ano) para regi√£o`,
-        actions: ['Implementar irriga√ß√£o', 'Plantar culturas resistentes', 'Conservar √°gua'],
+        title: '?? Alerta de Seca',
+        message: `Baixa precipitaÁ„o (${weatherData.rainfall}mm/ano) para regi„o`,
+        actions: ['Implementar irrigaÁ„o', 'Plantar culturas resistentes', 'Conservar ·gua'],
         urgency: 'high'
       });
     }
@@ -337,9 +337,9 @@ const WeatherAlerts = ({ weatherData, selectedProvince }: { weatherData: any, se
       alerts.push({
         id: 'high-humidity',
         type: 'warning',
-        title: 'üí® Alta Umidade',
-        message: `Umidade de ${weatherData.humidity}% favorece doen√ßas f√∫ngicas`,
-        actions: ['Melhorar ventila√ß√£o', 'Aplicar fungicidas preventivos', 'Monitorar plantas'],
+        title: '?? Alta Umidade',
+        message: `Umidade de ${weatherData.humidity}% favorece doenÁas f˙ngicas`,
+        actions: ['Melhorar ventilaÁ„o', 'Aplicar fungicidas preventivos', 'Monitorar plantas'],
         urgency: 'medium'
       });
     }
@@ -354,7 +354,7 @@ const WeatherAlerts = ({ weatherData, selectedProvince }: { weatherData: any, se
       <CardHeader>
         <CardTitle className="text-orange-800 flex items-center gap-2">
           <AlertTriangle className="h-5 w-5" />
-          Alertas Cr√≠ticos
+          Alertas CrÌticos
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -363,7 +363,7 @@ const WeatherAlerts = ({ weatherData, selectedProvince }: { weatherData: any, se
             <h4 className="font-semibold text-orange-800">{alert.title}</h4>
             <p className="text-sm text-orange-700 mb-2">{alert.message}</p>
             <div className="space-y-1">
-              <p className="text-xs font-medium text-orange-800">A√ß√µes Recomendadas:</p>
+              <p className="text-xs font-medium text-orange-800">AÁıes Recomendadas:</p>
               {alert.actions.map((action: string, index: number) => (
                 <div key={index} className="text-xs text-orange-700 flex items-center gap-1">
                   <span className="w-1 h-1 bg-orange-500 rounded-full"></span>
@@ -421,9 +421,9 @@ const PlantingRecommendations = ({ selectedProvince, currentMonth, weatherData }
 
   const getSuitabilityReason = (crop: any, province: string, weather: any) => {
     if (crop.suitableProvinces.includes(province)) {
-      return `Ideal para ${province}. Condi√ß√µes clim√°ticas favor√°veis.`;
+      return `Ideal para ${province}. CondiÁıes clim·ticas favor·veis.`;
     }
-    return `Poss√≠vel em ${province}, mas requer cuidados especiais.`;
+    return `PossÌvel em ${province}, mas requer cuidados especiais.`;
   };
 
   const calculateHarvestDate = (crop: any, plantingMonth: number) => {
@@ -434,7 +434,7 @@ const PlantingRecommendations = ({ selectedProvince, currentMonth, weatherData }
 
   const assessRiskLevel = (crop: any, weather: any) => {
     if (weather?.avgTemp > 35 && crop.id === 'milho') return 'Alto';
-    if (weather?.rainfall < 300 && crop.waterRequirement === 'high') return 'M√©dio';
+    if (weather?.rainfall < 300 && crop.waterRequirement === 'high') return 'MÈdio';
     return 'Baixo';
   };
 
@@ -443,7 +443,7 @@ const PlantingRecommendations = ({ selectedProvince, currentMonth, weatherData }
       <CardHeader>
         <CardTitle className="text-green-800 flex items-center gap-2">
           <Sprout className="h-5 w-5" />
-          Recomenda√ß√µes de Plantio
+          RecomendaÁıes de Plantio
         </CardTitle>
         <CardDescription className="text-green-700">
           Melhores culturas para plantar agora
@@ -466,7 +466,7 @@ const PlantingRecommendations = ({ selectedProvince, currentMonth, weatherData }
                     <span className="font-medium">Colheita:</span> {rec.expectedHarvest}
                   </div>
                   <div>
-                    <span className="font-medium">Pre√ßo:</span> {rec.marketPrice}
+                    <span className="font-medium">PreÁo:</span> {rec.marketPrice}
                   </div>
                   <div>
                     <span className="font-medium">Rendimento:</span> {rec.expectedYield}
@@ -485,7 +485,7 @@ const PlantingRecommendations = ({ selectedProvince, currentMonth, weatherData }
             ))}
           </div>
         ) : (
-          <p className="text-green-700 text-sm">Nenhuma recomenda√ß√£o dispon√≠vel para este per√≠odo.</p>
+          <p className="text-green-700 text-sm">Nenhuma recomendaÁ„o disponÌvel para este perÌodo.</p>
         )}
       </CardContent>
     </Card>
@@ -506,13 +506,13 @@ const PestEarlyWarning = ({ weatherData, selectedCrops }: { weatherData: any, se
         pest: 'Lagarta-do-cartucho',
         crop: 'Milho',
         riskLevel: 'Alto',
-        peakPeriod: 'Pr√≥ximos 7-14 dias',
+        peakPeriod: 'PrÛximos 7-14 dias',
         preventiveMeasures: [
           'Aplicar Bt (Bacillus thuringiensis)',
           'Monitorar plantas 2x por semana',
-          'Instalar armadilhas com ferom√¥nios'
+          'Instalar armadilhas com feromÙnios'
         ],
-        economicImpact: 'At√© 60% de perdas se n√£o controlado'
+        economicImpact: 'AtÈ 60% de perdas se n„o controlado'
       });
     }
     
@@ -520,16 +520,16 @@ const PestEarlyWarning = ({ weatherData, selectedCrops }: { weatherData: any, se
     if (weatherData?.avgTemp >= 20 && weatherData?.avgTemp <= 30 && weatherData?.humidity >= 70) {
       risks.push({
         id: 'broca-cafe',
-        pest: 'Broca-do-caf√©',
-        crop: 'Caf√©',
-        riskLevel: 'M√©dio',
-        peakPeriod: 'Pr√≥ximos 10-21 dias',
+        pest: 'Broca-do-cafÈ',
+        crop: 'CafÈ',
+        riskLevel: 'MÈdio',
+        peakPeriod: 'PrÛximos 10-21 dias',
         preventiveMeasures: [
-          'Colheita sanit√°ria',
-          'Aplicar armadilhas com ferom√¥nios',
-          'Controle biol√≥gico'
+          'Colheita sanit·ria',
+          'Aplicar armadilhas com feromÙnios',
+          'Controle biolÛgico'
         ],
-        economicImpact: 'At√© 40% de perdas na qualidade'
+        economicImpact: 'AtÈ 40% de perdas na qualidade'
       });
     }
 
@@ -537,16 +537,16 @@ const PestEarlyWarning = ({ weatherData, selectedCrops }: { weatherData: any, se
     if (weatherData?.humidity > 80) {
       risks.push({
         id: 'fungal-diseases',
-        pest: 'Doen√ßas F√∫ngicas',
+        pest: 'DoenÁas F˙ngicas',
         crop: 'Todas as culturas',
-        riskLevel: 'M√©dio',
-        peakPeriod: 'Pr√≥ximos 5-10 dias',
+        riskLevel: 'MÈdio',
+        peakPeriod: 'PrÛximos 5-10 dias',
         preventiveMeasures: [
-          'Melhorar ventila√ß√£o',
+          'Melhorar ventilaÁ„o',
           'Aplicar fungicidas preventivos',
-          'Reduzir irriga√ß√£o foliar'
+          'Reduzir irrigaÁ„o foliar'
         ],
-        economicImpact: 'At√© 30% de perdas na qualidade'
+        economicImpact: 'AtÈ 30% de perdas na qualidade'
       });
     }
     
@@ -574,7 +574,7 @@ const PestEarlyWarning = ({ weatherData, selectedCrops }: { weatherData: any, se
               <strong>Cultura afetada:</strong> {risk.crop}
             </p>
             <p className="text-sm text-red-700 mb-2">
-              <strong>Per√≠odo cr√≠tico:</strong> {risk.peakPeriod}
+              <strong>PerÌodo crÌtico:</strong> {risk.peakPeriod}
             </p>
             <div className="mb-2">
               <p className="text-xs font-medium text-red-800 mb-1">Medidas Preventivas:</p>
@@ -586,7 +586,7 @@ const PestEarlyWarning = ({ weatherData, selectedCrops }: { weatherData: any, se
               ))}
             </div>
             <p className="text-xs text-red-600 font-medium">
-              üí∞ Impacto: {risk.economicImpact}
+              ?? Impacto: {risk.economicImpact}
             </p>
           </div>
         ))}
@@ -608,7 +608,7 @@ const MarketInsights = ({ selectedCrop }: { selectedCrop: string }) => {
       currentPrice: crop.marketPrice,
       trend: Math.random() > 0.5 ? 'up' : 'down',
       change: (Math.random() * 20 - 10).toFixed(1),
-      demand: ['Alto', 'M√©dio', 'Baixo'][Math.floor(Math.random() * 3)],
+      demand: ['Alto', 'MÈdio', 'Baixo'][Math.floor(Math.random() * 3)],
       bestMarkets: ['Luanda', 'Benguela', 'Huambo'].slice(0, Math.floor(Math.random() * 3) + 1),
       profitMargin: crop.profitMargin,
       expectedYield: crop.expectedYield
@@ -622,7 +622,7 @@ const MarketInsights = ({ selectedCrop }: { selectedCrop: string }) => {
       <CardHeader>
         <CardTitle className="text-blue-800 flex items-center gap-2">
           <TrendingUp className="h-5 w-5" />
-          An√°lise de Mercado
+          An·lise de Mercado
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -632,13 +632,13 @@ const MarketInsights = ({ selectedCrop }: { selectedCrop: string }) => {
               <h4 className="font-semibold text-blue-800">{item.crop}</h4>
               <div className="flex items-center gap-1">
                 <span className={`text-sm ${item.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
-                  {item.trend === 'up' ? '‚Üó' : '‚Üò'} {item.change}%
+                  {item.trend === 'up' ? '?' : '?'} {item.change}%
                 </span>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div>
-                <span className="font-medium">Pre√ßo:</span> {item.currentPrice}
+                <span className="font-medium">PreÁo:</span> {item.currentPrice}
               </div>
               <div>
                 <span className="font-medium">Demanda:</span> {item.demand}
@@ -692,7 +692,7 @@ const IrrigationScheduler = ({ selectedCrop, weatherData }: { selectedCrop: stri
       <CardHeader>
         <CardTitle className="text-blue-800 flex items-center gap-2">
           <Droplets className="h-5 w-5" />
-          Programa√ß√£o de Irriga√ß√£o
+          ProgramaÁ„o de IrrigaÁ„o
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -717,7 +717,7 @@ const IrrigationScheduler = ({ selectedCrop, weatherData }: { selectedCrop: stri
                   <span className="text-sm text-blue-600">{item.time}</span>
                 </div>
                 <div className="text-sm text-gray-600">
-                  {item.amount}L/m¬≤ ‚Ä¢ {item.duration}
+                  {item.amount}L/m≤ ï {item.duration}
                 </div>
               </div>
             ))}
@@ -725,7 +725,7 @@ const IrrigationScheduler = ({ selectedCrop, weatherData }: { selectedCrop: stri
             {farmSize && (
               <div className="bg-green-100 p-3 rounded border border-green-300">
                 <p className="text-sm font-medium text-green-800">
-                  üíß Total semanal: {(irrigationSchedule.reduce((sum, item) => sum + item.amount, 0) * parseFloat(farmSize) * 10000 / 1000).toFixed(0)}L
+                  ?? Total semanal: {(irrigationSchedule.reduce((sum, item) => sum + item.amount, 0) * parseFloat(farmSize) * 10000 / 1000).toFixed(0)}L
                 </p>
                 <p className="text-xs text-green-600">
                   Para {farmSize} hectares de {enhancedCropDatabase.find(c => c.id === selectedCrop)?.name}
@@ -799,10 +799,10 @@ const FinancialPlanner = ({ selectedCrop }: { selectedCrop: string }) => {
         {financialData && (
           <div className="space-y-3">
             <div className="bg-white p-3 rounded border border-green-200">
-              <h4 className="font-medium text-green-800 mb-2">Proje√ß√£o Financeira:</h4>
+              <h4 className="font-medium text-green-800 mb-2">ProjeÁ„o Financeira:</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span>Produ√ß√£o Total:</span>
+                  <span>ProduÁ„o Total:</span>
                   <span className="font-medium">{financialData.totalProduction.toFixed(1)} ton</span>
                 </div>
                 <div className="flex justify-between">
@@ -814,7 +814,7 @@ const FinancialPlanner = ({ selectedCrop }: { selectedCrop: string }) => {
                   <span className="font-medium text-red-600">Kz {financialData.estimatedCosts.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between border-t pt-2">
-                  <span className="font-medium">Lucro L√≠quido:</span>
+                  <span className="font-medium">Lucro LÌquido:</span>
                   <span className="font-bold text-green-700">Kz {financialData.netProfit.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
@@ -826,7 +826,7 @@ const FinancialPlanner = ({ selectedCrop }: { selectedCrop: string }) => {
             
             <div className="bg-blue-100 p-3 rounded border border-blue-300">
               <p className="text-sm font-medium text-blue-800">
-                üìà ROI Estimado: {financialData.roi}%
+                ?? ROI Estimado: {financialData.roi}%
               </p>
               <p className="text-xs text-blue-600">
                 Retorno sobre investimento em uma safra
@@ -864,13 +864,13 @@ const SoilHealthMonitor = ({ selectedProvince }: { selectedProvince: string }) =
     const recommendations = [];
     
     if (parseFloat(data.ph) < 6.0) {
-      recommendations.push('Aplicar calc√°rio para corrigir acidez');
+      recommendations.push('Aplicar calc·rio para corrigir acidez');
     } else if (parseFloat(data.ph) > 7.5) {
       recommendations.push('Aplicar enxofre para reduzir alcalinidade');
     }
     
     if (data.nitrogen < 30) {
-      recommendations.push('Aumentar aduba√ß√£o nitrogenada');
+      recommendations.push('Aumentar adubaÁ„o nitrogenada');
     }
     
     if (data.phosphorus < 20) {
@@ -878,7 +878,7 @@ const SoilHealthMonitor = ({ selectedProvince }: { selectedProvince: string }) =
     }
     
     if (parseFloat(data.organicMatter) < 3.0) {
-      recommendations.push('Incorporar mat√©ria org√¢nica (compostagem)');
+      recommendations.push('Incorporar matÈria org‚nica (compostagem)');
     }
 
     return recommendations;
@@ -903,19 +903,19 @@ const SoilHealthMonitor = ({ selectedProvince }: { selectedProvince: string }) =
               </div>
               
               <div className="bg-white p-3 rounded border border-amber-200">
-                <div className="text-xs text-amber-600">Nitrog√™nio (ppm)</div>
+                <div className="text-xs text-amber-600">NitrogÍnio (ppm)</div>
                 <div className="text-lg font-bold text-amber-800">{soilData.nitrogen}</div>
                 <Progress value={soilData.nitrogen} className="h-2 mt-1" />
               </div>
               
               <div className="bg-white p-3 rounded border border-amber-200">
-                <div className="text-xs text-amber-600">F√≥sforo (ppm)</div>
+                <div className="text-xs text-amber-600">FÛsforo (ppm)</div>
                 <div className="text-lg font-bold text-amber-800">{soilData.phosphorus}</div>
                 <Progress value={soilData.phosphorus * 2} className="h-2 mt-1" />
               </div>
               
               <div className="bg-white p-3 rounded border border-amber-200">
-                <div className="text-xs text-amber-600">Pot√°ssio (ppm)</div>
+                <div className="text-xs text-amber-600">Pot·ssio (ppm)</div>
                 <div className="text-lg font-bold text-amber-800">{soilData.potassium}</div>
                 <Progress value={soilData.potassium / 3} className="h-2 mt-1" />
               </div>
@@ -923,7 +923,7 @@ const SoilHealthMonitor = ({ selectedProvince }: { selectedProvince: string }) =
             
             <div className="bg-white p-3 rounded border border-amber-200">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium">Mat√©ria Org√¢nica:</span>
+                <span className="text-sm font-medium">MatÈria Org‚nica:</span>
                 <span className="font-bold text-amber-800">{soilData.organicMatter}%</span>
               </div>
               <div className="flex justify-between items-center">
@@ -933,7 +933,7 @@ const SoilHealthMonitor = ({ selectedProvince }: { selectedProvince: string }) =
             </div>
             
             <div className="bg-green-100 p-3 rounded border border-green-300">
-              <h4 className="font-medium text-green-800 mb-2">üå± Recomenda√ß√µes:</h4>
+              <h4 className="font-medium text-green-800 mb-2">?? RecomendaÁıes:</h4>
               {getSoilRecommendations(soilData).map((rec, index) => (
                 <div key={index} className="text-sm text-green-700 flex items-center gap-1 mb-1">
                   <span className="w-1 h-1 bg-green-500 rounded-full"></span>
@@ -965,18 +965,18 @@ export default function CalendarioPage() {
         start: new Date(2025, 6, 5),
         end: new Date(2025, 6, 5),
         type: 'plantio',
-        description: 'In√≠cio do plantio de milho na √©poca seca',
+        description: 'InÌcio do plantio de milho na Època seca',
         completed: false,
         priority: 'alta'
       },
       {
         id: 'event-2',
-        title: 'Colheita de Feij√£o',
+        title: 'Colheita de Feij„o',
         date: new Date(2025, 6, 15),
         start: new Date(2025, 6, 15),
         end: new Date(2025, 6, 15),
         type: 'colheita',
-        description: 'Colheita prevista para feij√£o plantado em abril',
+        description: 'Colheita prevista para feij„o plantado em abril',
         completed: false,
         priority: 'alta'
       },
@@ -987,7 +987,7 @@ export default function CalendarioPage() {
         start: new Date(2025, 6, 10),
         end: new Date(2025, 6, 10),
         type: 'tratamento',
-        description: 'Aplica√ß√£o preventiva contra pragas',
+        description: 'AplicaÁ„o preventiva contra pragas',
         completed: false,
         priority: 'media'
       }
@@ -1026,8 +1026,8 @@ export default function CalendarioPage() {
     return {
       season: isRainySeason ? 'chuvas' : 'seca',
       description: isRainySeason
-        ? '√âpoca ideal para culturas que necessitam de muita √°gua.'
-        : '√âpoca para culturas resistentes √† seca e irriga√ß√£o.'
+        ? '…poca ideal para culturas que necessitam de muita ·gua.'
+        : '…poca para culturas resistentes ‡ seca e irrigaÁ„o.'
     };
   }, [selectedRegion]);
 
@@ -1042,15 +1042,15 @@ export default function CalendarioPage() {
             </div>
             <div>
               <h1 className="text-4xl font-bold text-green-800">
-                Calend√°rio Agr√≠cola de Angola
+                Calend·rio AgrÌcola de Angola
               </h1>
               <p className="text-sm text-green-600 font-medium">
-                Powered by DigitalZango - Inova√ß√£o Digital para Agricultura
+                Powered by DigitalZango - InovaÁ„o Digital para Agricultura
               </p>
             </div>
           </div>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            Sistema inteligente de planejamento agr√≠cola com dados clim√°ticos para todas as 18 prov√≠ncias de Angola
+            Sistema inteligente de planejamento agrÌcola com dados clim·ticos para todas as 18 provÌncias de Angola
           </p>
         </div>
 
@@ -1060,17 +1060,17 @@ export default function CalendarioPage() {
             <div className="flex items-center gap-3">
               <AlertTriangle className="h-6 w-6 text-red-600" />
               <div>
-                <h3 className="font-bold text-red-800">üö® EMERG√äNCIA CLIM√ÅTICA</h3>
+                <h3 className="font-bold text-red-800">?? EMERG NCIA CLIM¡TICA</h3>
                 <p className="text-red-700">
-                  Temperatura extrema de {selectedProvinceData.avgTemp}¬∞C em {selectedProvinceData.name}. 
+                  Temperatura extrema de {selectedProvinceData?.avgTemp}∞C em {selectedProvinceData?.name}. 
                   Tome medidas imediatas para proteger suas culturas!
                 </p>
                 <div className="mt-2 flex gap-2">
                   <Button size="sm" variant="destructive">
-                    Ver A√ß√µes de Emerg√™ncia
+                    Ver AÁıes de EmergÍncia
                   </Button>
                   <Button size="sm" variant="outline">
-                    Contactar Extens√£o Rural
+                    Contactar Extens„o Rural
                   </Button>
                 </div>
               </div>
@@ -1080,7 +1080,7 @@ export default function CalendarioPage() {
 
         <Tabs defaultValue="calendario" className="w-full">
           <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
-            <TabsTrigger value="calendario"><CalendarIcon className="w-4 h-4 mr-2" />Calend√°rio</TabsTrigger>
+            <TabsTrigger value="calendario"><CalendarIcon className="w-4 h-4 mr-2" />Calend·rio</TabsTrigger>
             <TabsTrigger value="alertas">
               <AlertTriangle className="w-4 h-4 mr-2" />Alertas ({activeAlerts.filter(a => a.isActive).length})
             </TabsTrigger>
@@ -1094,9 +1094,9 @@ export default function CalendarioPage() {
               <div className="lg:col-span-3">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Calend√°rio de Atividades</CardTitle>
+                    <CardTitle>Calend·rio de Atividades</CardTitle>
                     <CardDescription>
-                      Visualize e gerencie suas atividades agr√≠colas.
+                      Visualize e gerencie suas atividades agrÌcolas.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -1108,17 +1108,17 @@ export default function CalendarioPage() {
                         endAccessor="end"
                         culture="pt-BR"
                         messages={{
-                          next: 'Pr√≥ximo',
+                          next: 'PrÛximo',
                           previous: 'Anterior',
                           today: 'Hoje',
-                          month: 'M√™s',
+                          month: 'MÍs',
                           week: 'Semana',
                           day: 'Dia',
                           agenda: 'Agenda',
                           date: 'Data',
                           time: 'Hora',
                           event: 'Evento',
-                          noEventsInRange: 'N√£o h√° eventos neste per√≠odo.',
+                          noEventsInRange: 'N„o h· eventos neste perÌodo.',
                         }}
                       />
                     </div>
@@ -1136,7 +1136,7 @@ export default function CalendarioPage() {
                   <CardHeader>
                     <CardTitle className="text-base flex items-center gap-2">
                       <MapPin className="h-4 w-4" />
-                      Prov√≠ncia Selecionada
+                      ProvÌncia Selecionada
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -1261,17 +1261,17 @@ export default function CalendarioPage() {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div>
-                        <h4 className="font-medium text-sm">√âpocas de Plantio:</h4>
+                        <h4 className="font-medium text-sm">…pocas de Plantio:</h4>
                         <div className="flex flex-wrap gap-1 mt-1">
                           {crop.plantingSeasons.map((s, i) => (
                             <Badge key={i} variant="secondary">
-                              {s.season}: M√™s {s.start}-{s.end}
+                              {s.season}: MÍs {s.start}-{s.end}
                             </Badge>
                           ))}
                         </div>
                       </div>
                       <div>
-                        <h4 className="font-medium text-sm">Pre√ßo de Mercado:</h4>
+                        <h4 className="font-medium text-sm">PreÁo de Mercado:</h4>
                         <div className="text-lg font-bold text-green-600">{crop.marketPrice}</div>
                       </div>
                       <div>
@@ -1293,7 +1293,7 @@ export default function CalendarioPage() {
                         </div>
                       </div>
                       <div>
-                        <h4 className="font-medium text-sm">Prov√≠ncias Adequadas:</h4>
+                        <h4 className="font-medium text-sm">ProvÌncias Adequadas:</h4>
                         <div className="text-xs text-gray-600 mt-1">
                           {crop.suitableProvinces.map(p => 
                             allAngolaProvinces.find(prov => prov.id === p)?.name
@@ -1301,9 +1301,9 @@ export default function CalendarioPage() {
                         </div>
                       </div>
                       <div className="flex justify-between items-center text-xs">
-                        <span>Dura√ß√£o: {crop.growthDuration} dias</span>
+                        <span>DuraÁ„o: {crop.growthDuration} dias</span>
                         <Badge variant={crop.waterRequirement === 'high' ? 'default' : 'secondary'}>
-                          √Ågua: {crop.waterRequirement}
+                          ¡gua: {crop.waterRequirement}
                         </Badge>
                       </div>
                     </CardContent>
@@ -1331,7 +1331,7 @@ export default function CalendarioPage() {
                           <Thermometer className="h-4 w-4 text-red-500" />
                           Temperatura
                         </span>
-                        <span className="font-medium">{province.avgTemp}¬∞C</span>
+                        <span className="font-medium">{province.avgTemp}∞C</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-sm flex items-center gap-1">
@@ -1343,7 +1343,7 @@ export default function CalendarioPage() {
                       <div className="flex justify-between items-center">
                         <span className="text-sm flex items-center gap-1">
                           <Cloud className="h-4 w-4 text-gray-500" />
-                          Precipita√ß√£o
+                          PrecipitaÁ„o
                         </span>
                         <span className="font-medium">{province.rainfall}mm</span>
                       </div>
@@ -1371,7 +1371,7 @@ export default function CalendarioPage() {
                 </p>
                 <div className="mt-4 p-3 bg-green-100 rounded-lg inline-block">
                   <p className="text-sm text-green-800">
-                    üí∞ Total de cliques em produtos: <strong>{affiliateClicks}</strong>
+                    ?? Total de cliques em produtos: <strong>{affiliateClicks}</strong>
                   </p>
                 </div>
               </div>
@@ -1393,7 +1393,7 @@ export default function CalendarioPage() {
                         <div className="flex justify-between items-center">
                           <span className="text-2xl font-bold text-green-600">{product.price}</span>
                           <div className="flex items-center gap-1">
-                            <span className="text-yellow-500">‚òÖ</span>
+                            <span className="text-yellow-500">?</span>
                             <span className="text-sm font-medium">{product.rating}</span>
                           </div>
                         </div>
@@ -1401,8 +1401,8 @@ export default function CalendarioPage() {
                         {product.discount && (
                           <div className="bg-red-100 p-2 rounded border border-red-200">
                             <p className="text-sm text-red-700 font-medium">
-                              üî• Desconto de {product.discount.percentage}% 
-                              at√© {product.discount.validUntil}
+                              ?? Desconto de {product.discount.percentage}% 
+                              atÈ {product.discount.validUntil}
                             </p>
                           </div>
                         )}
@@ -1423,7 +1423,7 @@ export default function CalendarioPage() {
 
                         <div className="flex justify-between items-center pt-2 border-t">
                           <span className="text-sm text-blue-600">
-                            Comiss√£o: {product.commission}%
+                            Comiss„o: {product.commission}%
                           </span>
                           <Button 
                             onClick={() => trackAffiliateClick(product.id)}
@@ -1446,18 +1446,18 @@ export default function CalendarioPage() {
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">DigitalZango</h3>
                   <p className="text-gray-600 mb-4">
-                    Transformando a agricultura angolana atrav√©s da inova√ß√£o digital. 
-                    Conectamos agricultores com tecnologia de ponta e solu√ß√µes pr√°ticas.
+                    Transformando a agricultura angolana atravÈs da inovaÁ„o digital. 
+                    Conectamos agricultores com tecnologia de ponta e soluÁıes pr·ticas.
                   </p>
                   <div className="flex justify-center gap-4">
                     <Button variant="outline" size="sm">
-                      üì± Instagram
+                      ?? Instagram
                     </Button>
                     <Button variant="outline" size="sm">
-                      üì∫ YouTube
+                      ?? YouTube
                     </Button>
                     <Button variant="outline" size="sm">
-                      üìù Blog
+                      ?? Blog
                     </Button>
                   </div>
                 </CardContent>
@@ -1469,9 +1469,9 @@ export default function CalendarioPage() {
         {/* Footer with DigitalZango Branding */}
         <footer className="mt-12 text-center text-gray-500 text-sm">
           <div className="border-t pt-6">
-            <p>¬© 2025 DigitalZango - Calend√°rio Agr√≠cola de Angola</p>
+            <p>© 2025 DigitalZango - Calend·rio AgrÌcola de Angola</p>
             <p className="mt-1">
-              Desenvolvido para agricultores angolanos ‚Ä¢ Dados clim√°ticos das 18 prov√≠ncias
+              Desenvolvido para agricultores angolanos ï Dados clim·ticos das 18 provÌncias
             </p>
           </div>
         </footer>
