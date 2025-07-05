@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { ChevronLeft, ChevronRight, type LucideIcon } from "lucide-react";
-import { DayPicker, type DayPickerSingleProps, type DayProps, type DayContentProps } from "react-day-picker";
-import { pt } from "date-fns/locale";
+import { DayPicker, type DayPickerSingleProps, type DayProps } from "react-day-picker";
+import { pt, type Locale } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -15,6 +15,11 @@ export interface CalendarProps extends DayPickerSingleProps {
   plantingDays?: Date[];
   harvestDays?: Date[];
   locale?: Locale;
+  className?: string;
+  classNames?: any;
+  modifiers?: Record<string, Date[]>;
+  modifiersClassNames?: { [key: string]: string };
+  components?: any;
 }
 
 type DayEvent = {
@@ -60,14 +65,16 @@ export const Calendar: React.FC<CalendarProps> = React.memo(
     };
 
     // Custom DayContent to add screen-reader-only text for events
-    const DayContent = (dayProps: DayContentProps) => {
-      const { date, activeModifiers } = dayProps;
+    const DayContent = (dayProps: DayProps) => {
+      const { day, modifiers: dayModifiers } = dayProps;
+      const date = day.date;
+      
       let eventText = "";
-      if (activeModifiers.irrigation) {
+      if (dayModifiers.irrigation) {
         eventText = "Evento de Irrigação";
-      } else if (activeModifiers.planting) {
+      } else if (dayModifiers.planting) {
         eventText = "Evento de Plantio";
-      } else if (activeModifiers.harvest) {
+      } else if (dayModifiers.harvest) {
         eventText = "Evento de Colheita";
       }
 
@@ -78,7 +85,6 @@ export const Calendar: React.FC<CalendarProps> = React.memo(
         </>
       );
     };
-
 
     return (
       <DayPicker
@@ -97,8 +103,8 @@ export const Calendar: React.FC<CalendarProps> = React.memo(
             buttonVariants({ variant: "outline" }),
             "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
           ),
-          nav_button_previous: "absolute left-1", // ARIA label is added by DayPicker
-          nav_button_next: "absolute right-1", // ARIA label is added by DayPicker
+          nav_button_previous: "absolute left-1",
+          nav_button_next: "absolute right-1",
           table: "w-full border-collapse space-y-1",
           head_row: "flex",
           head_cell:
@@ -126,10 +132,7 @@ export const Calendar: React.FC<CalendarProps> = React.memo(
         components={{
           IconLeft: () => <ChevronLeft className="h-4 w-4" aria-hidden="true" />,
           IconRight: () => <ChevronRight className="h-4 w-4" aria-hidden="true" />,
-          // Use the custom DayContent component
           DayContent,
-          // Add explicit ARIA labels for navigation buttons
-          ...props.components,
           ...props.components,
         }}
         {...props}
@@ -139,3 +142,14 @@ export const Calendar: React.FC<CalendarProps> = React.memo(
 );
 
 Calendar.displayName = "Calendar";
+
+
+
+
+
+
+
+
+
+
+

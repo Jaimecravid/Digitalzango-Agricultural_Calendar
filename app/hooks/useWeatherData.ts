@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { cacheWeatherData, getCachedWeatherData, WeatherData } from '@/utils/cache';
@@ -21,7 +21,7 @@ export const useWeatherData = (location: string) => {
           setIsUsingCache(true);
           setIsLoading(false);
           
-          fetch(/api/weather?location=)
+          fetch(`/api/weather?location=${location}`)
             .then(response => {
               if (response.ok) {
                 return response.json();
@@ -41,10 +41,10 @@ export const useWeatherData = (location: string) => {
           return;
         }
 
-        const response = await fetch(/api/weather?location=);
+        const response = await fetch(`/api/weather?location=${location}`);
         
         if (!response.ok) {
-          throw new Error(Weather API error: );
+          throw new Error(`Weather API error: ${response.status}`);
         }
         
         const data = await response.json();
@@ -55,13 +55,13 @@ export const useWeatherData = (location: string) => {
         
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Unknown weather error';
-        setError(${errorMessage} (using cached data));
+        setError(`${errorMessage} (using cached data)`);
         
         const fallbackData = getCachedWeatherData(location);
         if (fallbackData) {
           setWeatherData(fallbackData);
           setIsUsingCache(true);
-          setError(${errorMessage} (using cached data));
+          setError(`${errorMessage} (using cached data)`);
         }
       } finally {
         setIsLoading(false);
@@ -78,7 +78,7 @@ export const useWeatherData = (location: string) => {
     
     setIsLoading(true);
     try {
-      const response = await fetch(/api/weather?location=);
+      const response = await fetch(`/api/weather?location=${location}`);
       if (!response.ok) {
         throw new Error('Failed to refresh weather data');
       }
@@ -102,3 +102,4 @@ export const useWeatherData = (location: string) => {
     refreshWeatherData 
   };
 };
+

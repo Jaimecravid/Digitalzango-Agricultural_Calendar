@@ -105,7 +105,7 @@ const PROVINCE_CITY_MAP = {
 };
 
 // Enhanced weather icon mapping with animations
-const getWeatherIcon = (condition, size = "md", animated = false) => {
+const getWeatherIcon = (condition: string, size = "md", animated = false) => {
   const sizeClasses = {
     sm: "h-6 w-6",
     md: "h-8 w-8",
@@ -144,7 +144,7 @@ const getWeatherIcon = (condition, size = "md", animated = false) => {
 };
 
 // Dynamic background gradient based on weather condition
-const getWeatherGradient = (condition) => {
+const getWeatherGradient = (condition: string) => {
   const gradients = {
     clear: "from-yellow-400 via-orange-400 to-red-400",
     sunny: "from-yellow-400 via-orange-400 to-red-400",
@@ -165,7 +165,7 @@ const getWeatherGradient = (condition) => {
 };
 
 // Temperature unit conversion
-const convertTemperature = (temp, unit) => {
+const convertTemperature = (temp: number, unit: string) => {
   if (unit === "F") {
     return Math.round((temp * 9/5) + 32);
   }
@@ -247,7 +247,7 @@ const EnhancedWeatherPage = () => {
   }, [currentWeather, forecast, agriculturalAI]);
 
   // Handle province change
-  const handleProvinceChange = useCallback(async (province) => {
+  const handleProvinceChange = useCallback(async (province: string) => {
     setIsLoading(true);
     
     setSelectedProvince(province);
@@ -292,7 +292,7 @@ const EnhancedWeatherPage = () => {
       setFavoriteLocation(null);
       localStorage.removeItem('favoriteWeatherLocation');
     } else {
-      setFavoriteLocation(selectedProvince);
+      setFavoriteLocation(selectedProvince as any);
       localStorage.setItem('favoriteWeatherLocation', selectedProvince);
     }
   }, [favoriteLocation, selectedProvince]);
@@ -301,7 +301,7 @@ const EnhancedWeatherPage = () => {
   useEffect(() => {
     const saved = localStorage.getItem('favoriteWeatherLocation');
     if (saved && PROVINCE_CITY_MAP[saved]) {
-      setFavoriteLocation(saved);
+      setFavoriteLocation(saved as any);
     }
   }, []);
 
@@ -899,3 +899,5 @@ const EnhancedWeatherPage = () => {
 };
 
 export default EnhancedWeatherPage;
+
+

@@ -217,6 +217,7 @@ function FeijaoContent() {
 }
 
 export default function FeijaoPage() {
+  const { t } = useLanguage();
   return (
     
       <RegionProvider>
@@ -227,3 +228,13 @@ export default function FeijaoPage() {
     
   )
 }
+
+
+
+
+
+
+
+
+
+

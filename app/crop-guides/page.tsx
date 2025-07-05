@@ -221,6 +221,18 @@ function CropGuidesContent() {
 }
 
 export default function CropGuidesPage() {
+  const { t } = useLanguage();
   return <CropGuidesContent />
 }
+
+
+
+
+
+
+
+
+
+
+
 
