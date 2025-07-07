@@ -1,0 +1,13 @@
+[build]
+  command = "pnpm install --no-frozen-lockfile && pnpm run build"
+  publish = "out"
+
+[dev]
+  command = "pnpm run dev"
+  port = 3000
+
+[build.environment]
+  NODE_VERSION = "18"
+  NEXT_PUBLIC_OPENWEATHER_API_KEY = "${NEXT_PUBLIC_OPENWEATHER_API_KEY}"
+  OPENWEATHER_API_KEY = "${OPENWEATHER_API_KEY}"
+  NODE_ENV = "production"

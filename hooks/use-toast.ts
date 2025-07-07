@@ -1,11 +1,11 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 
 export interface Toast {
   id: string;
   title?: string;
   description?: string;
   action?: React.ReactNode;
-  variant?: 'default' | 'destructive' | 'success' | 'warning';
+  variant?: 'default' | 'destructive';
   duration?: number;
 }
 
@@ -86,9 +86,9 @@ function dispatch(action: any) {
   });
 }
 
-type Toast = Omit<Toast, 'id'>;
+type ToastProps = Omit<Toast, 'id'>;
 
-function toast({ ...props }: Toast) {
+function toast({ ...props }: ToastProps) {
   const id = genId();
 
   const update = (props: Partial<Toast>) =>
