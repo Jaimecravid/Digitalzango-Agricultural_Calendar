@@ -9,41 +9,68 @@ import { Button } from "@/components/ui/button"
 import { RegionProvider } from "../contexts/region-context"
 import Header from "../components/header"
 
-function HelpCenterContent() {
+function useLanguage() {
+  const translations: { [key: string]: string } = {
+    helpCenter: "Centro de Ajuda",
+    search: "Pesquisar",
+    faq: "Perguntas Frequentes",
+    tutorials: "Tutoriais",
+    contactUs: "Contactar-nos",
+    forum: "Fórum",
+    gettingStarted: "Primeiros Passos",
+    gettingStartedDesc: "Como começar a usar o Calendário Agrícola",
+    tools: "Ferramentas",
+    toolsDesc: "Guias para usar todas as funcionalidades",
+    community: "Comunidade",
+    communityDesc: "Participar na comunidade de agricultores",
+    quickLinks: "Links Rápidos",
+    stillNeedHelp: "Ainda Precisa de Ajuda?",
+    supportTeamReady: "A nossa equipa de suporte está pronta para ajudar",
+    email: "Email",
+    phone: "Telefone",
+    responseTime: "Resposta em até 24 horas",
+    businessHours: "Segunda a Sexta, 8h-17h"
+  }
 
+  const t = (key: string): string => translations[key] || key
+  return { t }
+}
+
+function HelpCenterContent() {
+  const { t } = useLanguage()
 
   const helpCategories = [
     {
-      title: "Primeiros Passos",
-      description: "Como comeÃ§ar a usar o CalendÃ¡rio AgrÃ­cola",
+      title: t("gettingStarted"),
+      description: t("gettingStartedDesc"),
       icon: Book,
       articles: [
         "Como criar a sua primeira conta",
-        "Configurar a sua regiÃ£o",
-        "Entender o calendÃ¡rio agrÃ­cola",
+        "Configurar a sua região",
+        "Entender o calendário agrícola",
         "Adicionar as suas primeiras culturas",
       ],
     },
     {
-      title: "Ferramentas",
-      description: "Guias para usar todas as funcionalidades",
+      title: t("tools"),
+      description: t("toolsDesc"),
       icon: Search,
       articles: [
         "Como usar o planeador de culturas",
-        "Interpretar previsÃµes meteorolÃ³gicas",
-        "Gerir recursos e inventÃ¡rio",
+        "Interpretar previsões meteorológicas",
+        "Gerir recursos e inventário",
         "Configurar alertas de pragas",
       ],
     },
     {
-      title: "Comunidade",
-      description: "Participar na comunidade de agricultores",
+      title: t("community"),
+      description: t("communityDesc"),
       icon: MessageCircle,
       articles: [
         "Juntar-se a grupos locais",
         "Partilhar recursos com outros",
-        "Participar em discussÃµes",
-        "Organizar eventos comunitÃ¡rios",
+        "Participar em discussões",
+        "Organizar eventos comunitários",
       ],
     },
   ]
@@ -57,7 +84,7 @@ function HelpCenterContent() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">{t("helpCenter")}</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Encontre respostas para as suas perguntas e aprenda a usar todas as funcionalidades do CalendÃ¡rio AgrÃ­cola
+            Encontre respostas para as suas perguntas e aprenda a usar todas as funcionalidades do Calendário Agrícola
             para Angola.
           </p>
         </div>
@@ -92,7 +119,7 @@ function HelpCenterContent() {
                         href="#"
                         className="text-sm text-gray-600 hover:text-green-600 transition-colors block py-1"
                       >
-                        â€¢ {article}
+                        • {article}
                       </Link>
                     </li>
                   ))}
@@ -104,22 +131,22 @@ function HelpCenterContent() {
 
         {/* Quick Links */}
         <div className="bg-gray-50 rounded-lg p-8 mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Links RÃ¡pidos</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">{t("quickLinks")}</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Link href="/faq" className="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div className="text-2xl mb-2">â“</div>
+              <div className="text-2xl mb-2">❓</div>
               <div className="text-sm font-medium">{t("faq")}</div>
             </Link>
             <Link href="/tutorials" className="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div className="text-2xl mb-2">ðŸ“¹</div>
+              <div className="text-2xl mb-2">🎹</div>
               <div className="text-sm font-medium">{t("tutorials")}</div>
             </Link>
             <Link href="/contact" className="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div className="text-2xl mb-2">ðŸ“ž</div>
+              <div className="text-2xl mb-2">📞</div>
               <div className="text-sm font-medium">{t("contactUs")}</div>
             </Link>
             <Link href="/forum" className="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow">
-              <div className="text-2xl mb-2">ðŸ’¬</div>
+              <div className="text-2xl mb-2">💬</div>
               <div className="text-sm font-medium">{t("forum")}</div>
             </Link>
           </div>
@@ -128,21 +155,21 @@ function HelpCenterContent() {
         {/* Contact Support */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-center">Ainda Precisa de Ajuda?</CardTitle>
-            <CardDescription className="text-center">A nossa equipa de suporte estÃ¡ pronta para ajudar</CardDescription>
+            <CardTitle className="text-center">{t("stillNeedHelp")}</CardTitle>
+            <CardDescription className="text-center">{t("supportTeamReady")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="text-center">
                 <Mail className="h-8 w-8 text-green-600 mx-auto mb-3" />
-                <h3 className="font-semibold mb-2">Email</h3>
-                <p className="text-gray-600 mb-4">Resposta em atÃ© 24 horas</p>
+                <h3 className="font-semibold mb-2">{t("email")}</h3>
+                <p className="text-gray-600 mb-4">{t("responseTime")}</p>
                 <Button variant="outline">support@calendarioagricola.ao</Button>
               </div>
               <div className="text-center">
                 <Phone className="h-8 w-8 text-green-600 mx-auto mb-3" />
-                <h3 className="font-semibold mb-2">Telefone</h3>
-                <p className="text-gray-600 mb-4">Segunda a Sexta, 8h-17h</p>
+                <h3 className="font-semibold mb-2">{t("phone")}</h3>
+                <p className="text-gray-600 mb-4">{t("businessHours")}</p>
                 <Button variant="outline">+244 923 456 789</Button>
               </div>
             </div>
@@ -154,8 +181,9 @@ function HelpCenterContent() {
 }
 
 export default function HelpPage() {
-  return <RegionProvider>
-        <HelpCenterContent />
-      </RegionProvider>
+  return (
+    <RegionProvider>
+      <HelpCenterContent />
+    </RegionProvider>
+  )
 }
-

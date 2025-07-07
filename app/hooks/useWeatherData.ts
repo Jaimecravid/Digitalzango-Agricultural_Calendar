@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { cacheWeatherData, getCachedWeatherData, WeatherData } from '@/utils/cache';
+import { cacheWeatherData, getCachedWeatherData, WeatherData } from '../../utils/cache';
 
 export const useWeatherData = (location: string) => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);

@@ -1,25 +1,25 @@
 "use client"
-import { Calendar, MapPin, Users, Clock } from "lucide-react"
+
+import { RegionProvider } from "../contexts/region-context"
+import { WeatherProvider } from "../contexts/weather-context"
+import Header from "../components/header"
+import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-
-
-import Header from "../components/header"
+import { Calendar, Clock, MapPin, Users } from "lucide-react"
 
 function EventsContent() {
-  
-
   const upcomingEvents = [
     {
       id: 1,
-      title: "Workshop: TÃ©cnicas Modernas de IrrigaÃ§Ã£o",
+      title: "Workshop: Técnicas Modernas de Irrigação",
       description:
-        "Aprenda sobre sistemas de irrigaÃ§Ã£o eficientes e sustentÃ¡veis para maximizar a produÃ§Ã£o com menos Ã¡gua.",
+        "Aprenda sobre sistemas de irrigação eficientes e sustentáveis para maximizar a produção com menos água.",
       date: "2024-02-15",
       time: "09:00 - 17:00",
-      location: "Centro de FormaÃ§Ã£o AgrÃ­cola, Luanda",
-      organizer: "MinistÃ©rio da Agricultura",
+      location: "Centro de Formação Agrícola, Luanda",
+      organizer: "Ministério da Agricultura",
       attendees: 45,
       maxAttendees: 60,
       type: "Workshop",
@@ -29,11 +29,11 @@ function EventsContent() {
     },
     {
       id: 2,
-      title: "Feira AgrÃ­cola de Benguela 2024",
-      description: "A maior feira agrÃ­cola da regiÃ£o com exposiÃ§Ãµes, demonstraÃ§Ãµes e networking entre agricultores.",
+      title: "Feira Agrícola de Benguela 2024",
+      description: "A maior feira agrícola da região com exposições, demonstrações e networking entre agricultores.",
       date: "2024-02-20",
       time: "08:00 - 18:00",
-      location: "PavilhÃ£o de ExposiÃ§Ãµes, Benguela",
+      location: "Pavilhão de Exposições, Benguela",
       organizer: "Governo Provincial de Benguela",
       attendees: 234,
       maxAttendees: 500,
@@ -44,15 +44,15 @@ function EventsContent() {
     },
     {
       id: 3,
-      title: "SeminÃ¡rio: Controlo BiolÃ³gico de Pragas",
-      description: "MÃ©todos naturais e sustentÃ¡veis para controlar pragas sem prejudicar o meio ambiente.",
+      title: "Seminário: Controlo Biológico de Pragas",
+      description: "Métodos naturais e sustentáveis para controlar pragas sem prejudicar o meio ambiente.",
       date: "2024-02-25",
       time: "14:00 - 16:00",
       location: "Universidade Agostinho Neto, Luanda",
-      organizer: "Faculdade de CiÃªncias AgrÃ¡rias",
+      organizer: "Faculdade de Ciências Agrárias",
       attendees: 28,
       maxAttendees: 40,
-      type: "SeminÃ¡rio",
+      type: "Seminário",
       category: "Sustentabilidade",
       price: "Gratuito",
       featured: false,
@@ -61,11 +61,11 @@ function EventsContent() {
       id: 4,
       title: "Encontro de Cooperativas do Huambo",
       description:
-        "ReuniÃ£o mensal das cooperativas agrÃ­colas da provÃ­ncia para partilha de experiÃªncias e planeamento conjunto.",
+        "Reunião mensal das cooperativas agrícolas da província para partilha de experiências e planeamento conjunto.",
       date: "2024-03-01",
       time: "10:00 - 15:00",
       location: "Casa da Cultura, Huambo",
-      organizer: "FederaÃ§Ã£o de Cooperativas do Huambo",
+      organizer: "Federação de Cooperativas do Huambo",
       attendees: 67,
       maxAttendees: 80,
       type: "Encontro",
@@ -75,11 +75,11 @@ function EventsContent() {
     },
     {
       id: 5,
-      title: "Curso: Agricultura Digital e Apps MÃ³veis",
-      description: "Como usar tecnologia e aplicaÃ§Ãµes mÃ³veis para melhorar a gestÃ£o da sua quinta.",
+      title: "Curso: Agricultura Digital e Apps Móveis",
+      description: "Como usar tecnologia e aplicações móveis para melhorar a gestão da sua quinta.",
       date: "2024-03-05",
       time: "09:00 - 12:00",
-      location: "Centro de InovaÃ§Ã£o, Luanda",
+      location: "Centro de Inovação, Luanda",
       organizer: "TechFarm Angola",
       attendees: 15,
       maxAttendees: 25,
@@ -93,7 +93,7 @@ function EventsContent() {
   const pastEvents = [
     {
       id: 6,
-      title: "Workshop: PreparaÃ§Ã£o de Solo para Ã‰poca Chuvosa",
+      title: "Workshop: Preparação de Solo para Época Chuvosa",
       date: "2024-01-20",
       location: "Malanje",
       attendees: 55,
@@ -101,7 +101,7 @@ function EventsContent() {
     },
     {
       id: 7,
-      title: "ConferÃªncia Nacional de Agricultura SustentÃ¡vel",
+      title: "Conferência Nacional de Agricultura Sustentável",
       date: "2024-01-15",
       location: "Luanda",
       attendees: 320,
@@ -111,7 +111,7 @@ function EventsContent() {
       id: 8,
       title: "Feira de Sementes e Mudas",
       date: "2024-01-10",
-      location: "UÃ­ge",
+      location: "Uíge",
       attendees: 180,
       rating: 4.7,
     },
@@ -121,7 +121,7 @@ function EventsContent() {
     { name: "Todos", count: upcomingEvents.length, active: true },
     { name: "Workshops", count: upcomingEvents.filter((e) => e.type === "Workshop").length, active: false },
     { name: "Feiras", count: upcomingEvents.filter((e) => e.type === "Feira").length, active: false },
-    { name: "SeminÃ¡rios", count: upcomingEvents.filter((e) => e.type === "SeminÃ¡rio").length, active: false },
+    { name: "Seminários", count: upcomingEvents.filter((e) => e.type === "Seminário").length, active: false },
     { name: "Cursos", count: upcomingEvents.filter((e) => e.type === "Curso").length, active: false },
   ]
 
@@ -137,7 +137,7 @@ function EventsContent() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Eventos</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Participe em eventos agrÃ­colas em todo o paÃ­s. Aprenda, conecte-se e cresÃ§a com a comunidade agrÃ­cola
+            Participe em eventos agrícolas em todo o país. Aprenda, conecte-se e cresça com a comunidade agrícola
             angolana.
           </p>
         </div>
@@ -210,7 +210,7 @@ function EventsContent() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Events List */}
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">PrÃ³ximos Eventos</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Próximos Eventos</h2>
             <div className="space-y-6">
               {regularEvents.map((event) => (
                 <Card key={event.id} className="hover:shadow-md transition-shadow">
@@ -299,8 +299,8 @@ function EventsContent() {
                         <span>{event.attendees} participantes</span>
                       </div>
                       <div className="flex items-center gap-1 mt-1">
-                        <span className="text-xs text-gray-500">AvaliaÃ§Ã£o:</span>
-                        <span className="text-xs font-medium text-yellow-600">â­ {event.rating}</span>
+                        <span className="text-xs text-gray-500">Avaliação:</span>
+                        <span className="text-xs font-medium text-yellow-600">⭐ {event.rating}</span>
                       </div>
                     </div>
                   ))}
@@ -311,12 +311,12 @@ function EventsContent() {
             {/* Event Calendar */}
             <Card>
               <CardHeader>
-                <CardTitle>CalendÃ¡rio de Eventos</CardTitle>
+                <CardTitle>Calendário de Eventos</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-center text-gray-500 py-8">
                   <Calendar className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                  <p className="text-sm">CalendÃ¡rio interactivo em breve</p>
+                  <p className="text-sm">Calendário interactivo em breve</p>
                 </div>
               </CardContent>
             </Card>
@@ -328,8 +328,11 @@ function EventsContent() {
 }
 
 export default function EventsPage() {
-  return <RegionProvider>
+  return (
+    <RegionProvider>
+      <WeatherProvider>
         <EventsContent />
-      </RegionProvider>
+      </WeatherProvider>
+    </RegionProvider>
+  )
 }
-

@@ -53,7 +53,7 @@ const getWeatherIcon = (condition?: string) => {
   if (!condition) {
     return <Cloud className="h-10 w-10 text-gray-500" />;
   }
-  const iconMap: { [key: string]: JSX.Element } = {
+  const iconMap: { [key: string]: React.JSX.Element } = {
     clear: <Sun className="h-10 w-10 text-yellow-400" />,
     sunny: <Sun className="h-10 w-10 text-yellow-400" />,
     rain: <CloudRain className="h-10 w-10 text-blue-400" />,

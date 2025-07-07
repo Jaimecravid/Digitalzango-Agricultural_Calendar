@@ -1,11 +1,24 @@
-import { getBlogPosts } from "../../lib/getBlogPosts";
+import { NextRequest, NextResponse } from 'next/server';
+import { getBlogPosts } from "@/lib/getBlogPosts";  // ← Use absolute path
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const posts = getBlogPosts();
-    return Response.json(posts);
+    
+    return NextResponse.json({
+      success: true,
+      posts: posts,
+      total: posts.length
+    });
   } catch (error) {
     console.error('Error fetching blog posts:', error);
-    return Response.json({ error: 'Failed to load posts' }, { status: 500 });
+    
+    return NextResponse.json(
+      { 
+        success: false, 
+        error: 'Failed to load posts' 
+      },
+      { status: 500 }
+    );
   }
 }

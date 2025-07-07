@@ -5,9 +5,55 @@ import { Sprout, Calendar, Droplets, Thermometer, Bug, ArrowLeft } from "lucide-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-
 import { RegionProvider } from "../../contexts/region-context"
 import Header from "../../components/header"
+
+// Translation function for DigitalZango Agricultural Calendar
+function useLanguage() {
+  const translations = {
+    // Navigation
+    information: "Informações",
+    cropGuides: "Guias de Cultivo",
+    
+    // Corn Guide Specific
+    cornGuideTitle: "Guia Completo do Milho",
+    cornGuideSubtitle: "Tudo o que precisa saber para cultivar milho com sucesso em Angola",
+    
+    // General Terms
+    overview: "Visão Geral",
+    plantingCalendar: "Calendário de Plantio",
+    recommendedVarieties: "Variedades Recomendadas",
+    commonPests: "Pragas Comuns",
+    quickFacts: "Factos Rápidos",
+    relatedGuides: "Guias Relacionados",
+    downloadGuide: "Baixar Guia PDF",
+    backToInformation: "Voltar às Informações",
+    
+    // Agricultural Terms
+    daysToHarvest: "Dias até colheita",
+    yieldPerHectare: "Ton/hectare",
+    bestSeason: "Melhor época",
+    waterNeeded: "Água necessária",
+    temperature: "Temperatura",
+    precipitation: "Precipitação",
+    spacing: "Espaçamento",
+    depth: "Profundidade",
+    
+    // Pest Management
+    symptoms: "Sintomas",
+    control: "Controlo",
+    severity: "Severidade",
+    high: "Alta",
+    medium: "Média",
+    low: "Baixa",
+  };
+
+  const t = (key: string): string => {
+    return translations[key as keyof typeof translations] || key;
+  };
+
+  return { t };
+}
 
 function CornGuideContent() {
   const { t } = useLanguage()
@@ -333,10 +379,8 @@ function CornGuideContent() {
 
 export default function CornGuidePage() {
   return (
-    
-      <RegionProvider>
-        <CornGuideContent />
-      </RegionProvider>
-    
+    <RegionProvider>
+      <CornGuideContent />
+    </RegionProvider>
   )
 }

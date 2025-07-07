@@ -1,240 +1,323 @@
 "use client"
 
-
+import Link from "next/link"
+import { Calendar, Droplets, Thermometer, Sun, AlertTriangle, CheckCircle } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Progress } from "@/components/ui/progress"
 import { RegionProvider } from "../../contexts/region-context"
 import { WeatherProvider } from "../../contexts/weather-context"
 import Header from "../../components/header"
 
-import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Calendar, Droplets, Sun, Thermometer } from "lucide-react"
 
-function FeijaoContent() {
+// Use centralized language context
+import { useLanguage } from "../../contexts/language-context";
 
+function BeanGuideContent() {
+  const { t } = useLanguage();
 
+  // Arrays using t() must be defined AFTER the hook call
   const plantingCalendar = [
-    { month: t("october"), activity: t("landPreparation"), icon: "🚜" },
-    { month: t("november"), activity: t("planting"), icon: "🌱" },
-    { month: t("december"), activity: t("germination"), icon: "🌿" },
-    { month: t("january"), activity: t("flowering"), icon: "🌸" },
-    { month: t("february"), activity: t("harvest"), icon: "🫘" },
+    { month: t("pages.guides.bean.months.october"), activity: t("pages.guides.bean.activities.landPreparation"), icon: "🚜" },
+    { month: t("pages.guides.bean.months.november"), activity: t("pages.guides.bean.activities.planting"), icon: "🌱" },
+    { month: t("pages.guides.bean.months.december"), activity: t("pages.guides.bean.activities.germination"), icon: "🌿" },
+    { month: t("pages.guides.bean.months.january"), activity: t("pages.guides.bean.activities.flowering"), icon: "🌸" },
+    { month: t("pages.guides.bean.months.february"), activity: t("pages.guides.bean.activities.podFormation"), icon: "🫛" },
+    { month: t("pages.guides.bean.months.march"), activity: t("pages.guides.bean.activities.harvest"), icon: "🌾" },
+    { month: t("pages.guides.bean.months.april"), activity: t("pages.guides.bean.activities.postHarvest"), icon: "📦" },
+  ];
+
+  const beanVarieties = [
+    {
+      name: t("commonBean"),
+      scientificName: "Phaseolus vulgaris",
+      maturity: "60-90",
+      yield: "800-1200",
+      characteristics: [t("droughtTolerant"), t("highYield")],
+      regions: ["Huambo", "Bié", "Malanje"],
+      color: "bg-green-100 text-green-800"
+    },
+    {
+      name: t("blackBean"),
+      scientificName: "Phaseolus vulgaris (var. nigra)",
+      maturity: "70-95",
+      yield: "900-1400",
+      characteristics: [t("diseaseResistant"), t("marketDemand")],
+      regions: ["Luanda", "Bengo", "Kwanza Norte"],
+      color: "bg-gray-100 text-gray-800"
+    },
+    {
+      name: t("redBean"),
+      scientificName: "Phaseolus vulgaris (var. rubra)",
+      maturity: "65-85",
+      yield: "750-1100",
+      characteristics: [t("droughtTolerant"), t("marketDemand")],
+      regions: ["Huíla", "Cunene", "Namibe"],
+      color: "bg-red-100 text-red-800"
+    },
+    {
+      name: t("whiteBean"),
+      scientificName: "Phaseolus vulgaris (var. alba)",
+      maturity: "75-100",
+      yield: "850-1300",
+      characteristics: [t("highYield"), t("diseaseResistant")],
+      regions: ["Uíge", "Zaire", "Cabinda"],
+      color: "bg-blue-100 text-blue-800"
+    }
+  ]
+
+  const careSteps = [
+    {
+      title: t("soilPreparation"),
+      description: "Prepare o solo com aração profunda e incorporação de matéria orgânica",
+      icon: "🚜",
+      progress: 100,
+      tips: ["Arar 20-25cm de profundidade", "Adicionar composto orgânico", "Nivelar o terreno"]
+    },
+    {
+      title: t("planting"),
+      description: "Plante as sementes com espaçamento adequado e profundidade correta",
+      icon: "🌱",
+      progress: 85,
+      tips: ["Espaçamento: 30x10cm", "Profundidade: 3-4cm", "2-3 sementes por cova"]
+    },
+    {
+      title: t("watering"),
+      description: "Mantenha irrigação regular, especialmente durante floração",
+      icon: "💧",
+      progress: 70,
+      tips: ["Rega 2-3 vezes por semana", "Evitar encharcamento", "Reduzir na colheita"]
+    },
+    {
+      title: t("fertilization"),
+      description: "Aplique fertilizantes conforme análise do solo",
+      icon: "🧪",
+      progress: 60,
+      tips: ["NPK 10-20-20 no plantio", "Ureia aos 30 dias", "Micronutrientes se necessário"]
+    }
+  ]
+
+  const commonIssues = [
+    {
+      type: t("commonPests"),
+      name: "Pulgão",
+      symptoms: "Folhas amareladas e enroladas",
+      treatment: "Pulverização com sabão neutro ou inseticida natural",
+      prevention: "Rotação de culturas e controlo biológico"
+    },
+    {
+      type: t("commonDiseases"),
+      name: "Antracnose",
+      symptoms: "Manchas escuras nas vagens e folhas",
+      treatment: "Fungicida à base de cobre",
+      prevention: "Sementes tratadas e espaçamento adequado"
+    },
+    {
+      type: t("commonPests"),
+      name: "Lagarta-das-vagens",
+      symptoms: "Furos nas vagens e grãos danificados",
+      treatment: "Inseticida biológico ou químico",
+      prevention: "Monitorização regular e armadilhas"
+    }
   ]
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
 
-      {/* Breadcrumb */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center space-x-2 text-sm">
-            <Link href="/" className="text-gray-500 hover:text-green-600">
-              {t("home")}
-            </Link>
-            <span className="text-gray-400">/</span>
-            <Link href="/crop-guides" className="text-gray-500 hover:text-green-600">
-              {t("cropGuides")}
-            </Link>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-900">{t("beanGuide")}</span>
-          </nav>
-        </div>
-      </div>
-
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-green-600 to-green-700 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center mb-4">
-            <Link href="/crop-guides" className="mr-4 p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors">
-              <ArrowLeft className="h-5 w-5" />
-            </Link>
-            <div>
-              <div className="flex items-center mb-2">
-                <span className="text-4xl mr-4">🫘</span>
-                <Badge className="bg-green-800 text-white">{t("intermediate")}</Badge>
-              </div>
-              <h1 className="text-3xl font-bold mb-2">{t("beanGuide")}</h1>
-              <p className="text-green-100">Phaseolus vulgaris</p>
-            </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="text-6xl">🫛</span>
+            <h1 className="text-4xl font-bold text-gray-900">{t("beanGuideTitle")}</h1>
+          </div>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            {t("beanGuideSubtitle")}
+          </p>
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <Badge className="bg-green-100 text-green-800">Cultura Principal</Badge>
+            <Badge className="bg-blue-100 text-blue-800">60-100 dias</Badge>
+            <Badge className="bg-yellow-100 text-yellow-800">Época das Chuvas</Badge>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Overview */}
-            <Card>
-              <CardHeader>
-                <CardTitle>{t("overview")}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-700 mb-4">{t("beanOverview")}</p>
-                <p className="text-gray-700">{t("beanNutrition")}</p>
-              </CardContent>
-            </Card>
+        {/* Quick Actions */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <Button className="bg-green-600 hover:bg-green-700">
+            {t("downloadGuide")}
+          </Button>
+          <Button variant="outline">
+            {t("shareGuide")}
+          </Button>
+          <Button variant="outline">
+            {t("askQuestion")}
+          </Button>
+        </div>
 
-            {/* Planting Calendar */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Calendar className="h-5 w-5 text-green-600 mr-2" />
-                  {t("plantingCalendar")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {plantingCalendar.map((item, index) => (
-                    <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg">
-                      <span className="text-2xl mr-4">{item.icon}</span>
-                      <div>
-                        <div className="font-semibold text-gray-900">{item.month}</div>
-                        <div className="text-gray-600 text-sm">{item.activity}</div>
-                      </div>
+        {/* Planting Calendar */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">{t("plantingCalendar")}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
+            {plantingCalendar.map((item, index) => (
+              <Card key={index} className="text-center hover:shadow-md transition-shadow">
+                <CardContent className="p-4">
+                  <div className="text-3xl mb-2">{item.icon}</div>
+                  <h3 className="font-semibold text-gray-900 mb-1">{item.month}</h3>
+                  <p className="text-sm text-gray-600">{item.activity}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Bean Varieties */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">{t("varietiesTitle")}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {beanVarieties.map((variety, index) => (
+              <Card key={index} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-xl">{variety.name}</CardTitle>
+                    <Badge className={variety.color}>{variety.regions[0]}</Badge>
+                  </div>
+                  <CardDescription className="italic">{variety.scientificName}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-green-600">{variety.maturity}</div>
+                      <div className="text-sm text-gray-600">{t("maturityDays")}</div>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Growing Conditions */}
-            <Card>
-              <CardHeader>
-                <CardTitle>{t("growingConditions")}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center">
-                      <Thermometer className="h-5 w-5 text-red-500 mr-3" />
-                      <div>
-                        <div className="font-semibold">{t("temperature")}</div>
-                        <div className="text-gray-600 text-sm">18-25°C</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center">
-                      <Droplets className="h-5 w-5 text-blue-500 mr-3" />
-                      <div>
-                        <div className="font-semibold">{t("rainfall")}</div>
-                        <div className="text-gray-600 text-sm">400-600mm</div>
-                      </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-blue-600">{variety.yield}</div>
+                      <div className="text-sm text-gray-600">{t("yieldPerHectare")}</div>
                     </div>
                   </div>
-                  <div className="space-y-4">
-                    <div className="flex items-center">
-                      <Sun className="h-5 w-5 text-yellow-500 mr-3" />
-                      <div>
-                        <div className="font-semibold">{t("sunlight")}</div>
-                        <div className="text-gray-600 text-sm">{t("fullSun")}</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="text-brown-600 mr-3">🌱</span>
-                      <div>
-                        <div className="font-semibold">{t("soilType")}</div>
-                        <div className="text-gray-600 text-sm">{t("wellDrainedSoil")}</div>
-                      </div>
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-gray-900">Características:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {variety.characteristics.map((char, charIndex) => (
+                        <Badge key={charIndex} variant="outline" className="text-xs">
+                          {char}
+                        </Badge>
+                      ))}
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                  <div className="mt-4">
+                    <h4 className="font-semibold text-gray-900 mb-2">{t("bestRegions")}:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {variety.regions.map((region, regionIndex) => (
+                        <Badge key={regionIndex} className="bg-gray-100 text-gray-800 text-xs">
+                          {region}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
+        </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Quick Facts */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">{t("quickFacts")}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-600">{t("difficulty")}:</span>
-                  <Badge className="bg-yellow-100 text-yellow-800">{t("intermediate")}</Badge>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-600">{t("duration")}:</span>
-                  <span className="text-sm font-medium">60-90 {t("days")}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-600">{t("yield")}:</span>
-                  <span className="text-sm font-medium">1-2 ton/ha</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-600">{t("spacing")}:</span>
-                  <span className="text-sm font-medium">30x10 cm</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Common Varieties */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">{t("commonVarieties")}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <div className="font-semibold text-gray-900">Carioca</div>
-                  <div className="text-gray-600 text-sm">{t("cariocaDescription")}</div>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <div className="font-semibold text-gray-900">Preto</div>
-                  <div className="text-gray-600 text-sm">{t("pretoDescription")}</div>
-                </div>
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <div className="font-semibold text-gray-900">Fradinho</div>
-                  <div className="text-gray-600 text-sm">{t("fradinhoDescription")}</div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Related Links */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">{t("relatedLinks")}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Link href="/guias/milho" className="block text-green-600 hover:text-green-700 text-sm">
-                  🌽 {t("cornGuide")}
-                </Link>
-                <Link href="/pragas/pulgao" className="block text-green-600 hover:text-green-700 text-sm">
-                  🐛 {t("aphids")}
-                </Link>
-                <Link href="/recursos" className="block text-green-600 hover:text-green-700 text-sm">
-                  🌱 {t("resources")}
-                </Link>
-              </CardContent>
-            </Card>
+        {/* Care and Maintenance */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">{t("careAndMaintenance")}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {careSteps.map((step, index) => (
+              <Card key={index} className="hover:shadow-md transition-shadow">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">{step.icon}</span>
+                    <CardTitle className="text-lg">{step.title}</CardTitle>
+                  </div>
+                  <CardDescription>{step.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="mb-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm text-gray-600">Progresso da Época</span>
+                      <span className="text-sm font-medium">{step.progress}%</span>
+                    </div>
+                    <Progress value={step.progress} className="h-2" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Dicas:</h4>
+                    <ul className="space-y-1">
+                      {step.tips.map((tip, tipIndex) => (
+                        <li key={tipIndex} className="text-sm text-gray-600 flex items-start gap-2">
+                          <CheckCircle className="h-3 w-3 text-green-600 mt-0.5 flex-shrink-0" />
+                          {tip}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
+        </div>
+
+        {/* Common Issues */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">{t("pestManagement")}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {commonIssues.map((issue, index) => (
+              <Card key={index} className="hover:shadow-md transition-shadow">
+                <CardHeader>
+                  <div className="flex items-center gap-2">
+                    <AlertTriangle className="h-5 w-5 text-orange-600" />
+                    <CardTitle className="text-lg">{issue.name}</CardTitle>
+                  </div>
+                  <Badge className={issue.type === t("commonPests") ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"}>
+                    {issue.type}
+                  </Badge>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-1">Sintomas:</h4>
+                    <p className="text-sm text-gray-600">{issue.symptoms}</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-1">{t("treatment")}:</h4>
+                    <p className="text-sm text-gray-600">{issue.treatment}</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-1">{t("prevention")}:</h4>
+                    <p className="text-sm text-gray-600">{issue.prevention}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div className="text-center">
+          <Link href="/crop-guides">
+            <Button variant="outline" className="mr-4">
+              {t("backToGuides")}
+            </Button>
+          </Link>
+          <Link href="/guias/milho">
+            <Button className="bg-green-600 hover:bg-green-700">
+              Próximo: Guia do Milho
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
   )
 }
 
-export default function FeijaoPage() {
-  const { t } = useLanguage();
+export default function BeanGuidePage() {
   return (
-    
-      <RegionProvider>
-        <WeatherProvider>
-          <FeijaoContent />
-        </WeatherProvider>
-      </RegionProvider>
-    
+    <RegionProvider>
+      <WeatherProvider>
+        <BeanGuideContent />
+      </WeatherProvider>
+    </RegionProvider>
   )
 }
-
-
-
-
-
-
-
-
-
-

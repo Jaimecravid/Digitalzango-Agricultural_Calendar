@@ -7,109 +7,155 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
 import { RegionProvider } from "../contexts/region-context"
 import Header from "../components/header"
 
-function ForumContent() {
+// Translation function for DigitalZango Agricultural Calendar
+function useLanguage() {
+  const translations = {
+    // Forum Page Translations
+    forum: "Fórum Agrícola",
+    forumSubtitle: "Conecte-se com outros agricultores angolanos. Partilhe experiências, faça perguntas e aprenda com a comunidade.",
+    
+    // Navigation & Actions
+    searchPlaceholder: "Pesquisar tópicos...",
+    newTopic: "Novo Tópico",
+    
+    // Categories
+    forumCategories: "Categorias do Fórum",
+    recentTopics: "Tópicos Recentes",
+    
+    // Stats
+    forumStats: "Estatísticas do Fórum",
+    activeMembers: "Membros Activos",
+    topics: "Tópicos",
+    posts: "Posts",
+    
+    // Users
+    activeUsers: "Utilizadores Mais Activos",
+    thisWeek: "Esta semana",
+    
+    // Rules
+    forumRules: "Regras do Fórum",
+    
+    // Time
+    minutesAgo: "min atrás",
+    hoursAgo: "horas atrás",
+    daysAgo: "dias atrás",
+    
+    // Actions
+    replies: "respostas",
+    views: "visualizações",
+    lastActivity: "Última actividade",
+    hot: "Quente",
+  };
 
+  const t = (key: string): string => {
+    return translations[key as keyof typeof translations] || key;
+  };
+
+  return { t };
+}
+
+function ForumContent() {
+  const { t } = useLanguage();
 
   const forumCategories = [
     {
       id: 1,
       name: "Culturas e Plantio",
-      description: "DiscussÃµes sobre diferentes culturas e tÃ©cnicas de plantio",
-      icon: "ðŸŒ±",
+      description: "Discussões sobre diferentes culturas e técnicas de plantio",
+      icon: "🌱",
       topics: 156,
       posts: 1243,
-      lastActivity: "2 horas atrÃ¡s",
+      lastActivity: "2 horas atrás",
     },
     {
       id: 2,
       name: "Meteorologia e Clima",
-      description: "PrevisÃµes do tempo e impacto climÃ¡tico na agricultura",
-      icon: "ðŸŒ¤ï¸",
+      description: "Previsões do tempo e impacto climático na agricultura",
+      icon: "🌤️",
       topics: 89,
       posts: 567,
-      lastActivity: "4 horas atrÃ¡s",
+      lastActivity: "4 horas atrás",
     },
     {
       id: 3,
-      name: "Pragas e DoenÃ§as",
-      description: "IdentificaÃ§Ã£o e controlo de pragas e doenÃ§as",
-      icon: "ðŸ›",
+      name: "Pragas e Doenças",
+      description: "Identificação e controlo de pragas e doenças",
+      icon: "🐛",
       topics: 134,
       posts: 892,
-      lastActivity: "1 hora atrÃ¡s",
+      lastActivity: "1 hora atrás",
     },
     {
       id: 4,
       name: "Equipamentos e Tecnologia",
-      description: "Ferramentas, mÃ¡quinas e tecnologias agrÃ­colas",
-      icon: "ðŸšœ",
+      description: "Ferramentas, máquinas e tecnologias agrícolas",
+      icon: "🚜",
       topics: 67,
       posts: 345,
-      lastActivity: "6 horas atrÃ¡s",
+      lastActivity: "6 horas atrás",
     },
     {
       id: 5,
       name: "Mercado e Vendas",
-      description: "PreÃ§os, mercados e estratÃ©gias de venda",
-      icon: "ðŸ’°",
+      description: "Preços, mercados e estratégias de venda",
+      icon: "💰",
       topics: 78,
       posts: 456,
-      lastActivity: "3 horas atrÃ¡s",
+      lastActivity: "3 horas atrás",
     },
     {
       id: 6,
       name: "Cooperativas",
-      description: "FormaÃ§Ã£o e gestÃ£o de cooperativas agrÃ­colas",
-      icon: "ðŸ‘¥",
+      description: "Formação e gestão de cooperativas agrícolas",
+      icon: "👥",
       topics: 45,
       posts: 234,
-      lastActivity: "5 horas atrÃ¡s",
+      lastActivity: "5 horas atrás",
     },
   ]
 
   const recentTopics = [
     {
       id: 1,
-      title: "Melhor Ã©poca para plantar milho em Luanda?",
-      author: "JoÃ£o Silva",
+      title: "Melhor época para plantar milho em Luanda?",
+      author: "João Silva",
       category: "Culturas e Plantio",
       replies: 12,
       views: 156,
-      lastReply: "30 min atrÃ¡s",
+      lastReply: "30 min atrás",
       isHot: true,
     },
     {
       id: 2,
       title: "Como controlar a lagarta-do-cartucho naturalmente",
       author: "Maria Santos",
-      category: "Pragas e DoenÃ§as",
+      category: "Pragas e Doenças",
       replies: 8,
       views: 89,
-      lastReply: "1 hora atrÃ¡s",
+      lastReply: "1 hora atrás",
       isHot: false,
     },
     {
       id: 3,
-      title: "PreÃ§os do feijÃ£o no mercado de Benguela",
-      author: "AntÃ³nio Costa",
+      title: "Preços do feijão no mercado de Benguela",
+      author: "António Costa",
       category: "Mercado e Vendas",
       replies: 15,
       views: 234,
-      lastReply: "2 horas atrÃ¡s",
+      lastReply: "2 horas atrás",
       isHot: true,
     },
     {
       id: 4,
-      title: "IrrigaÃ§Ã£o por gotejamento: vale a pena?",
+      title: "Irrigação por gotejamento: vale a pena?",
       author: "Ana Ferreira",
       category: "Equipamentos e Tecnologia",
       replies: 6,
       views: 67,
-      lastReply: "3 horas atrÃ¡s",
+      lastReply: "3 horas atrás",
       isHot: false,
     },
     {
@@ -119,15 +165,15 @@ function ForumContent() {
       category: "Cooperativas",
       replies: 9,
       views: 123,
-      lastReply: "4 horas atrÃ¡s",
+      lastReply: "4 horas atrás",
       isHot: false,
     },
   ]
 
   const activeUsers = [
-    { name: "JoÃ£o Silva", posts: 234, avatar: "/placeholder.svg?height=40&width=40" },
+    { name: "João Silva", posts: 234, avatar: "/placeholder.svg?height=40&width=40" },
     { name: "Maria Santos", posts: 189, avatar: "/placeholder.svg?height=40&width=40" },
-    { name: "AntÃ³nio Costa", posts: 156, avatar: "/placeholder.svg?height=40&width=40" },
+    { name: "António Costa", posts: 156, avatar: "/placeholder.svg?height=40&width=40" },
     { name: "Ana Ferreira", posts: 134, avatar: "/placeholder.svg?height=40&width=40" },
     { name: "Carlos Mendes", posts: 98, avatar: "/placeholder.svg?height=40&width=40" },
   ]
@@ -141,7 +187,7 @@ function ForumContent() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">{t("forum")}</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Conecte-se com outros agricultores angolanos. Partilhe experiÃªncias, faÃ§a perguntas e aprenda com a
+            Conecte-se com outros agricultores angolanos. Partilhe experiências, faça perguntas e aprenda com a
             comunidade.
           </p>
         </div>
@@ -150,11 +196,11 @@ function ForumContent() {
         <div className="flex flex-col md:flex-row gap-4 mb-8">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-            <Input placeholder="Pesquisar tÃ³picos..." className="pl-10" />
+            <Input placeholder={t("searchPlaceholder")} className="pl-10" />
           </div>
           <Button className="bg-green-600 hover:bg-green-700">
             <Plus className="h-4 w-4 mr-2" />
-            Novo TÃ³pico
+            {t("newTopic")}
           </Button>
         </div>
 
@@ -163,7 +209,7 @@ function ForumContent() {
           <div className="lg:col-span-2 space-y-8">
             {/* Forum Categories */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Categorias do FÃ³rum</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t("forumCategories")}</h2>
               <div className="space-y-4">
                 {forumCategories.map((category) => (
                   <Card key={category.id} className="hover:shadow-md transition-shadow">
@@ -179,9 +225,9 @@ function ForumContent() {
                             </h3>
                             <p className="text-gray-600 text-sm mb-2">{category.description}</p>
                             <div className="flex items-center gap-4 text-xs text-gray-500">
-                              <span>{category.topics} tÃ³picos</span>
-                              <span>{category.posts} posts</span>
-                              <span>Ãšltima actividade: {category.lastActivity}</span>
+                              <span>{category.topics} {t("topics").toLowerCase()}</span>
+                              <span>{category.posts} {t("posts").toLowerCase()}</span>
+                              <span>{t("lastActivity")}: {category.lastActivity}</span>
                             </div>
                           </div>
                         </div>
@@ -204,7 +250,7 @@ function ForumContent() {
 
             {/* Recent Topics */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">TÃ³picos Recentes</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t("recentTopics")}</h2>
               <div className="space-y-4">
                 {recentTopics.map((topic) => (
                   <Card key={topic.id} className="hover:shadow-md transition-shadow">
@@ -217,7 +263,7 @@ function ForumContent() {
                                 {topic.title}
                               </Link>
                             </h3>
-                            {topic.isHot && <Badge className="bg-red-100 text-red-800 text-xs">ðŸ”¥ Quente</Badge>}
+                            {topic.isHot && <Badge className="bg-red-100 text-red-800 text-xs">🔥 {t("hot")}</Badge>}
                           </div>
                           <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
                             <span>Por {topic.author}</span>
@@ -228,11 +274,11 @@ function ForumContent() {
                           <div className="flex items-center gap-4 text-xs text-gray-500">
                             <div className="flex items-center gap-1">
                               <MessageSquare className="h-3 w-3" />
-                              {topic.replies} respostas
+                              {topic.replies} {t("replies")}
                             </div>
                             <div className="flex items-center gap-1">
                               <Eye className="h-3 w-3" />
-                              {topic.views} visualizaÃ§Ãµes
+                              {topic.views} {t("views")}
                             </div>
                             <div className="flex items-center gap-1">
                               <Clock className="h-3 w-3" />
@@ -253,20 +299,20 @@ function ForumContent() {
             {/* Forum Stats */}
             <Card>
               <CardHeader>
-                <CardTitle>EstatÃ­sticas do FÃ³rum</CardTitle>
+                <CardTitle>{t("forumStats")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-green-600">1,247</div>
-                  <div className="text-sm text-gray-600">Membros Activos</div>
+                  <div className="text-sm text-gray-600">{t("activeMembers")}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-blue-600">569</div>
-                  <div className="text-sm text-gray-600">TÃ³picos</div>
+                  <div className="text-sm text-gray-600">{t("topics")}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-purple-600">3,737</div>
-                  <div className="text-sm text-gray-600">Posts</div>
+                  <div className="text-sm text-gray-600">{t("posts")}</div>
                 </div>
               </CardContent>
             </Card>
@@ -274,8 +320,8 @@ function ForumContent() {
             {/* Active Users */}
             <Card>
               <CardHeader>
-                <CardTitle>Utilizadores Mais Activos</CardTitle>
-                <CardDescription>Esta semana</CardDescription>
+                <CardTitle>{t("activeUsers")}</CardTitle>
+                <CardDescription>{t("thisWeek")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -294,7 +340,7 @@ function ForumContent() {
                         <span className="text-sm font-medium">{user.name}</span>
                       </div>
                       <Badge variant="secondary" className="text-xs">
-                        {user.posts} posts
+                        {user.posts} {t("posts").toLowerCase()}
                       </Badge>
                     </div>
                   ))}
@@ -305,15 +351,15 @@ function ForumContent() {
             {/* Forum Rules */}
             <Card>
               <CardHeader>
-                <CardTitle>Regras do FÃ³rum</CardTitle>
+                <CardTitle>{t("forumRules")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="text-sm text-gray-600 space-y-2">
-                  <li>â€¢ Seja respeitoso com outros membros</li>
-                  <li>â€¢ Mantenha as discussÃµes relevantes</li>
-                  <li>â€¢ NÃ£o faÃ§a spam ou publicidade</li>
-                  <li>â€¢ Use linguagem apropriada</li>
-                  <li>â€¢ Partilhe conhecimento Ãºtil</li>
+                  <li>• Seja respeitoso com outros membros</li>
+                  <li>• Mantenha as discussões relevantes</li>
+                  <li>• Não faça spam ou publicidade</li>
+                  <li>• Use linguagem apropriada</li>
+                  <li>• Partilhe conhecimento útil</li>
                 </ul>
               </CardContent>
             </Card>
@@ -325,8 +371,9 @@ function ForumContent() {
 }
 
 export default function ForumPage() {
-  return <RegionProvider>
-        <ForumContent />
-      </RegionProvider>
+  return (
+    <RegionProvider>
+      <ForumContent />
+    </RegionProvider>
+  )
 }
-

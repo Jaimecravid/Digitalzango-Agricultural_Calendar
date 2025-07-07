@@ -1,23 +1,67 @@
 "use client"
 
-
 import { RegionProvider } from "../contexts/region-context"
 import { WeatherProvider } from "../contexts/weather-context"
 import Header from "../components/header"
-
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Clock, TrendingUp } from "lucide-react"
 
-function CropGuidesContent() {
+// Simple translation hook for DigitalZango Agricultural Calendar
+function useLanguage() {
+  const translations = {
+    cornGuide: "Guia do Milho",
+    cornDescription: "Aprenda a cultivar milho de forma eficiente em Angola",
+    beanGuide: "Guia do Feijão",
+    beanDescription: "Cultivo de feijão adaptado ao clima angolano",
+    sweetPotatoGuide: "Guia da Batata-doce",
+    sweetPotatoDescription: "Produção de batata-doce em Angola",
+    tomatoGuide: "Guia do Tomate",
+    tomatoDescription: "Cultivo de tomate para mercado local",
+    onionGuide: "Guia da Cebola",
+    onionDescription: "Produção de cebola em Angola",
+    coffeeGuide: "Guia do Café",
+    coffeeDescription: "Cultivo de café arábica em Angola",
+    bananaGuide: "Guia da Banana",
+    bananaDescription: "Produção de banana para exportação",
+    beginner: "Iniciante",
+    intermediate: "Intermediário",
+    advanced: "Avançado",
+    rainySeasonShort: "Época das Chuvas",
+    drySeasonShort: "Época Seca",
+    yearRound: "Ano Todo",
+    cropGuidesTitle: "Guias de Cultivo",
+    cropGuidesSubtitle: "Aprenda as melhores práticas agrícolas adaptadas ao clima e solo de Angola",
+    totalCrops: "Culturas Disponíveis",
+    monthsCoverage: "Meses de Cobertura",
+    provinces: "Províncias",
+    allCropGuides: "Todos os Guias de Cultivo",
+    selectCropGuide: "Selecione uma cultura para ver o guia completo de cultivo",
+    difficulty: "Dificuldade",
+    duration: "Duração",
+    season: "Época",
+    needHelp: "Precisa de Ajuda?",
+    needHelpDescription: "Junte-se à nossa comunidade de agricultores ou fale com nossos especialistas",
+    joinCommunity: "Juntar-se à Comunidade",
+    contactExpert: "Contactar Especialista"
+  };
 
+  const t = (key: string): string => {
+    return translations[key as keyof typeof translations] || key;
+  };
+
+  return { t };
+}
+
+function CropGuidesContent() {
+  const { t } = useLanguage();
 
   const cropGuides = [
     {
       id: "milho",
       name: t("cornGuide"),
-      icon: "ðŸŒ½",
+      icon: "🌽",
       description: t("cornDescription"),
       difficulty: t("beginner"),
       season: t("rainySeasonShort"),
@@ -28,7 +72,7 @@ function CropGuidesContent() {
     {
       id: "feijao",
       name: t("beanGuide"),
-      icon: "ðŸ«˜",
+      icon: "🫘",
       description: t("beanDescription"),
       difficulty: t("intermediate"),
       season: t("rainySeasonShort"),
@@ -38,9 +82,9 @@ function CropGuidesContent() {
     },
     {
       id: "mandioca",
-      name: "Guias de Cultivo",
-      icon: "ðŸ¥”",
-      description: "Veja dicas para diferentes culturas.",
+      name: "Guia da Mandioca",
+      icon: "🥔",
+      description: "Cultivo de mandioca adaptado ao solo angolano",
       difficulty: "Iniciante",
       season: "Ano todo",
       duration: "8-12 meses",
@@ -50,7 +94,7 @@ function CropGuidesContent() {
     {
       id: "batata-doce",
       name: t("sweetPotatoGuide"),
-      icon: "ðŸ ",
+      icon: "🍠",
       description: t("sweetPotatoDescription"),
       difficulty: t("beginner"),
       season: t("rainySeasonShort"),
@@ -61,7 +105,7 @@ function CropGuidesContent() {
     {
       id: "tomate",
       name: t("tomatoGuide"),
-      icon: "ðŸ…",
+      icon: "🍅",
       description: t("tomatoDescription"),
       difficulty: t("intermediate"),
       season: t("drySeasonShort"),
@@ -72,7 +116,7 @@ function CropGuidesContent() {
     {
       id: "cebola",
       name: t("onionGuide"),
-      icon: "ðŸ§…",
+      icon: "🧅",
       description: t("onionDescription"),
       difficulty: t("intermediate"),
       season: t("drySeasonShort"),
@@ -83,7 +127,7 @@ function CropGuidesContent() {
     {
       id: "cafe",
       name: t("coffeeGuide"),
-      icon: "â˜•",
+      icon: "☕",
       description: t("coffeeDescription"),
       difficulty: t("advanced"),
       season: t("yearRound"),
@@ -94,7 +138,7 @@ function CropGuidesContent() {
     {
       id: "banana",
       name: t("bananaGuide"),
-      icon: "ðŸŒ",
+      icon: "🍌",
       description: t("bananaDescription"),
       difficulty: t("intermediate"),
       season: t("yearRound"),
@@ -129,7 +173,7 @@ function CropGuidesContent() {
       <div className="bg-gradient-to-r from-green-600 to-green-700 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">ðŸŒ¾ {t("cropGuidesTitle")}</h1>
+            <h1 className="text-4xl font-bold mb-4">🌾 {t("cropGuidesTitle")}</h1>
             <p className="text-xl text-green-100 max-w-3xl mx-auto">{t("cropGuidesSubtitle")}</p>
           </div>
         </div>
@@ -205,13 +249,13 @@ function CropGuidesContent() {
               href="/comunidade"
               className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors font-medium"
             >
-              ðŸ‘¥ {t("joinCommunity")}
+              👥 {t("joinCommunity")}
             </Link>
             <Link
               href="/contact"
               className="bg-white text-green-600 border border-green-600 px-6 py-3 rounded-md hover:bg-green-50 transition-colors font-medium"
             >
-              ðŸ“ž {t("contactExpert")}
+              📞 {t("contactExpert")}
             </Link>
           </div>
         </div>
@@ -221,18 +265,11 @@ function CropGuidesContent() {
 }
 
 export default function CropGuidesPage() {
-  const { t } = useLanguage();
-  return <CropGuidesContent />
+  return (
+    <RegionProvider>
+      <WeatherProvider>
+        <CropGuidesContent />
+      </WeatherProvider>
+    </RegionProvider>
+  )
 }
-
-
-
-
-
-
-
-
-
-
-
-

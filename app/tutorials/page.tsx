@@ -6,11 +6,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 
+
 import { RegionProvider } from "../contexts/region-context"
 import Header from "../components/header"
+import { useLanguage } from "../contexts/language-context"
 
 function TutorialsContent() {
-
+  const { t } = useLanguage()
 
   const tutorials = [
     {
@@ -243,10 +245,9 @@ function TutorialsContent() {
         <Card className="bg-green-50 border-green-200">
           <CardContent className="p-8 text-center">
             <BookOpen className="h-12 w-12 text-green-600 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Precisa de Mais Ajuda?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">{t("tutorials.needMoreHelp")}</h2>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Se nÃ£o encontrou o que procurava nos nossos tutoriais, consulte a nossa central de ajuda ou entre em
-              contacto connosco.
+              {t("tutorials.notFoundMessage")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/help">

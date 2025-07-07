@@ -1054,35 +1054,56 @@ export default function CalendarioPage() {
           </p>
         </div>
 
-        {/* Emergency Alerts Banner */}
+        {/* FIXED Emergency Alerts Section */}
+        {/* Emergency Temperature Alert - Conditional */}
         {selectedProvinceData?.avgTemp && selectedProvinceData.avgTemp > 40 && (
-      <div className="mb-6 p-4 bg-red-100 border-l-4 border-red-50">
-    <div className="flex items-center gap-3">
-      <AlertTriangle className="h-6 w-6 text-red-600" />
-      {/* rest of your JSX content */}
-         </div>
-        </div>
-     )}
+          <div className="mb-6 p-4 bg-red-100 border-l-4 border-red-500 rounded-lg">
+            <div className="flex items-center gap-3">
+              <AlertTriangle className="h-6 w-6 text-red-600" />
+              <div>
+                <h3 className="font-bold text-red-800">🌡️ ALERTA DE TEMPERATURA EXTREMA</h3>
+                <p className="text-red-700">
+                  Temperatura muito alta detectada em {selectedProvinceData?.name || 'região selecionada'} ({selectedProvinceData.avgTemp}°C).
+                  Evite atividades agrícolas durante as horas mais quentes do dia.
+                </p>
+                <div className="mt-2 flex gap-2">
+                  <Button size="sm" variant="destructive">
+                    Ver Recomendações
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Drought Alert - Always Visible with Conditional Content */}
         <div className="mb-6 p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg">
           <div className="flex items-center gap-3">
             <AlertTriangle className="h-6 w-6 text-yellow-600" />
             <div>
               <h3 className="font-bold text-yellow-800">⚠️ ALERTA DE SECA</h3>
               <p className="text-yellow-700">
-                Condições de seca severa em {selectedProvinceData.name}. 
-                Considere implementar práticas de irrigação.
+                {selectedProvinceData ? (
+                  <>
+                    Condições de seca severa em {selectedProvinceData.name}.
+                    Considere implementar práticas de irrigação.
+                  </>
+                ) : (
+                  'Selecione uma província para ver alertas específicos da região.'
+                )}
               </p>
               <div className="mt-2 flex gap-2">
-                <Button size="sm" variant="destructive">
-                  Ver Ações de Emergência
+                <Button size="sm" variant="outline" className="border-yellow-600 text-yellow-600">
+                  Práticas de Irrigação
                 </Button>
-                <Button size="sm" variant="outline">
-                  Contactar Extensão Rural
+                <Button size="sm" variant="outline" className="border-yellow-600 text-yellow-600">
+                  Culturas Resistentes
                 </Button>
               </div>
             </div>
           </div>
         </div>
+
         <Tabs defaultValue="calendario" className="w-full">
           <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
             <TabsTrigger value="calendario"><CalendarIcon className="w-4 h-4 mr-2" />Calendário</TabsTrigger>
@@ -1109,21 +1130,21 @@ export default function CalendarioPage() {
                       <BigCalendar
                         localizer={localizer}
                         events={events}
-                        startAccessor="start"
-                        endAccessor="end"
+                        startAccessor={(event: any) => new Date(event.start)}
+                        endAccessor={(event: any) => new Date(event.end)}
                         culture="pt-BR"
                         messages={{
-                          next: 'Próximo',
-                          previous: 'Anterior',
-                          today: 'Hoje',
-                          month: 'Mês',
-                          week: 'Semana',
-                          day: 'Dia',
-                          agenda: 'Agenda',
-                          date: 'Data',
-                          time: 'Hora',
-                          event: 'Evento',
-                          noEventsInRange: 'Não há eventos neste período.',
+                        next: 'Próximo',
+                        previous: 'Anterior',
+                         today: 'Hoje',
+                        month: 'Mês',
+                         week: 'Semana',
+                         day: 'Dia',
+                        agenda: 'Agenda',
+                        date: 'Data',
+                        time: 'Hora',
+                        event: 'Evento',
+                        noEventsInRange: 'Não há eventos neste período.',
                         }}
                       />
                     </div>
@@ -1224,265 +1245,322 @@ export default function CalendarioPage() {
                 </Card>
               ))
             ) : (
-              <Card>
-                <CardContent className="text-center py-12">
-                  <p className="text-muted-foreground">Nenhum alerta ativo no momento.</p>
-                </CardContent>
-              </Card>
-            )}
-          </TabsContent>
+                <Card>
+                  <CardContent className="text-center py-12">
+                    <p className="text-muted-foreground">Nenhum alerta ativo no momento.</p>
+                    <p className="text-sm text-gray-500 mt-2">
+                      Os alertas aparecerão aqui quando houver condições críticas detectadas.
+                    </p>
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
 
-          <TabsContent value="culturas" className="mt-6">
-            <div className="space-y-6">
-              {/* Crop Selector Dropdown */}
-              <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-semibold">Banco de Dados de Culturas</h3>
-                <Select value={selectedCrop} onValueChange={setSelectedCrop}>
-                  <SelectTrigger className="w-64">
-                    <SelectValue placeholder="Selecione uma cultura" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todas as culturas</SelectItem>
-                    {enhancedCropDatabase.map(crop => (
-                      <SelectItem key={crop.id} value={crop.id}>
-                        {crop.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+            <TabsContent value="culturas" className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Sprout className="h-5 w-5" />
+                      Seleção de Cultura
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Select value={selectedCrop} onValueChange={setSelectedCrop}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione uma cultura" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Todas as Culturas</SelectItem>
+                        {enhancedCropDatabase.map(crop => (
+                          <SelectItem key={crop.id} value={crop.id}>
+                            {crop.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </CardContent>
+                </Card>
 
-              {/* Enhanced Crops Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {enhancedCropDatabase.map(crop => (
-                  <Card key={crop.id} className={`cursor-pointer transition-all hover:shadow-lg ${
-                    selectedCrop === crop.id ? 'ring-2 ring-green-500 bg-green-50' : ''
-                  }`} onClick={() => setSelectedCrop(crop.id)}>
+                {enhancedCropDatabase.map(crop => (
+                  <Card key={crop.id} className="border-green-200">
                     <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Sprout className="h-5 w-5" />
-                        {crop.name}
-                      </CardTitle>
+                      <CardTitle className="text-green-800">{crop.name}</CardTitle>
+                      <CardDescription>
+                        Duração: {crop.growthDuration} dias | Água: {crop.waterRequirement}
+                      </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-3">
-                      <div>
-                        <h4 className="font-medium text-sm">Épocas de Plantio:</h4>
-                        <div className="flex flex-wrap gap-1 mt-1">
-                          {crop.plantingSeasons.map((s, i) => (
-                            <Badge key={i} variant="secondary">
-                              {s.season}: Mês {s.start}-{s.end}
-                            </Badge>
-                          ))}
+                    <CardContent>
+                      <div className="space-y-3">
+                        <div>
+                          <Label className="text-sm font-medium">Épocas de Plantio:</Label>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {crop.plantingSeasons.map((season, index) => (
+                              <Badge key={index} variant="outline" className="text-xs">
+                                {season.season}
+                              </Badge>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-sm">Preço de Mercado:</h4>
-                        <div className="text-lg font-bold text-green-600">{crop.marketPrice}</div>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-sm">Rendimento Esperado:</h4>
-                        <div className="text-sm text-blue-600">{crop.expectedYield}</div>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-sm">Margem de Lucro:</h4>
-                        <div className="text-sm text-green-600 font-medium">{crop.profitMargin}</div>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-sm">Pragas Comuns:</h4>
-                        <div className="flex flex-wrap gap-1 mt-1">
-                          {crop.commonPests.map((pest, i) => (
-                            <Badge key={i} variant="destructive" className="text-xs">
-                              {pest}
-                            </Badge>
-                          ))}
+                        
+                        <div>
+                          <Label className="text-sm font-medium">Preço de Mercado:</Label>
+                          <p className="text-sm text-green-600 font-semibold">{crop.marketPrice}</p>
                         </div>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-sm">Províncias Adequadas:</h4>
-                        <div className="text-xs text-gray-600 mt-1">
-                          {crop.suitableProvinces.map(p => 
-                            allAngolaProvinces.find(prov => prov.id === p)?.name
-                          ).filter(Boolean).join(', ')}
+                        
+                        <div>
+                          <Label className="text-sm font-medium">Rendimento Esperado:</Label>
+                          <p className="text-sm">{crop.expectedYield}</p>
                         </div>
-                      </div>
-                      <div className="flex justify-between items-center text-xs">
-                        <span>Duração: {crop.growthDuration} dias</span>
-                        <Badge variant={crop.waterRequirement === 'high' ? 'default' : 'secondary'}>
-                          Água: {crop.waterRequirement}
-                        </Badge>
+                        
+                        <div>
+                          <Label className="text-sm font-medium">Margem de Lucro:</Label>
+                          <p className="text-sm text-green-600 font-semibold">{crop.profitMargin}</p>
+                        </div>
+                        
+                        <div>
+                          <Label className="text-sm font-medium">Províncias Adequadas:</Label>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {crop.suitableProvinces.slice(0, 3).map(province => {
+                              const provinceData = allAngolaProvinces.find(p => p.id === province);
+                              return (
+                                <Badge key={province} variant="secondary" className="text-xs">
+                                  {provinceData?.name || province}
+                                </Badge>
+                              );
+                            })}
+                            {crop.suitableProvinces.length > 3 && (
+                              <Badge variant="secondary" className="text-xs">
+                                +{crop.suitableProvinces.length - 3} mais
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <Label className="text-sm font-medium">Fatores de Risco:</Label>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {crop.riskFactors.map((risk, index) => (
+                              <Badge key={index} variant="destructive" className="text-xs">
+                                {risk}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
                 ))}
               </div>
-            </div>
-          </TabsContent>
+            </TabsContent>
 
-          <TabsContent value="clima" className="mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {allAngolaProvinces.map(province => (
-                <Card key={province.id} className={selectedRegion === province.id ? 'ring-2 ring-blue-500' : ''}>
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
-                      <span>{province.name}</span>
-                      <Badge variant="outline">{province.climate}</Badge>
-                    </CardTitle>
-                    <CardDescription>{province.capital}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm flex items-center gap-1">
-                          <Thermometer className="h-4 w-4 text-red-500" />
-                          Temperatura
-                        </span>
-                        <span className="font-medium">{province.avgTemp}°C</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm flex items-center gap-1">
-                          <Droplets className="h-4 w-4 text-blue-500" />
-                          Umidade
-                        </span>
-                        <span className="font-medium">{province.humidity}%</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm flex items-center gap-1">
-                          <Cloud className="h-4 w-4 text-gray-500" />
-                          Precipitação
-                        </span>
-                        <span className="font-medium">{province.rainfall}mm</span>
-                      </div>
-                      <Button 
-                        size="sm" 
-                        variant={selectedRegion === province.id ? "default" : "outline"}
-                        className="w-full"
-                        onClick={() => setSelectedRegion(province.id)}
-                      >
-                        {selectedRegion === province.id ? 'Selecionada' : 'Selecionar'}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="produtos" className="mt-6">
-            <div className="space-y-6">
-              <div className="text-center">
-                <h3 className="text-2xl font-semibold mb-2">Produtos DigitalZango</h3>
-                <p className="text-gray-600">
-                  Produtos testados e recomendados para agricultura angolana
-                </p>
-                <div className="mt-4 p-3 bg-green-100 rounded-lg inline-block">
-                  <p className="text-sm text-green-800">
-                    💰 Total de cliques em produtos: <strong>{affiliateClicks}</strong>
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {getRelevantProducts().map(product => (
-                  <Card key={product.id} className="hover:shadow-lg transition-shadow">
+            <TabsContent value="clima" className="mt-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="space-y-6">
+                  <Card>
                     <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <CardTitle className="text-lg">{product.name}</CardTitle>
-                          <CardDescription>{product.description}</CardDescription>
-                        </div>
-                        <Badge variant="secondary">{product.category}</Badge>
-                      </div>
+                      <CardTitle className="flex items-center gap-2">
+                        <MapPin className="h-5 w-5" />
+                        Seleção de Província
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="space-y-4">
+                      <Select value={selectedRegion} onValueChange={setSelectedRegion}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {allAngolaProvinces.map(province => (
+                            <SelectItem key={province.id} value={province.id}>
+                              {province.name} - {province.capital}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </CardContent>
+                  </Card>
+
+                  {selectedProvinceData && (
+                    <EnhancedWeatherDisplay selectedProvinceData={selectedProvinceData} />
+                  )}
+
+                  <Card className="border-blue-500 bg-blue-50">
+                    <CardHeader>
+                      <CardTitle className="text-blue-800">Informações Sazonais</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-3">
+                        <div>
+                          <Label className="font-medium">Estação Atual:</Label>
+                          <Badge className="ml-2" variant={seasonInfo.season === 'chuvas' ? 'default' : 'secondary'}>
+                            {seasonInfo.season === 'chuvas' ? '🌧️ Época das Chuvas' : '☀️ Época Seca'}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-blue-700">{seasonInfo.description}</p>
+                        
+                        {selectedProvinceData && (
+                          <div className="grid grid-cols-2 gap-4 mt-4">
+                            <div className="text-center p-3 bg-white rounded border">
+                              <div className="text-lg font-bold text-blue-600">
+                                {selectedProvinceData.climate}
+                              </div>
+                              <div className="text-xs text-gray-600">Tipo de Clima</div>
+                            </div>
+                            <div className="text-center p-3 bg-white rounded border">
+                              <div className="text-lg font-bold text-blue-600">
+                                {selectedProvinceData.rainfall}mm
+                              </div>
+                              <div className="text-xs text-gray-600">Precipitação Anual</div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <div className="space-y-6">
+                  <WeatherAlerts 
+                    weatherData={selectedProvinceData} 
+                    selectedProvince={selectedProvinceData?.name || ''} 
+                  />
+                  
+                  <PlantingRecommendations 
+                    selectedProvince={selectedRegion}
+                    currentMonth={new Date().getMonth() + 1}
+                    weatherData={selectedProvinceData}
+                  />
+                  
+                  <PestEarlyWarning 
+                    weatherData={selectedProvinceData}
+                    selectedCrops={[selectedCrop]}
+                  />
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="produtos" className="mt-6">
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-2xl font-bold text-green-800">Produtos DigitalZango</h2>
+                  <Badge variant="outline" className="bg-green-50 text-green-700">
+                    {affiliateClicks} cliques hoje
+                  </Badge>
+                </div>
+                <p className="text-gray-600">
+                  Produtos selecionados para agricultura angolana com comissões para parceiros DigitalZango
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {getRelevantProducts().map(product => (
+                  <Card key={product.id} className="border-green-200 hover:shadow-lg transition-shadow">
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
+                        <CardTitle className="text-green-800">{product.name}</CardTitle>
+                        <div className="flex items-center gap-1">
+                          <span className="text-yellow-500">★</span>
+                          <span className="text-sm font-medium">{product.rating}</span>
+                        </div>
+                      </div>
+                      <CardDescription>{product.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-3">
                         <div className="flex justify-between items-center">
                           <span className="text-2xl font-bold text-green-600">{product.price}</span>
-                          <div className="flex items-center gap-1">
-                            <span className="text-yellow-500">★</span>
-                            <span className="text-sm font-medium">{product.rating}</span>
-                          </div>
+                          <Badge variant="secondary">{product.category}</Badge>
                         </div>
-
+                        
                         {product.discount && (
-                          <div className="bg-red-100 p-2 rounded border border-red-200">
-                            <p className="text-sm text-red-700 font-medium">
-                              🔥 Desconto de {product.discount.percentage}% 
-                              até {product.discount.validUntil}
+                          <div className="bg-red-50 border border-red-200 rounded p-2">
+                            <div className="flex items-center gap-2">
+                              <span className="text-red-600 font-semibold">
+                                🏷️ {product.discount.percentage}% OFF
+                              </span>
+                            </div>
+                            <p className="text-xs text-red-600">
+                              Válido até {new Date(product.discount.validUntil).toLocaleDateString('pt-BR')}
                             </p>
                           </div>
                         )}
-
+                        
                         <div>
-                          <h4 className="font-medium text-sm mb-2">Ideal para:</h4>
-                          <div className="flex flex-wrap gap-1">
-                            {product.relevantFor.map(cropId => {
-                              const crop = enhancedCropDatabase.find(c => c.id === cropId);
-                              return crop ? (
-                                <Badge key={cropId} variant="outline" className="text-xs">
-                                  {crop.name}
+                          <Label className="text-sm font-medium">Ideal para:</Label>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {product.relevantFor.map(crop => {
+                              const cropData = enhancedCropDatabase.find(c => c.id === crop);
+                              return (
+                                <Badge key={crop} variant="outline" className="text-xs">
+                                  {cropData?.name || crop}
                                 </Badge>
-                              ) : null;
+                              );
                             })}
                           </div>
                         </div>
-
-                        <div className="flex justify-between items-center pt-2 border-t">
-                          <span className="text-sm text-blue-600">
-                            Comissão: {product.commission}%
-                          </span>
-                          <Button 
-                            onClick={() => trackAffiliateClick(product.id)}
-                            className="bg-green-600 hover:bg-green-700"
-                          >
-                            Ver Produto
-                          </Button>
+                        
+                        <div className="bg-green-50 border border-green-200 rounded p-2">
+                          <p className="text-sm text-green-700">
+                            💰 Comissão DigitalZango: {product.commission}%
+                          </p>
                         </div>
+                        
+                        <Button 
+                          className="w-full bg-green-600 hover:bg-green-700"
+                          onClick={() => trackAffiliateClick(product.id)}
+                        >
+                          <ShoppingCart className="w-4 h-4 mr-2" />
+                          Ver Produto
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>
                 ))}
               </div>
 
-              {/* DigitalZango Brand Section */}
-              <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white font-bold text-xl">DZ</span>
+              <div className="mt-8 p-6 bg-green-50 border border-green-200 rounded-lg">
+                <h3 className="text-lg font-semibold text-green-800 mb-2">
+                  🤝 Programa de Afiliados DigitalZango
+                </h3>
+                <p className="text-green-700 mb-4">
+                  Ganhe comissões promovendo produtos agrícolas de qualidade para a comunidade angolana.
+                  Todos os produtos são testados e aprovados por agricultores locais.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600">15-20%</div>
+                    <div className="text-green-700">Comissão Média</div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">DigitalZango</h3>
-                  <p className="text-gray-600 mb-4">
-                    Transformando a agricultura angolana através da inovação digital. 
-                    Conectamos agricultores com tecnologia de ponta e soluções práticas.
-                  </p>
-                  <div className="flex justify-center gap-4">
-                    <Button variant="outline" size="sm">
-                      📱 Instagram
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      📺 YouTube
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      📝 Blog
-                    </Button>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600">24h</div>
+                    <div className="text-green-700">Rastreamento</div>
                   </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-        </Tabs>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600">30 dias</div>
+                    <div className="text-green-700">Cookie Duration</div>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
 
-        {/* Footer with DigitalZango Branding */}
-        <footer className="mt-12 text-center text-gray-500 text-sm">
-          <div className="border-t pt-6">
-            <p>© 2025 DigitalZango - Calendário Agrícola de Angola</p>
-            <p className="mt-1">
-              Desenvolvido para agricultores angolanos • Dados climáticos das 18 províncias
+          {/* Footer with DigitalZango Branding */}
+          <div className="mt-12 text-center border-t pt-8">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <div className="w-8 h-8 bg-green-600 rounded flex items-center justify-center">
+                <span className="text-white font-bold text-sm">DZ</span>
+              </div>
+              <span className="text-green-800 font-semibold">DigitalZango</span>
+            </div>
+            <p className="text-sm text-gray-600">
+              Inovação Digital para Agricultura Angolana | Calendário Agrícola Inteligente
+            </p>
+            <p className="text-xs text-gray-500 mt-1">
+              © 2025 DigitalZango. Desenvolvido para agricultores de Angola.
             </p>
           </div>
-        </footer>
-      </div>
-    </ClientOnly>
-  );
-}
+        </div>
+      </ClientOnly>
+    );
+  }
 
-                  

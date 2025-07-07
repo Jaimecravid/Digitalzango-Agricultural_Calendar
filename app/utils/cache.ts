@@ -29,8 +29,13 @@ export interface ToolData {
   region: string;
 }
 
+// Helper function to check if we're in browser environment
+const isBrowser = typeof window !== 'undefined';
+
 // Cache weather data with 30-minute expiry
 export const cacheWeatherData = (location: string, data: WeatherData): void => {
+  if (!isBrowser) return;
+  
   try {
     const cacheKey = `weather-${location}`;
     const cacheData: CacheData<WeatherData> = {
@@ -47,6 +52,8 @@ export const cacheWeatherData = (location: string, data: WeatherData): void => {
 
 // Get cached weather data
 export const getCachedWeatherData = (location: string): WeatherData | null => {
+  if (!isBrowser) return null;
+  
   try {
     const cacheKey = `weather-${location}`;
     const cached = localStorage.getItem(cacheKey);
@@ -72,6 +79,8 @@ export const getCachedWeatherData = (location: string): WeatherData | null => {
 
 // Cache crop data with 24-hour expiry
 export const cacheCropData = (crops: CropData[]): void => {
+  if (!isBrowser) return;
+  
   try {
     const cacheData: CacheData<CropData[]> = {
       data: crops,
@@ -87,6 +96,8 @@ export const cacheCropData = (crops: CropData[]): void => {
 
 // Get cached crop data
 export const getCachedCropData = (): CropData[] | null => {
+  if (!isBrowser) return null;
+  
   try {
     const cached = localStorage.getItem('crops-data');
     
@@ -109,8 +120,10 @@ export const getCachedCropData = (): CropData[] | null => {
   }
 };
 
-// Cache agricultural tools data with 6-hour expiry (prices may change)
+// Cache agricultural tools data with 6-hour expiry
 export const cacheToolsData = (tools: ToolData[]): void => {
+  if (!isBrowser) return;
+  
   try {
     const cacheData: CacheData<ToolData[]> = {
       data: tools,
@@ -126,6 +139,8 @@ export const cacheToolsData = (tools: ToolData[]): void => {
 
 // Get cached tools data
 export const getCachedToolsData = (): ToolData[] | null => {
+  if (!isBrowser) return null;
+  
   try {
     const cached = localStorage.getItem('tools-data');
     
@@ -150,10 +165,12 @@ export const getCachedToolsData = (): ToolData[] | null => {
 
 // Clear all cache data
 export const clearAllCache = (): void => {
+  if (!isBrowser) return;
+  
   try {
     const keys = Object.keys(localStorage);
     keys.forEach(key => {
-      if (key.startsWith('`weather-${location}`') || key === 'crops-data' || key === 'tools-data') {
+      if (key.startsWith('weather-') || key === 'crops-data' || key === 'tools-data') {
         localStorage.removeItem(key);
       }
     });
@@ -165,7 +182,16 @@ export const clearAllCache = (): void => {
 
 // Get cache status for debugging
 export const getCacheStatus = () => {
-  const weatherKeys = Object.keys(localStorage).filter(key => key.startsWith('`weather-${location}`'));
+  if (!isBrowser) {
+    return {
+      weatherLocations: 0,
+      hasCropsData: false,
+      hasToolsData: false,
+      totalCacheItems: 0
+    };
+  }
+  
+  const weatherKeys = Object.keys(localStorage).filter(key => key.startsWith('weather-'));
   const hasCrops = localStorage.getItem('crops-data') !== null;
   const hasTools = localStorage.getItem('tools-data') !== null;
   
@@ -176,4 +202,3 @@ export const getCacheStatus = () => {
     totalCacheItems: weatherKeys.length + (hasCrops ? 1 : 0) + (hasTools ? 1 : 0)
   };
 };
-

@@ -339,14 +339,19 @@ export const generateRotationRecommendations = (
   score: number;
   reason: string;
 }> => {
-  const recommendations = [];
+  const recommendations: Array<{
+    crop: CropInfo;
+    benefits: string[];
+    score: number;
+    reason: string;
+  }> = [];
   
   ANGOLA_CROPS.forEach(crop => {
     if (crop.id === currentCrop.id) return; // Skip same crop
     if (!crop.suitableProvinces.includes(province)) return; // Skip unsuitable crops
     
     let score = 0;
-    const benefits = [];
+    const benefits: string[] = [];
     let reason = '';
     
     // Check rotation compatibility

@@ -1,4 +1,6 @@
+
 "use client";
+import { useLanguage } from "../contexts/language-context";
 
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
@@ -7,7 +9,7 @@ import { Button } from "./ui/button";
 export default function Header() {
   // Use Next.js usePathname hook instead of window.location for better SSR compatibility
   const currentPath = usePathname();
-  
+  const { t } = useLanguage();
   // Helper to check if a link is active
   const isActive = (href: string) => currentPath === href;
 
@@ -37,7 +39,7 @@ export default function Header() {
             }`} 
             aria-current={isActive('/') ? 'page' : undefined}
           >
-            <span aria-hidden="true">🏠</span> Início
+            <span aria-hidden="true">🏠</span> {t("common.home")}
           </Link>
           
           {/* NEW: Guias de Cultivo Link */}
@@ -48,7 +50,7 @@ export default function Header() {
             }`} 
             aria-current={isActive('/guias') ? 'page' : undefined}
           >
-            <span aria-hidden="true">📚</span> Guias
+            <span aria-hidden="true">📚</span> {t("navigation.guides")}
           </Link>
           
           <Link 
@@ -58,7 +60,7 @@ export default function Header() {
             }`} 
             aria-current={isActive('/calendario') ? 'page' : undefined}
           >
-            <span aria-hidden="true">📅</span> Calendário
+            <span aria-hidden="true">📅</span> {t("pages.home.title")}
           </Link>
           
           <Link 
@@ -68,7 +70,7 @@ export default function Header() {
             }`} 
             aria-current={isActive('/tempo') ? 'page' : undefined}
           >
-            <span aria-hidden="true">🌤️</span> Tempo
+            <span aria-hidden="true">🌤️</span> {t("navigation.help")}
           </Link>
           
           <Link 
@@ -78,7 +80,7 @@ export default function Header() {
             }`} 
             aria-current={isActive('/pragas') ? 'page' : undefined}
           >
-            <span aria-hidden="true">🐛</span> Pragas
+            <span aria-hidden="true">🐛</span> {t("navigation.forum")}
           </Link>
           
           <Link 
@@ -88,7 +90,7 @@ export default function Header() {
             }`} 
             aria-current={isActive('/recursos') ? 'page' : undefined}
           >
-            <span aria-hidden="true">📖</span> Recursos
+            <span aria-hidden="true">📖</span> {t("navigation.guides")}
           </Link>
           
           <Link 
@@ -108,7 +110,7 @@ export default function Header() {
             }`} 
             aria-current={isActive('/comunidade') ? 'page' : undefined}
           >
-            <span aria-hidden="true">👥</span> Comunidade
+            <span aria-hidden="true">👥</span> {t("navigation.community")}
           </Link>
         </nav>
 
@@ -116,7 +118,7 @@ export default function Header() {
         <div className="hidden md:block">
           <Link href="/baixar-app">
             <Button className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105">
-              📱 Baixar App
+              📱 {t("common.downloadGuide")}
             </Button>
           </Link>
         </div>
@@ -156,7 +158,7 @@ export default function Header() {
               isActive('/') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
             }`}
           >
-            <span aria-hidden="true">🏠</span> Início
+            <span aria-hidden="true">🏠</span> {t("common.home")}
           </Link>
           
           <Link 
@@ -165,7 +167,7 @@ export default function Header() {
               isActive('/guias') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
             }`}
           >
-            <span aria-hidden="true">📚</span> Guias de Cultivo
+            <span aria-hidden="true">📚</span> {t("navigation.guides")}
           </Link>
           
           <Link 
@@ -174,7 +176,7 @@ export default function Header() {
               isActive('/calendario') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
             }`}
           >
-            <span aria-hidden="true">📅</span> Calendário
+            <span aria-hidden="true">📅</span> {t("pages.home.title")}
           </Link>
           
           <Link 
@@ -183,14 +185,14 @@ export default function Header() {
               isActive('/pragas') ? 'text-green-600 bg-green-50' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
             }`}
           >
-            <span aria-hidden="true">🐛</span> Pragas
+            <span aria-hidden="true">🐛</span> {t("navigation.forum")}
           </Link>
           
           <Link 
             href="/baixar-app" 
             className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-lg text-center transition-colors duration-200"
           >
-            📱 Baixar App
+            📱 {t("common.downloadGuide")}
           </Link>
         </nav>
       </div>

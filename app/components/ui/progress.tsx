@@ -3,7 +3,8 @@
 import * as React from "react"
 import * as ProgressPrimitive from "@radix-ui/react-progress"
 
-import { cn } from "../../lib/utils";
+// Change this line
+import { cn } from "@/lib/utils"  // ← Use absolute path
 
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,

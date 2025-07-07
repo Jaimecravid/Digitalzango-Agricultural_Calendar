@@ -7,97 +7,98 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge"
 import { AlertTriangle, ArrowRight, Bug, ChevronRight, Leaf, Shield, WormIcon as Virus } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "../contexts/language-context"
 
 function PestCategoriesContent() {
-  
+  const { t } = useLanguage()
 
   const pestCategories = [
     {
       id: "insects",
-      name: t("insects"),
+      name: t("pestCategories.insects"),
       icon: <Bug className="h-8 w-8 text-red-600" />,
-      description: t("insectsDescription"),
+      description: t("pestCategories.insectsDescription"),
       count: 12,
       severity: "high",
       color: "red",
       examples: [
-        { name: t("fallArmyworm"), href: "/pragas/lagarta-do-cartucho" },
-        { name: t("whitefly"), href: "/pragas/mosca-branca" },
+        { name: t("pests.fallArmyworm.name"), href: "/pragas/lagarta-do-cartucho" },
+        { name: t("pests.whitefly.name"), href: "/pragas/mosca-branca" },
       ],
       image: "/placeholder.svg?height=200&width=300",
     },
     {
       id: "diseases",
-      name: "Ver Detalhes",
+      name: t("pestCategories.diseases"),
       icon: <Virus className="h-8 w-8 text-orange-600" />,
-      description: "As doenças são pragas que afetam as plantas, causando danos e reduzindo a produtividade.",
+      description: t("pestCategories.diseasesDescription"),
       count: 8,
       severity: "high",
       color: "orange",
       examples: [
-        { name: "Ferrugem-do-café", href: "/pragas/ferrugem-do-cafe" },
-        { name: "Ferrugem-do-feijão", href: "/pragas/ferrugem-do-feijao" },
-        { name: "Requeima-do-tomate", href: "/pragas/requeima-do-tomate" },
+        { name: t("diseases.leafRust.name"), href: "/pragas/ferrugem-do-cafe" },
+        { name: t("diseases.leafRust.name"), href: "/pragas/ferrugem-do-feijao" },
+        { name: t("diseases.bacterialWilt.name"), href: "/pragas/requeima-do-tomate" },
       ],
       image: "/placeholder.svg?height=200&width=300",
     },
     {
       id: "weeds",
-      name: "Plantas Daninhas",
+      name: t("pestCategories.weeds"),
       icon: <Leaf className="h-8 w-8 text-green-600" />,
-      description: "As plantas daninhas são pragas que competem com as culturas por nutrientes e água.",
+      description: t("pestCategories.weedsDescription"),
       count: 15,
       severity: "medium",
       color: "green",
       examples: [
-        { name: "Tiririca", href: "/pragas/tiririca" },
-        { name: "Corda-de-viola", href: "/pragas/corda-de-viola" },
-        { name: "Capim-massambara", href: "/pragas/capim-massambara" },
+        { name: t("pestCategories.weed.tiririca"), href: "/pragas/tiririca" },
+        { name: t("pestCategories.weed.cordaDeViola"), href: "/pragas/corda-de-viola" },
+        { name: t("pestCategories.weed.capimMassambara"), href: "/pragas/capim-massambara" },
       ],
       image: "/placeholder.svg?height=200&width=300",
     },
     {
       id: "rodents",
-      name: "Roedores",
-      icon: <span className="text-4xl">ðŸ­</span>,
-      description: "Os roedores são pragas que danificam as culturas e os equipamentos.",
+      name: t("pestCategories.rodents"),
+      icon: <span className="text-4xl">🐭</span>,
+      description: t("pestCategories.rodentsDescription"),
       count: 5,
       severity: "medium",
       color: "blue",
       examples: [
-        { name: "Rato-do-campo", href: "/pragas/rato-do-campo" },
-        { name: "Rato-da-cana", href: "/pragas/rato-da-cana" },
-        { name: "Toupeira", href: "/pragas/toupeira" },
+        { name: t("pestCategories.rodent.ratoDoCampo"), href: "/pragas/rato-do-campo" },
+        { name: t("pestCategories.rodent.ratoDaCana"), href: "/pragas/rato-da-cana" },
+        { name: t("pestCategories.rodent.toupeira"), href: "/pragas/toupeira" },
       ],
       image: "/placeholder.svg?height=200&width=300",
     },
     {
       id: "nematodes",
-      name: "Nematoides",
-      icon: <span className="text-4xl">ðŸª±</span>,
-      description: "Os nematoides são pragas que afetam as raízes das plantas.",
+      name: t("pestCategories.nematodes"),
+      icon: <span className="text-4xl">🪱</span>,
+      description: t("pestCategories.nematodesDescription"),
       count: 6,
       severity: "high",
       color: "purple",
       examples: [
-        { name: "Nematoide-das-galhas", href: "/pragas/nematoide-das-galhas" },
-        { name: "Nematoide-das-lesões", href: "/pragas/nematoide-das-lesoes" },
-        { name: "Nematoide-de-cisto", href: "/pragas/nematoide-de-cisto" },
+        { name: t("pestCategories.nematode.galhas"), href: "/pragas/nematoide-das-galhas" },
+        { name: t("pestCategories.nematode.lesoes"), href: "/pragas/nematoide-das-lesoes" },
+        { name: t("pestCategories.nematode.cisto"), href: "/pragas/nematoide-de-cisto" },
       ],
       image: "/placeholder.svg?height=200&width=300",
     },
     {
       id: "birds",
-      name: "Aves",
-      icon: <span className="text-4xl">ðŸ¦</span>,
-      description: "As aves são pragas que danificam as culturas e os equipamentos.",
+      name: t("pestCategories.birds"),
+      icon: <span className="text-4xl">🐦</span>,
+      description: t("pestCategories.birdsDescription"),
       count: 4,
       severity: "low",
       color: "yellow",
       examples: [
-        { name: "Pardal", href: "/pragas/pardal" },
-        { name: "Pombo", href: "/pragas/pombo" },
-        { name: "Periquito", href: "/pragas/periquito" },
+        { name: t("pestCategories.bird.pardal"), href: "/pragas/pardal" },
+        { name: t("pestCategories.bird.pombo"), href: "/pragas/pombo" },
+        { name: t("pestCategories.bird.periquito"), href: "/pragas/periquito" },
       ],
       image: "/placeholder.svg?height=200&width=300",
     },
@@ -117,7 +118,7 @@ function PestCategoriesContent() {
   }
 
   const getCategoryColor = (color: string) => {
-    const colors = {
+    const colors: Record<string, string> = {
       red: "border-red-200 bg-red-50",
       orange: "border-orange-200 bg-orange-50",
       yellow: "border-yellow-200 bg-yellow-50",
@@ -129,7 +130,7 @@ function PestCategoriesContent() {
   }
 
   const getCategoryButtonColor = (color: string) => {
-    const colors = {
+    const colors: Record<string, string> = {
       red: "bg-red-600 hover:bg-red-700",
       orange: "bg-orange-600 hover:bg-orange-700",
       yellow: "bg-yellow-600 hover:bg-yellow-700",

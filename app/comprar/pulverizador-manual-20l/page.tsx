@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Check, Phone, Mail, MapPin, Star, ShoppingCart, SprayCan, Shield, Gauge } from 'lucide-react';
+import { Check, Gauge, Mail, MapPin, Phone, Shield, ShoppingCart, SprayCan, Star } from "lucide-react";
 
 export default function PulverizadorManual20L() {
   const [quantity, setQuantity] = useState(1);
@@ -45,7 +45,6 @@ export default function PulverizadorManual20L() {
         <div className="container mx-auto">
           <div className="flex items-center gap-6">
             <SprayCan className="text-6xl w-24 h-24" />
-
             <div>
               <h1 className="text-4xl font-bold mb-2">Pulverizador Manual 20L</h1>
               <p className="text-xl opacity-90">Equipamento profissional para aplicação precisa</p>
@@ -63,7 +62,6 @@ export default function PulverizadorManual20L() {
             <div className="bg-white rounded-xl shadow-lg p-8 text-center">
               <div className="w-32 h-32 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-4">
                 <SprayCan className="w-16 h-16 text-orange-600" />
-
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-2">Pulverizador Profissional</h3>
               <p className="text-gray-600">Capacidade 20 litros</p>
@@ -74,7 +72,7 @@ export default function PulverizadorManual20L() {
               {[
                 { icon: <Gauge className="w-8 h-8" />, name: 'Manómetro' },
                 { icon: <Shield className="w-8 h-8" />, name: 'Resistente' },
-                { icon: <Spray className="w-8 h-8" />, name: '3 Bicos' },
+                { icon: <SprayCan className="w-8 h-8" />, name: '3 Bicos' },
                 { icon: '🎯', name: 'Precisão' }
               ].map((feature, index) => (
                 <div key={index} className="bg-white rounded-lg shadow-lg p-4 text-center hover:shadow-xl transition-shadow">
@@ -173,7 +171,7 @@ export default function PulverizadorManual20L() {
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
-                  <Spray className="w-8 h-8 text-blue-600" />
+                  <SprayCan className="w-8 h-8 text-blue-600" />
                   <div>
                     <p className="font-semibold text-gray-800">3 Bicos Intercambiáveis</p>
                     <p className="text-sm text-gray-600">Cone vazio, leque e cone cheio incluídos</p>
