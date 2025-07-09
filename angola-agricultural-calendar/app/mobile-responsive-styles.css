@@ -1,0 +1,605 @@
+/* Mobile-First Responsive Styles for Angola Agricultural Calendar */
+
+/* Base Mobile Styles (320px and up) */
+.agricultural-calendar {
+  min-height: 100vh;
+  font-size: 16px; /* Ensure readable text on mobile */
+}
+
+/* Enhanced Mobile Header */
+.mobile-header {
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+}
+
+.mobile-header h1 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.mobile-header p {
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* Mobile Weather Component */
+.weather-hero-mobile {
+  background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.weather-hero-mobile .temperature-display {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+}
+
+.weather-hero-mobile .weather-icon-large {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto;
+}
+
+.weather-metrics-grid-mobile {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.weather-metric-card-mobile {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Mobile Calendar Grid */
+.calendar-mobile {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-mobile table {
+  width: 100%;
+  min-width: 280px;
+}
+
+.calendar-mobile td {
+  padding: 8px 4px;
+  text-align: center;
+  position: relative;
+  min-height: 40px;
+  border: 1px solid #e5e7eb;
+}
+
+.calendar-mobile .calendar-day {
+  font-size: 0.875rem;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.calendar-mobile .calendar-day:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+  transform: scale(1.1);
+}
+
+/* Mobile Activity Indicators */
+.mobile-activity-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+/* Mobile Sidebar */
+.sidebar-mobile {
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-section-mobile {
+  margin-bottom: 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header-mobile {
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-bottom: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-header-mobile:active {
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+}
+
+.sidebar-content-mobile {
+  padding: 12px 16px;
+  background: white;
+}
+
+/* Mobile Alert Cards */
+.alert-mobile {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border-left: 4px solid;
+  font-size: 0.875rem;
+}
+
+.alert-mobile h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.alert-mobile p {
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* Mobile Buttons */
+.btn-mobile {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+}
+
+.btn-mobile:active {
+  transform: scale(0.98);
+}
+
+.btn-primary-mobile {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+.btn-secondary-mobile {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.2);
+}
+
+/* Mobile Badge */
+.badge-mobile {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* Mobile Tabs */
+.tabs-mobile {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.tab-mobile {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-right: 8px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tab-mobile.active {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+.tab-mobile:not(.active) {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+/* Mobile Dialog/Modal */
+.dialog-mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+}
+
+.dialog-content-mobile {
+  background: white;
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px 16px 16px;
+  position: relative;
+}
+
+.dialog-header-mobile {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dialog-header-mobile::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 4px;
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+/* Mobile Grid Layouts */
+.grid-mobile-1 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.grid-mobile-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* Mobile Touch Targets */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile Loading States */
+.loading-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  text-align: center;
+}
+
+.loading-mobile .spinner {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 16px;
+}
+
+.loading-mobile .progress-bar {
+  width: 200px;
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.loading-mobile .progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #3b82f6);
+  border-radius: 2px;
+  animation: loading-progress 2s ease-in-out infinite;
+}
+
+@keyframes loading-progress {
+  0% { width: 0%; }
+  50% { width: 70%; }
+  100% { width: 100%; }
+}
+
+/* Tablet Styles (768px and up) */
+@media (min-width: 768px) {
+  .agricultural-calendar {
+    font-size: 16px;
+  }
+
+  .mobile-header h1 {
+    font-size: 2rem;
+  }
+
+  .weather-hero-mobile .temperature-display {
+    font-size: 3rem;
+  }
+
+  .weather-hero-mobile .weather-icon-large {
+    width: 56px;
+    height: 56px;
+  }
+
+  .weather-metrics-grid-mobile {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .calendar-mobile td {
+    padding: 12px 8px;
+    min-height: 48px;
+  }
+
+  .sidebar-section-mobile {
+    margin-bottom: 16px;
+  }
+
+  .sidebar-header-mobile,
+  .sidebar-content-mobile {
+    padding: 16px 20px;
+  }
+
+  .grid-mobile-2 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .dialog-mobile {
+    align-items: center;
+    padding: 16px;
+  }
+
+  .dialog-content-mobile {
+    border-radius: 16px;
+    width: auto;
+    min-width: 400px;
+    max-width: 600px;
+    max-height: 80vh;
+  }
+}
+
+/* Desktop Styles (1024px and up) */
+@media (min-width: 1024px) {
+  .mobile-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .weather-hero-mobile .temperature-display {
+    font-size: 3.5rem;
+  }
+
+  .weather-hero-mobile .weather-icon-large {
+    width: 64px;
+    height: 64px;
+  }
+
+  .weather-metrics-grid-mobile {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .calendar-mobile td {
+    padding: 16px 12px;
+    min-height: 56px;
+  }
+
+  .grid-mobile-2 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .dialog-content-mobile {
+    min-width: 600px;
+    max-width: 800px;
+  }
+}
+
+/* Large Desktop Styles (1280px and up) */
+@media (min-width: 1280px) {
+  .agricultural-calendar {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .weather-metrics-grid-mobile {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .grid-mobile-2 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Accessibility Enhancements for Mobile */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-activity-indicator,
+  .loading-mobile .progress-fill {
+    animation: none;
+  }
+  
+  .calendar-mobile .calendar-day:hover {
+    transform: none;
+  }
+}
+
+/* High Contrast Mode for Mobile */
+@media (prefers-contrast: high) {
+  .weather-hero-mobile,
+  .sidebar-section-mobile,
+  .alert-mobile {
+    border: 2px solid #000;
+  }
+  
+  .btn-mobile {
+    border: 2px solid #000;
+  }
+}
+
+/* Dark Mode for Mobile */
+@media (prefers-color-scheme: dark) {
+  .agricultural-calendar {
+    background: #111827;
+    color: #f9fafb;
+  }
+  
+  .sidebar-section-mobile {
+    background: #1f2937;
+    border: 1px solid #374151;
+  }
+  
+  .sidebar-header-mobile {
+    background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+    border-bottom: 1px solid #6b7280;
+    color: #f9fafb;
+  }
+  
+  .sidebar-content-mobile {
+    background: #1f2937;
+    color: #f9fafb;
+  }
+  
+  .calendar-mobile {
+    background: #1f2937;
+    border: 1px solid #374151;
+  }
+  
+  .calendar-mobile td {
+    border-color: #374151;
+    color: #f9fafb;
+  }
+  
+  .dialog-content-mobile {
+    background: #1f2937;
+    color: #f9fafb;
+  }
+}
+
+/* Print Styles for Mobile */
+@media print {
+  .mobile-header {
+    background: #f3f4f6 !important;
+    color: #000 !important;
+  }
+  
+  .weather-hero-mobile {
+    background: #f3f4f6 !important;
+    color: #000 !important;
+    border: 1px solid #000;
+  }
+  
+  .btn-mobile {
+    background: #f3f4f6 !important;
+    color: #000 !important;
+    border: 1px solid #000;
+  }
+  
+  .sidebar-section-mobile {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+}
+
+/* Landscape Orientation Adjustments */
+@media (orientation: landscape) and (max-height: 600px) {
+  .mobile-header {
+    padding: 8px 16px;
+  }
+  
+  .mobile-header h1 {
+    font-size: 1.25rem;
+    margin-bottom: 4px;
+  }
+  
+  .weather-hero-mobile {
+    padding: 12px;
+  }
+  
+  .weather-hero-mobile .temperature-display {
+    font-size: 2rem;
+  }
+  
+  .sidebar-section-mobile {
+    margin-bottom: 8px;
+  }
+  
+  .dialog-mobile {
+    align-items: flex-start;
+    padding-top: 20px;
+  }
+}
+
+/* Very Small Screens (320px) */
+@media (max-width: 360px) {
+  .mobile-header {
+    padding: 8px 12px;
+  }
+  
+  .mobile-header h1 {
+    font-size: 1.25rem;
+  }
+  
+  .weather-hero-mobile {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .weather-hero-mobile .temperature-display {
+    font-size: 2rem;
+  }
+  
+  .weather-hero-mobile .weather-icon-large {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .sidebar-header-mobile,
+  .sidebar-content-mobile {
+    padding: 10px 12px;
+  }
+  
+  .calendar-mobile td {
+    padding: 6px 2px;
+    min-height: 36px;
+    font-size: 0.75rem;
+  }
+  
+  .btn-mobile {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+}
+
