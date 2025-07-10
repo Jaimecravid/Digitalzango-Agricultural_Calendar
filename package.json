@@ -5,13 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "dev:turbo": "next dev --turbopack",
-    "build": "next build",
+    "build": "npm install && next build",
     "start": "next start",
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build",
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "packageManager": "npm@^9.0.0",
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
     "@next/bundle-analyzer": "^15.3.4",

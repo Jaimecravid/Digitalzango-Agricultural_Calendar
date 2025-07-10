@@ -437,16 +437,28 @@ export const generateCropCalendar = (
   for (let month = 0; month < 12; month++) {
     const plantingCrops = selectedCrops
       .map(id => getCropById(id))
-      .filter(crop => crop && crop.plantingMonths.includes(month) && crop.suitableProvinces.includes(province));
+      .filter((crop): crop is CropInfo => {
+        return crop !== undefined && 
+               Array.isArray(crop.plantingMonths) && 
+               crop.plantingMonths.includes(month) && 
+               Array.isArray(crop.suitableProvinces) && 
+               crop.suitableProvinces.includes(province);
+      });
     
     const harvestingCrops = selectedCrops
       .map(id => getCropById(id))
-      .filter(crop => crop && crop.harvestMonths.includes(month) && crop.suitableProvinces.includes(province));
+      .filter((crop): crop is CropInfo => {
+        return crop !== undefined && 
+               Array.isArray(crop.harvestMonths) && 
+               crop.harvestMonths.includes(month) && 
+               Array.isArray(crop.suitableProvinces) && 
+               crop.suitableProvinces.includes(province);
+      });
     
     calendar.push({
       month,
-      plantingCrops,
-      harvestingCrops
+      plantingCrops: plantingCrops.filter((crop): crop is CropInfo => crop !== undefined),
+      harvestingCrops: harvestingCrops.filter((crop): crop is CropInfo => crop !== undefined)
     });
   }
   

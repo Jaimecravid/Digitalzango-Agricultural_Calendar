@@ -316,16 +316,27 @@ export const generatePestRecommendations = (
   const season = getCurrentSeason(month);
   const seasonalPests = getSeasonalPestWarnings(season, province);
   
-  const recommendations = [];
+  const recommendations: Array<{
+    type: 'warning' | 'info' | 'success';
+    title: string;
+    description: string;
+    action: string;
+    priority: 'low' | 'medium' | 'high';
+    pestId?: string;
+  }> = [];
   
   // Active pest warnings
   activePests.forEach(pest => {
+    const type = (pest.riskLevel === 'high' || pest.riskLevel === 'critical') ? 'warning' as const : 'info' as const;
+    const priority = pest.riskLevel === 'critical' ? 'high' as const : 
+                    pest.riskLevel === 'high' ? 'medium' as const : 'low' as const;
+                    
     recommendations.push({
-      type: pest.riskLevel === 'high' || pest.riskLevel === 'critical' ? 'warning' : 'info',
+      type,
       title: `Alerta: ${pest.namePortuguese}`,
       description: `Condições favoráveis para ${pest.namePortuguese}`,
       action: `Monitorar ${pest.affectedCrops.join(', ')}`,
-      priority: pest.riskLevel === 'critical' ? 'high' : pest.riskLevel === 'high' ? 'medium' : 'low',
+      priority,
       pestId: pest.id
     });
   });
@@ -333,21 +344,21 @@ export const generatePestRecommendations = (
   // Seasonal recommendations
   if (seasonalPests.length > 0) {
     recommendations.push({
-      type: 'info',
+      type: 'info' as const,
       title: `Pragas da Estação ${season === 'dry' ? 'Seca' : season === 'wet' ? 'Chuvosa' : 'Transição'}`,
-      description: `Monitorar pragas típicas desta época`,
+      description: 'Monitorar pragas típicas desta época',
       action: 'Implementar medidas preventivas',
-      priority: 'medium'
+      priority: 'medium' as const
     });
   }
   
   // General prevention recommendation
   recommendations.push({
-    type: 'success',
+    type: 'success' as const,
     title: 'Prevenção de Pragas',
     description: 'Manter monitoramento regular das culturas',
     action: 'Inspeção semanal das plantas',
-    priority: 'medium'
+    priority: 'medium' as const
   });
   
   return recommendations;
