@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "browser-tools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@agentdeskai/browser-tools-mcp"],
+      "description": "Browser automation tools for web development testing"
+    }
+  }
+}

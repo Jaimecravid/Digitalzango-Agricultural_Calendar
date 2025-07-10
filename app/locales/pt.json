@@ -1,0 +1,17 @@
+{
+  "pages": {
+    "home": {
+      "title": "Calendário"
+    }
+  },
+  "navigation": {
+    "community": "Blog",
+    "guides": "Guias",
+    "help": "Ajuda",
+    "forum": "Fórum"
+  },
+  "common": {
+    "home": "Início",
+    "downloadGuide": "Baixar"
+  }
+}
