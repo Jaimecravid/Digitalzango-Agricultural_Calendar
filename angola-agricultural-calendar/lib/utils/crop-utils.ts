@@ -422,44 +422,55 @@ export const getCropById = (id: string): CropInfo | undefined => {
   return ANGOLA_CROPS.find(crop => crop.id === id);
 };
 
+// Type for the calendar entry
+type CalendarMonth = {
+  month: number;
+  plantingCrops: CropInfo[];
+  harvestingCrops: CropInfo[];
+};
+
 // Calculate crop calendar for the year
 export const generateCropCalendar = (
   selectedCrops: string[],
   province: string,
   year: number = new Date().getFullYear()
-): Array<{
-  month: number;
-  plantingCrops: CropInfo[];
-  harvestingCrops: CropInfo[];
-}> => {
-  const calendar = [];
+): CalendarMonth[] => {
+  const calendar: CalendarMonth[] = [];
   
-  for (let month = 0; month < 12; month++) {
-    const plantingCrops = selectedCrops
-      .map(id => getCropById(id))
-      .filter((crop): crop is CropInfo => {
-        return crop !== undefined && 
-               Array.isArray(crop.plantingMonths) && 
-               crop.plantingMonths.includes(month) && 
-               Array.isArray(crop.suitableProvinces) && 
-               crop.suitableProvinces.includes(province);
-      });
-    
-    const harvestingCrops = selectedCrops
-      .map(id => getCropById(id))
-      .filter((crop): crop is CropInfo => {
-        return crop !== undefined && 
-               Array.isArray(crop.harvestMonths) && 
-               crop.harvestMonths.includes(month) && 
-               Array.isArray(crop.suitableProvinces) && 
-               crop.suitableProvinces.includes(province);
-      });
-    
-    calendar.push({
-      month,
-      plantingCrops: plantingCrops.filter((crop): crop is CropInfo => crop !== undefined),
-      harvestingCrops: harvestingCrops.filter((crop): crop is CropInfo => crop !== undefined)
+  // Get all valid crops first (filter out any undefined or invalid crops)
+  const validCrops = selectedCrops
+    .map(id => getCropById(id))
+    .filter((crop): crop is CropInfo => {
+      return !!crop && 
+             Array.isArray(crop.plantingMonths) && 
+             Array.isArray(crop.harvestMonths) && 
+             Array.isArray(crop.suitableProvinces);
     });
+  
+  // For each month, find which crops should be planted or harvested
+  for (let month = 0; month < 12; month++) {
+    const monthEntry: CalendarMonth = {
+      month,
+      plantingCrops: [],
+      harvestingCrops: []
+    };
+    
+    // Check each valid crop for this month
+    for (const crop of validCrops) {
+      // Check if this crop should be planted this month in this province
+      if (crop.plantingMonths.includes(month) && 
+          crop.suitableProvinces.includes(province)) {
+        monthEntry.plantingCrops.push(crop);
+      }
+      
+      // Check if this crop should be harvested this month in this province
+      if (crop.harvestMonths.includes(month) && 
+          crop.suitableProvinces.includes(province)) {
+        monthEntry.harvestingCrops.push(crop);
+      }
+    }
+    
+    calendar.push(monthEntry);
   }
   
   return calendar;

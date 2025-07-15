@@ -5,6 +5,16 @@
       "command": "npx",
       "args": ["-y", "@agentdeskai/browser-tools-mcp"],
       "description": "Browser automation tools for web development testing"
+    },
+    "perplexity-mcp": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["perplexity-mcp"],
+      "env": {
+        "PERPLEXITY_API_KEY": "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",
+        "PERPLEXITY_MODEL": "sonar-pro"
+      },
+      "description": "Perplexity AI integration for advanced research and content creation"
     }
   }
 }

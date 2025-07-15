@@ -1,7 +1,7 @@
-﻿/** @type {import('next').NextConfig} */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Essential for Netlify deployment
-  output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
+  // Temporarily removed for debugging
+  // output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
   trailingSlash: true,
   
   // Image optimization for both local and Netlify
@@ -11,8 +11,8 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
     minimumCacheTTL: 60,
     formats: ['image/webp'],
-    // Conditional optimization based on environment
-    unoptimized: process.env.NODE_ENV === 'production'
+    // Disable image optimization for now
+    unoptimized: false
   },
   
   // Performance optimizations
