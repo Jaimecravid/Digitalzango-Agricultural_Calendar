@@ -1,0 +1,40 @@
+headers = []
+redirects = []
+
+[dev]
+command = "pnpm run dev"
+port = 3000.0
+
+[functions]
+
+[functions."*"]
+
+[[plugins]]
+origin = "default"
+package = "@netlify/plugin-nextjs"
+
+[plugins.inputs]
+
+[build]
+publish = "C:\\Users\\Jcravid\\Downloads\\Agricultural-Calendar-Project\\out"
+publishOrigin = "config"
+commandOrigin = "config"
+command = "npm run build"
+
+[build.environment]
+NODE_VERSION = "18"
+NEXT_PUBLIC_OPENWEATHER_API_KEY = "${NEXT_PUBLIC_OPENWEATHER_API_KEY}"
+OPENWEATHER_API_KEY = "${OPENWEATHER_API_KEY}"
+NODE_ENV = "production"
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]

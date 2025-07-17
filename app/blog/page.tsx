@@ -5,7 +5,6 @@ import BlogPreview from "../../components/blog-preview";
 import { BlogPost } from "../lib/getBlogPosts";
 
 export default function BlogPage() {
-
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -17,10 +16,16 @@ export default function BlogPage() {
         return res.json();
       })
       .then(data => {
-        setPosts(data);
+        console.log('API Response:', data);
+        console.log('Data is array:', Array.isArray(data));
+        
+        // Ensure data is an array - THIS IS THE CRITICAL FIX
+        const postsArray = Array.isArray(data) ? data : [];
+        setPosts(postsArray);
         setLoading(false);
       })
       .catch(err => {
+        console.error('Fetch error:', err);
         setError(err.message);
         setLoading(false);
       });
