@@ -1,0 +1,38 @@
+## PROJECT: Digitalzango Agricultural Calendar
+
+App: Agricultural calendar for Angolan farmers
+Stack: Next.js 15, TypeScript strict, 
+       Tailwind CSS, shadcn/ui
+State: React Context API only
+Data: Static TypeScript (no database)
+Auth: None
+Deploy: Netlify
+PWA: Yes
+
+Design System:
+  Background:  #0B1020
+  Primary:     emerald-500
+  Text:        #F8FAFC
+  Language:    Portuguese (UI), English (code)
+
+Path Aliases:
+  @/components/*
+  @/lib/*
+  @/app/contexts/*
+
+Critical Files:
+  app/calendario/page.tsx
+  app/contexts/region-context.tsx
+  lib/data/crops-database.ts
+  components/calendar/MonthCard.tsx
+  components/calendar/ProvinceSelector.tsx
+
+Unverified Items (verify before implementing):
+  1. useRegion() exact return values
+  2. ProvinceSelector exact prop names
+  3. MonthCard Season type exact fields
+  4. ANGOLA_CROPS exact field names
+
+NEVER replace entire files without verification.
+NEVER implement calendar code until 
+all 4 items above are confirmed.
