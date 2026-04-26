@@ -60,7 +60,20 @@ const config: Config = {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
-  			}
+  			},
+  			"bg-primary": "#0B1020",
+  			"bg-soft": "#11182A",
+  			"bg-muted": "#151D31",
+  			"panel": "#1A2338",
+  			"text-primary": "#F8FAFC",
+  			"text-soft": "#CBD5E1",
+  			"text-muted": "#94A3B8",
+  			"brand": "#22C55E",
+  			"brand-hover": "#34D399",
+  			"brand-dark": "#16A34A",
+  			"accent-gold": "#F59E0B",
+  			"border-subtle": "rgba(255,255,255,0.08)",
+  			"border-strong": "rgba(255,255,255,0.14)"
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

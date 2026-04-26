@@ -27,26 +27,26 @@ function UserCounter() {
   }, []);
 
   return (
-    <div className="bg-green-50 py-8 px-4">
+    <div className="bg-transparent py-8 px-4 border-t border-white/10">
       <div className="max-w-4xl mx-auto text-center">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="flex flex-col items-center">
             <div className="text-3xl font-bold text-green-600">
               {count}+
             </div>
-            <div className="text-gray-600 mt-2">Agricultores cadastrados</div>
+            <div className="text-slate-300 mt-2">Agricultores cadastrados</div>
           </div>
           <div className="flex flex-col items-center">
             <div className="text-3xl font-bold text-green-600">
               50+
             </div>
-            <div className="text-gray-600 mt-2">Casos de sucesso</div>
+            <div className="text-slate-300 mt-2">Casos de sucesso</div>
           </div>
           <div className="flex flex-col items-center">
             <div className="text-3xl font-bold text-green-600">
               95%
             </div>
-            <div className="text-gray-600 mt-2">Taxa de satisfação</div>
+            <div className="text-slate-300 mt-2">Taxa de satisfação</div>
           </div>
         </div>
       </div>

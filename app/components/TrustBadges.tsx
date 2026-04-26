@@ -10,7 +10,7 @@ function TrustBadges() {
   ];
 
   return (
-    <section className="py-8 bg-green-100">
+    <section className="py-8 bg-transparent border-t border-white/10">
       <div className="max-w-4xl mx-auto flex flex-wrap justify-around items-center gap-6">
         {badges.map((badge) => (
           <div key={badge.id} className="flex flex-col items-center">
@@ -20,10 +20,10 @@ function TrustBadges() {
                 alt={badge.label}
                 width={70}
                 height={70}
-                className="rounded-full border-2 border-green-300 shadow"
+                className="rounded-full border-2 border-white/10 shadow"
               />
             </div>
-            <div className="text-green-800 font-semibold text-sm text-center">{badge.label}</div>
+            <div className="text-slate-300 font-semibold text-sm text-center">{badge.label}</div>
           </div>
         ))}
       </div>

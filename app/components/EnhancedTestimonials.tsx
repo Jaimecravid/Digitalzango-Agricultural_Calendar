@@ -33,18 +33,17 @@ function EnhancedTestimonials() {
   ];
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-transparent border-t border-white/10">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 text-orange-700">💬 Depoimentos Reais</h2>
-          <p className="text-lg text-gray-600">Veja o que nossos agricultores estão dizendo sobre o Digitalzango</p>
+          <h2 className="text-3xl font-bold mb-4 text-white">💬 Depoimentos Reais</h2>
+          <p className="text-lg text-slate-300">Veja o que nossos agricultores estão dizendo sobre o Digitalzango</p>
         </div>
         <div className="grid gap-8 md:grid-cols-3">
           {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="bg-gray-50 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
-              {/* User Photo */}
+            <div key={testimonial.id} className="surface-card hover:shadow-xl transition-shadow">
               <div className="flex items-center mb-4">
-                <div className="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center mr-4 overflow-hidden">
+                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mr-4 overflow-hidden">
                   <Image
                     src={testimonial.image}
                     alt={testimonial.name}
@@ -54,20 +53,17 @@ function EnhancedTestimonials() {
                   />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg text-gray-900">{testimonial.name}</h3>
-                  <p className="text-gray-600 text-sm">{testimonial.location} • {testimonial.crop}</p>
+                  <h3 className="font-semibold text-lg text-white">{testimonial.name}</h3>
+                  <p className="text-slate-400 text-sm">{testimonial.location} • {testimonial.crop}</p>
                 </div>
               </div>
-              {/* Star Rating */}
               <div className="flex mb-3">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <span key={i} className="text-yellow-400 text-lg">⭐</span>
                 ))}
               </div>
-              {/* Testimonial Text */}
-              <p className="text-gray-700 italic mb-4">"{testimonial.text}"</p>
-              {/* Trust Badge */}
-              <div className="text-xs text-green-600 font-semibold bg-green-100 px-3 py-1 rounded-full inline-block">
+              <p className="text-slate-300 italic mb-4">"{testimonial.text}"</p>
+              <div className="text-xs text-[#22C55E] font-semibold bg-[#22C55E]/15 border border-[#22C55E]/20 px-3 py-1 rounded-full inline-block">
                 ✓ Agricultor Verificado
               </div>
             </div>

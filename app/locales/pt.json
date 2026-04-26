@@ -1,18 +1,91 @@
 {
   "pages": {
     "home": {
-      "title": "Calendário"
+      "title": "Calendário Agrícola de Angola",
+      "subtitle": "Planeje sua produção agrícola com informações precisas sobre clima, cultivos e técnicas adaptadas para cada província de Angola"
+    },
+    "help": {
+      "subtitle": "Encontre respostas para suas dúvidas sobre agricultura em Angola"
+    },
+    "faq": {
+      "subtitle": "Perguntas frequentes sobre o calendário agrícola"
+    },
+    "tutorials": {
+      "subtitle": "Aprenda técnicas agrícolas com nossos tutoriais"
+    },
+    "calendario": {
+      "title": "Calendário Agrícola",
+      "subtitle": "Planeje o que plantar em cada mês"
     }
   },
   "navigation": {
-    "community": "Comunidade",
+    "home": "Início",
+    "calendar": "Calendário",
+    "guides": "Guias de Cultivo",
+    "help": "Central de Ajuda",
+    "forum": "Fórum da Comunidade",
     "blog": "Blog",
-    "guides": "Guias",
-    "help": "Ajuda",
-    "forum": "Fórum"
+    "community": "Comunidade",
+    "download": "Baixar App"
+  },
+  "footer": {
+    "legal": "Legal",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos e Condições",
+    "affiliate": "Divulgação de Afiliados",
+    "support": "Suporte",
+    "helpCenter": "Central de Ajuda",
+    "contact": "Fale Conosco",
+    "company": "Empresa",
+    "about": "Sobre",
+    "blog": "Blog",
+    "followUs": "Siga-nos",
+    "copyright": "© 2024 Digitalzango Calendário Agrícola. Todos os direitos reservados."
+  },
+  "tools": {
+    "calendar": {
+      "title": "Calendário Agrícola",
+      "subtitle": "Planeje o que plantar em cada mês"
+    },
+    "help": {
+      "title": "Central de Ajuda",
+      "subtitle": "Tire suas dúvidas sobre agricultura"
+    },
+    "forum": {
+      "title": "Fórum da Comunidade",
+      "subtitle": "Conecte-se com outros agricultores"
+    },
+    "guides": {
+      "title": "Guias de Cultivo",
+      "subtitle": "Aprenda técnicas de plantio passo a passo"
+    },
+    "community": {
+      "title": "Comunidade",
+      "subtitle": "Faça parte da rede de agricultores de Angola"
+    },
+    "download": {
+      "title": "Baixar App",
+      "subtitle": "Baixe o aplicativo para acesso offline"
+    }
   },
   "common": {
     "home": "Início",
-    "downloadGuide": "Baixar"
+    "downloadGuide": "Baixar Guia",
+    "next": "Ver Mais",
+    "start": "Começar",
+    "learnMore": "Saiba Mais",
+    "search": "Pesquisar",
+    "help": "Ajuda",
+    "contact": "Contacto",
+    "back": "Voltar",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Fechar",
+    "loading": "A carregar...",
+    "error": "Erro",
+    "success": "Sucesso"
   }
 }

@@ -18,8 +18,8 @@ import { WeatherProvider } from "../contexts/weather-context";
 // Heavy components loaded only when needed with proper loading states
 const TrustBadges = dynamic(() => import('../components/TrustBadges'), {
   loading: () => (
-    <div className="animate-pulse bg-gray-200 h-24 rounded-lg mx-4 flex items-center justify-center">
-      <span className="text-gray-500 text-sm">Carregando certificações...</span>
+    <div className="animate-pulse surface-card h-24 mx-4 flex items-center justify-center">
+      <span className="text-slate-400 text-sm">Carregando certificações...</span>
     </div>
   ),
   ssr: false
@@ -27,8 +27,8 @@ const TrustBadges = dynamic(() => import('../components/TrustBadges'), {
 
 const UserCounter = dynamic(() => import('../components/UserCounter'), {
   loading: () => (
-    <div className="animate-pulse bg-gray-200 h-16 rounded-lg mx-4 flex items-center justify-center">
-      <span className="text-gray-500 text-sm">Carregando estatísticas...</span>
+    <div className="animate-pulse surface-card h-16 mx-4 flex items-center justify-center">
+      <span className="text-slate-400 text-sm">Carregando estatísticas...</span>
     </div>
   ),
   ssr: false
@@ -36,8 +36,8 @@ const UserCounter = dynamic(() => import('../components/UserCounter'), {
 
 const EnhancedTestimonials = dynamic(() => import('../components/EnhancedTestimonials'), {
   loading: () => (
-    <div className="animate-pulse bg-gray-200 h-64 rounded-lg mx-4 flex items-center justify-center">
-      <span className="text-gray-500 text-sm">Carregando depoimentos...</span>
+    <div className="animate-pulse surface-card h-64 mx-4 flex items-center justify-center">
+      <span className="text-slate-400 text-sm">Carregando depoimentos...</span>
     </div>
   ),
   ssr: false
@@ -45,8 +45,8 @@ const EnhancedTestimonials = dynamic(() => import('../components/EnhancedTestimo
 
 const NewsletterSignup = dynamic(() => import('../components/newsletter-signup'), {
   loading: () => (
-    <div className="animate-pulse bg-gray-200 h-32 rounded-lg mx-4 flex items-center justify-center">
-      <span className="text-gray-500 text-sm">Carregando newsletter...</span>
+    <div className="animate-pulse surface-card h-32 mx-4 flex items-center justify-center">
+      <span className="text-slate-400 text-sm">Carregando newsletter...</span>
     </div>
   ),
   ssr: false
@@ -66,47 +66,47 @@ const AppContent = () => {
   const features = useMemo(() => [
     {
       icon: Calendar,
-      title: t("pages.home.title"),
-      description: t("pages.home.subtitle"),
+      title: t("tools.calendar.title"),
+      description: t("tools.calendar.subtitle"),
       buttonText: t("common.next"),
       href: "/calendario",
     },
     {
       icon: Cloud,
-      title: t("navigation.help"),
-      description: t("pages.help.subtitle"),
+      title: t("tools.help.title"),
+      description: t("tools.help.subtitle"),
       buttonText: t("common.next"),
-      href: "/tempo",
+      href: "/help",
     },
     {
       icon: Bug,
-      title: t("navigation.forum"),
-      description: t("pages.faq.subtitle"),
+      title: t("tools.forum.title"),
+      description: t("tools.forum.subtitle"),
       buttonText: t("common.next"),
-      href: "/pragas",
+      href: "/forum",
     },
     {
       icon: Sprout,
-      title: t("navigation.guides"),
-      description: t("pages.tutorials.subtitle"),
+      title: t("tools.guides.title"),
+      description: t("tools.guides.subtitle"),
       buttonText: t("common.next"),
-      href: "/recursos",
+      href: "/guias",
     },
     {
       icon: Users,
-      title: t("navigation.community"),
-      description: t("pages.home.subtitle"),
+      title: t("tools.community.title"),
+      description: t("tools.community.subtitle"),
       buttonText: t("common.next"),
       href: "/comunidade",
     },
     {
       icon: Download,
-      title: "Baixar App",
-      description: "Baixe o aplicativo para acessar offline.",
-      buttonText: "Baixar App",
+      title: t("tools.download.title"),
+      description: t("tools.download.subtitle"),
+      buttonText: t("common.next"),
       href: "/baixar-app",
     },
-  ], []);
+  ], [t]);
 
   // Memoize stats array
   const stats = useMemo(() => [
@@ -119,13 +119,13 @@ const AppContent = () => {
   // Memoize feature cards to prevent unnecessary re-renders
   const featureCards = useMemo(() => 
     features.map((feature, index) => (
-      <Card key={index} className="bg-white/80 backdrop-blur-sm border border-gray-200 shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 relative z-30">
+      <Card key={index} className="surface-card hover:shadow-xl transition-all duration-300 transform hover:scale-105 relative z-30">
         <CardContent className="p-8 text-center">
-          <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-            <feature.icon className="h-6 w-6 text-gray-500" />
+          <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <feature.icon className="h-6 w-6 text-[#22C55E]" />
           </div>
-          <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-          <p className="text-gray-700 mb-6 leading-relaxed">{feature.description}</p>
+          <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
+          <p className="text-slate-300 mb-6 leading-relaxed">{feature.description}</p>
           <Link href={feature.href}>
             <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 touch-manipulation">
               {feature.buttonText}
@@ -140,7 +140,7 @@ const AppContent = () => {
     stats.map((stat, index) => (
       <div key={index}>
         <div className={`text-4xl md:text-5xl font-bold ${stat.color} mb-2`}>{stat.number}</div>
-        <div className="text-gray-700 font-medium">{stat.label}</div>
+        <div className="text-slate-300 font-medium">{stat.label}</div>
       </div>
     )), [stats]);
 
@@ -173,7 +173,7 @@ const AppContent = () => {
         <meta name="apple-mobile-web-app-title" content="DigitalZango" />
       </Head>
 
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-transparent">
         {/* **ACCESSIBILITY ENHANCEMENT** */}
         <a 
           href="#main-content" 
@@ -183,16 +183,12 @@ const AppContent = () => {
         </a>
 
         {/* **OPTIMIZED AD SPACE WITH BETTER LOADING** */}
-        <div className="adsense-top-banner w-full text-center py-2 bg-gray-100 border-b border-gray-200 mb-4 min-h-[90px] flex items-center justify-center" role="banner" aria-label="Advertisement Space">
-          <div className="adsense-placeholder-text">
-            [AdSense Top Banner Ad]
-          </div>
-        </div>
+        
 
         {/* **ENHANCED HERO SECTION WITH PERFORMANCE OPTIMIZATIONS** */}
         <section 
           id="main-content"
-          className="py-16 px-4 sm:px-6 lg:px-8 bg-ultra-light-green flex-grow relative overflow-hidden"
+          className="py-16 px-4 sm:px-6 lg:px-8 bg-transparent flex-grow relative overflow-hidden"
           aria-labelledby="hero-title"
           role="banner"
         >
@@ -207,19 +203,19 @@ const AppContent = () => {
           <div className="max-w-5xl mx-auto text-center">
             <h1 
               id="hero-title"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight animate-fadeInUp"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-8 leading-tight tracking-tight animate-fadeInUp"
             >
-              <span className="bg-gradient-to-r from-gray-900 via-green-800 to-gray-900 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-white via-[#34D399] to-slate-200 bg-clip-text text-transparent">
                 Calendário Agrícola Angola
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
+            <p className="text-xl md:text-2xl text-slate-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
               Bem-vindo ao Calendário Agrícola de Angola. Planeje sua produção, acompanhe o clima e acesse recursos para agricultores de todo o país.
             </p>
             
             <div className="inline-block mb-8">
-              <Badge className="bg-green-100 text-green-800 px-6 py-2 text-base font-semibold shadow-md">
+              <Badge className="bg-[#22C55E]/20 text-[#22C55E] px-6 py-2 text-base font-semibold shadow-md border border-[#22C55E]/30">
                 Região atual: {currentRegionData?.name || 'Carregando...'}
                 <br />
                 <span className="text-sm font-normal">
@@ -242,7 +238,7 @@ const AppContent = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-green-600 text-green-600 hover:bg-green-50 px-6 py-4 text-lg font-semibold transition-all duration-200 focus:ring-4 focus:ring-green-300 touch-manipulation min-h-[48px]"
+                  className="border-white/20 text-white hover:bg-white/10 px-6 py-4 text-lg font-semibold transition-all duration-200 focus:ring-4 focus:ring-green-300 touch-manipulation min-h-[48px]"
                 >
                   📱 Baixar App
                 </Button>
@@ -252,19 +248,19 @@ const AppContent = () => {
         </section>
 
         {/* **OPTIMIZED DYNAMIC COMPONENTS WITH ERROR BOUNDARIES** */}
-        <Suspense fallback={<div className="animate-pulse bg-gray-200 h-16 rounded-lg mx-4 flex items-center justify-center"><span className="text-gray-500 text-sm">Carregando...</span></div>}>
+        <Suspense fallback={<div className="animate-pulse surface-card h-16 mx-4 flex items-center justify-center"><span className="text-slate-400 text-sm">Carregando...</span></div>}>
           <UserCounter />
         </Suspense>
         
-        <Suspense fallback={<div className="animate-pulse bg-gray-200 h-24 rounded-lg mx-4 flex items-center justify-center"><span className="text-gray-500 text-sm">Carregando...</span></div>}>
+        <Suspense fallback={<div className="animate-pulse surface-card h-24 mx-4 flex items-center justify-center"><span className="text-slate-400 text-sm">Carregando...</span></div>}>
           <TrustBadges />
         </Suspense>
         
         {/* **COMMUNITY HIGHLIGHTS WITH OPTIMIZED IMAGES** */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-transparent border-t border-white/10">
           <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">🌟 Destaques da Comunidade</h2>
-            <p className="text-lg text-gray-700 mb-8">
+            <h2 className="text-3xl font-bold mb-4 text-white">🌟 Destaques da Comunidade</h2>
+            <p className="text-lg text-slate-300 mb-8">
               Junte-se à comunidade Digitalzango! Veja histórias de agricultores, compartilhe dicas e faça parte da inovação agrícola em Angola.
             </p>
             
@@ -320,30 +316,30 @@ const AppContent = () => {
         </section>
 
         {/* **EDUCATIONAL CONTENT WITH PERFORMANCE OPTIMIZATIONS** */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-ultra-light-green-alt border-t border-gray-200">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-transparent border-t border-white/10">
           <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">📚 Conteúdo Educativo</h2>
-            <p className="text-lg text-gray-700 mb-8">
+            <h2 className="text-3xl font-bold mb-4 text-white">📚 Conteúdo Educativo</h2>
+            <p className="text-lg text-slate-300 mb-8">
               Aprenda com nossos guias agrícolas, dicas de cultivo e artigos do blog. Conhecimento para impulsionar sua produção!
             </p>
             
             <div className="flex flex-wrap justify-center gap-8 mb-8">
-              <Link href="/guias" className="bg-white/80 backdrop-blur-sm border border-gray-100 rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition touch-manipulation">
+              <Link href="/guias" className="surface-card w-64 transition touch-manipulation">
                 <div className="text-4xl mb-2">🌱</div>
-                <h3 className="font-semibold text-lg mb-1 text-gray-900">Guia de Plantio</h3>
-                <p className="text-gray-600 text-sm">Passo a passo para plantar com sucesso.</p>
+                <h3 className="font-semibold text-lg mb-1 text-white">Guia de Plantio</h3>
+                <p className="text-slate-300 text-sm">Passo a passo para plantar com sucesso.</p>
               </Link>
               
-              <Link href="/blog" className="bg-white/80 backdrop-blur-sm border border-gray-100 rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition touch-manipulation">
+              <Link href="/blog" className="surface-card w-64 transition touch-manipulation">
                 <div className="text-4xl mb-2">📰</div>
-                <h3 className="font-semibold text-lg mb-1 text-gray-900">Artigos do Blog</h3>
-                <p className="text-gray-600 text-sm">Dicas, novidades e tendências agrícolas.</p>
+                <h3 className="font-semibold text-lg mb-1 text-white">Artigos do Blog</h3>
+                <p className="text-slate-300 text-sm">Dicas, novidades e tendências agrícolas.</p>
               </Link>
               
-              <Link href="/tools" className="bg-white/80 backdrop-blur-sm border border-gray-100 rounded-lg shadow-md p-6 w-64 hover:shadow-lg transition touch-manipulation">
+              <Link href="/tools" className="surface-card w-64 transition touch-manipulation">
                 <div className="text-4xl mb-2">🛠️</div>
-                <h3 className="font-semibold text-lg mb-1 text-gray-900">Ferramentas Recomendadas</h3>
-                <p className="text-gray-600 text-sm">Produtos digitais e ferramentas úteis.</p>
+                <h3 className="font-semibold text-lg mb-1 text-white">Ferramentas Recomendadas</h3>
+                <p className="text-slate-300 text-sm">Produtos digitais e ferramentas úteis.</p>
               </Link>
             </div>
             
@@ -356,56 +352,20 @@ const AppContent = () => {
         </section>
 
         {/* **OPTIMIZED TESTIMONIALS** */}
-        <Suspense fallback={<div className="animate-pulse bg-gray-200 h-64 rounded-lg mx-4 flex items-center justify-center"><span className="text-gray-500 text-sm">Carregando depoimentos...</span></div>}>
+        <Suspense fallback={<div className="animate-pulse surface-card h-64 mx-4 flex items-center justify-center"><span className="text-slate-400 text-sm">Carregando depoimentos...</span></div>}>
           <EnhancedTestimonials />
         </Suspense>
         
-        {/* **OPTIMIZED AD SPACE** */}
-        <div className="adsense-middle-banner w-full text-center py-2 bg-gray-100 border-y border-gray-200 my-8 min-h-[250px] flex items-center justify-center" role="banner" aria-label="Advertisement Space">
-          <div className="adsense-placeholder-text">
-            [AdSense Middle Banner Ad]
-          </div>
-        </div>
+        
 
         {/* **OPTIMIZED FEATURES GRID WITH MEMOIZED COMPONENTS** */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-ultra-light-green border-t border-gray-200 relative overflow-hidden">
-          {/* **OPTIMIZED FLOATING ICONS WITH WILL-CHANGE** */}
-          <div className="absolute inset-0 pointer-events-none z-10">
-            <div className="absolute top-40 left-16 bg-gradient-to-br from-green-400 to-green-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform rotate-12 hover:scale-110 transition-transform will-change-transform">
-              <Calendar className="h-16 w-16 text-white drop-shadow-lg" />
-              <div className="text-base text-white font-bold mt-3 drop-shadow">Calendário</div>
-            </div>
-            
-            <div className="absolute top-20 right-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform -rotate-6 hover:scale-110 transition-transform will-change-transform">
-              <Cloud className="h-16 w-16 text-white drop-shadow-lg" />
-              <div className="text-base text-white font-bold mt-3 drop-shadow">Tempo</div>
-            </div>
-            
-            <div className="absolute bottom-60 left-32 bg-gradient-to-br from-red-400 to-red-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform rotate-6 hover:scale-110 transition-transform will-change-transform">
-              <Bug className="h-16 w-16 text-white drop-shadow-lg" />
-              <div className="text-base text-white font-bold mt-3 drop-shadow">Pragas</div>
-            </div>
-            
-            <div className="absolute bottom-40 right-20 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform -rotate-12 hover:scale-110 transition-transform will-change-transform">
-              <Sprout className="h-16 w-16 text-white drop-shadow-lg" />
-              <div className="text-base text-white font-bold mt-3 drop-shadow">Recursos</div>
-            </div>
-            
-            <div className="absolute top-80 left-1/2 transform -translate-x-1/2 rotate-3 bg-gradient-to-br from-purple-400 to-purple-600 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white hover:scale-110 transition-transform will-change-transform">
-              <Users className="h-16 w-16 text-white drop-shadow-lg" />
-              <div className="text-base text-white font-bold mt-3 drop-shadow">Comunidade</div>
-            </div>
-            
-            <div className="absolute bottom-80 right-40 bg-gradient-to-br from-gray-600 to-gray-800 rounded-3xl p-8 shadow-2xl animate-float border-4 border-white transform rotate-9 hover:scale-110 transition-transform will-change-transform">
-              <Download className="h-16 w-16 text-white drop-shadow-lg" />
-              <div className="text-base text-white font-bold mt-3 drop-shadow">Baixar App</div>
-            </div>
-          </div>
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-transparent border-t border-white/10 relative overflow-hidden">
+          
 
           <div className="max-w-6xl mx-auto relative z-20">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">🚀 Ferramentas Digitalzango</h2>
-              <p className="text-lg text-gray-700">Explore todas as funcionalidades do seu assistente agrícola</p>
+              <h2 className="text-3xl font-bold text-white mb-4">🚀 Ferramentas Digitalzango</h2>
+              <p className="text-lg text-slate-300">Explore todas as funcionalidades do seu assistente agrícola</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -415,7 +375,7 @@ const AppContent = () => {
         </section>
 
         {/* **OPTIMIZED STATS SECTION** */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-transparent border-t border-white/10">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {statsDisplay}
@@ -424,12 +384,12 @@ const AppContent = () => {
         </section>
 
         {/* **OPTIMIZED NEWSLETTER** */}
-        <Suspense fallback={<div className="animate-pulse bg-gray-200 h-32 rounded-lg mx-4 flex items-center justify-center"><span className="text-gray-500 text-sm">Carregando newsletter...</span></div>}>
+        <Suspense fallback={<div className="animate-pulse surface-card h-32 mx-4 flex items-center justify-center"><span className="text-slate-400 text-sm">Carregando newsletter...</span></div>}>
           <NewsletterSignup />
         </Suspense>
 
         {/* **OPTIMIZED CTA SECTION** */}
-        <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-ultra-light-green overflow-hidden border-t border-gray-200">
+        <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-transparent overflow-hidden border-t border-white/10">
           <div className="absolute inset-0 opacity-10 will-change-transform" aria-hidden="true">
             <div className="absolute top-10 left-10 text-6xl animate-float">🌱</div>
             <div className="absolute top-32 right-20 text-4xl animate-float">🌾</div>
@@ -440,11 +400,11 @@ const AppContent = () => {
           <div className="relative max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="text-center lg:text-left">
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
                   Comece a planejar sua produção!
                 </h2>
-                <p className="text-xl text-gray-700 mb-2 font-medium">Acesse o calendário agrícola e ferramentas digitais.</p>
-                <p className="text-lg text-gray-600 mb-8 leading-relaxed">Tenha previsões do tempo, dicas e recursos para agricultores de Angola.</p>
+                <p className="text-xl text-slate-200 mb-2 font-medium">Acesse o calendário agrícola e ferramentas digitais.</p>
+                <p className="text-lg text-slate-300 mb-8 leading-relaxed">Tenha previsões do tempo, dicas e recursos para agricultores de Angola.</p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <Link href="/calendario">
@@ -459,7 +419,7 @@ const AppContent = () => {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-2 border-green-600 text-green-600 hover:bg-green-50 px-6 py-4 text-base font-medium transition-all duration-200 touch-manipulation min-h-[48px]"
+                      className="border-2 border-white/20 text-white hover:bg-white/10 px-6 py-4 text-base font-medium transition-all duration-200 touch-manipulation min-h-[48px]"
                     >
                       📱 Baixar App
                     </Button>
@@ -469,7 +429,7 @@ const AppContent = () => {
               
               <div className="flex justify-center lg:justify-end">
                 <div className="relative">
-                  <div className="w-80 h-80 bg-green-100 rounded-full flex items-center justify-center border-4 border-green-200 shadow-lg">
+                  <div className="w-80 h-80 bg-white/5 rounded-full flex items-center justify-center border-4 border-white/10 shadow-lg">
                     <Image
                       src="/images/sunset.png"
                       alt="Beautiful sunset over agricultural landscape in Angola"
@@ -482,13 +442,13 @@ const AppContent = () => {
                     />
                   </div>
                   
-                  <div className="absolute -top-8 left-8 bg-white bg-opacity-90 rounded-lg p-3 shadow-lg animate-float will-change-transform">
+                  <div className="absolute -top-8 left-8 surface-elevated animate-float will-change-transform">
                     <div className="text-2xl">📊</div>
-                    <div className="text-xs text-gray-600 font-medium">Dados</div>
+                    <div className="text-xs text-slate-300 font-medium">Dados</div>
                   </div>
-                  <div className="absolute -bottom-8 right-8 bg-white bg-opacity-90 rounded-lg p-3 shadow-lg animate-float-delayed will-change-transform">
+                  <div className="absolute -bottom-8 right-8 surface-elevated animate-float-delayed will-change-transform">
                     <div className="text-2xl">🌤️</div>
-                    <div className="text-xs text-gray-600 font-medium">Tempo</div>
+                    <div className="text-xs text-slate-300 font-medium">Tempo</div>
                   </div>
                 </div>
               </div>
@@ -496,99 +456,9 @@ const AppContent = () => {
           </div>
         </section>
 
-        {/* **OPTIMIZED BOTTOM AD** */}
-        <div className="adsense-bottom-banner w-full text-center py-2 bg-gray-100 border-t border-gray-200 mt-8 min-h-[90px] flex items-center justify-center" role="banner" aria-label="Advertisement Space">
-          <div className="adsense-placeholder-text">
-            [AdSense Bottom Banner Ad]
-          </div>
-        </div>
       </div>
 
-      {/* **OPTIMIZED CSS WITH PERFORMANCE ENHANCEMENTS** */}
       <style jsx>{`
-        .adsense-placeholder-text {
-          font-size: 0;
-          color: transparent;
-          user-select: none;
-          pointer-events: none;
-          line-height: 0;
-          opacity: 0;
-          visibility: hidden;
-        }
-
-        .adsense-top-banner,
-        .adsense-middle-banner,
-        .adsense-bottom-banner {
-          background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-          border: 1px dashed #dee2e6;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .adsense-top-banner::before,
-        .adsense-middle-banner::before,
-        .adsense-bottom-banner::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-image: repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 10px,
-            rgba(0,0,0,0.02) 10px,
-            rgba(0,0,0,0.02) 20px
-          );
-          pointer-events: none;
-        }
-
-        .adsbygoogle {
-          background: transparent !important;
-          display: block;
-          width: 100%;
-          height: auto;
-        }
-
-        ins.adsbygoogle {
-          background: transparent !important;
-          border: none !important;
-        }
-
-        /* **PERFORMANCE OPTIMIZED ANIMATIONS** */
-        @keyframes float {
-          0%, 100% { 
-            transform: translateY(0px) rotate(0deg); 
-          }
-          50% { 
-            transform: translateY(-20px) rotate(5deg); 
-          }
-        }
-
-        @keyframes float-delayed {
-          0%, 100% { 
-            transform: translateY(0px) rotate(0deg); 
-          }
-          50% { 
-            transform: translateY(-15px) rotate(-3deg); 
-          }
-        }
-
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-          will-change: transform;
-        }
-
-        .animate-float-delayed {
-          animation: float-delayed 8s ease-in-out infinite;
-          will-change: transform;
-        }
-
-        .animate-fadeInUp {
-          animation: fadeInUp 1s ease-out;
-        }
-
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -600,28 +470,16 @@ const AppContent = () => {
           }
         }
 
-        /* **MOBILE PERFORMANCE OPTIMIZATIONS** */
-        @media (max-width: 768px) {
-          .animate-float,
-          .animate-float-delayed {
-            animation-duration: 8s;
-          }
+        .animate-fadeInUp {
+          animation: fadeInUp 1s ease-out;
         }
 
-        /* **REDUCE MOTION FOR ACCESSIBILITY** */
         @media (prefers-reduced-motion: reduce) {
-          .animate-float,
-          .animate-float-delayed,
           .animate-fadeInUp {
             animation: none;
           }
-          
-          .will-change-transform {
-            will-change: auto;
-          }
         }
 
-        /* **TOUCH OPTIMIZATION** */
         .touch-manipulation {
           touch-action: manipulation;
           -webkit-tap-highlight-color: transparent;

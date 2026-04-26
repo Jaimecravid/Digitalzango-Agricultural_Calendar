@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "./client-layout";
@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-[#0B1020] text-[#F8FAFC] antialiased`}>
         <ServiceWorkerRegistration />
         <ClientLayout>
           {children}
