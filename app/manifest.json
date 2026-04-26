@@ -4,8 +4,8 @@
   "description": "Aplicação de planeamento agrícola para agricultores angolanos",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#16a34a",
+  "background_color": "#0B1020",
+  "theme_color": "#10b981",
   "orientation": "portrait-primary",
   "icons": [
     {

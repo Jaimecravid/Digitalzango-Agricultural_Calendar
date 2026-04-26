@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import BlogPreview from "../../components/blog-preview";
-import { BlogPost } from "../lib/getBlogPosts";
+import { BlogPost } from "@/lib/getBlogPosts";
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);

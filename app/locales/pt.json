@@ -5,7 +5,26 @@
       "subtitle": "Planeje sua produção agrícola com informações precisas sobre clima, cultivos e técnicas adaptadas para cada província de Angola"
     },
     "help": {
-      "subtitle": "Encontre respostas para suas dúvidas sobre agricultura em Angola"
+      "title": "Centro de Ajuda",
+      "subtitle": "Encontre respostas para as suas dúvidas e aprenda a usar todas as funcionalidades do Calendário Agrícola para Angola.",
+      "search": "Pesquisar",
+      "faq": "Perguntas Frequentes",
+      "tutorials": "Tutoriais",
+      "contactUs": "Contactar-nos",
+      "forum": "Fórum",
+      "gettingStarted": "Primeiros Passos",
+      "gettingStartedDesc": "Como começar a usar o Calendário Agrícola",
+      "tools": "Ferramentas",
+      "toolsDesc": "Guias para usar todas as funcionalidades",
+      "community": "Comunidade",
+      "communityDesc": "Participar na comunidade de agricultores",
+      "quickLinks": "Links Rápidos",
+      "stillNeedHelp": "Ainda Precisa de Ajuda?",
+      "supportTeamReady": "A nossa equipa de suporte está pronta para ajudar",
+      "email": "Email",
+      "phone": "Telefone",
+      "responseTime": "Resposta em até 24 horas",
+      "businessHours": "Segunda a Sexta, 8h-17h"
     },
     "faq": {
       "subtitle": "Perguntas frequentes sobre o calendário agrícola"
