@@ -32,17 +32,7 @@ export default function Header() {
             }`}
             aria-current={isActive('/') ? 'page' : undefined}
           >
-            <span aria-hidden="true">🏠</span> {t("navigation.home")}
-          </Link>
-
-          <Link
-            href="/guias"
-            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md ${
-              isActive('/guias') ? 'text-[#22C55E] bg-white/10' : 'text-slate-200 hover:text-white hover:bg-white/5'
-            }`}
-            aria-current={isActive('/guias') ? 'page' : undefined}
-          >
-            <span aria-hidden="true">📚</span> {t("navigation.guides")}
+            <span aria-hidden="true">🏠</span> Início
           </Link>
 
           <Link
@@ -52,17 +42,17 @@ export default function Header() {
             }`}
             aria-current={isActive('/calendario') ? 'page' : undefined}
           >
-            <span aria-hidden="true">📅</span> {t("navigation.calendar")}
+            <span aria-hidden="true">📅</span> Calendário
           </Link>
 
           <Link
-            href="/tempo"
+            href="/guias"
             className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md ${
-              isActive('/tempo') ? 'text-[#22C55E] bg-white/10' : 'text-slate-200 hover:text-white hover:bg-white/5'
+              isActive('/guias') ? 'text-[#22C55E] bg-white/10' : 'text-slate-200 hover:text-white hover:bg-white/5'
             }`}
-            aria-current={isActive('/tempo') ? 'page' : undefined}
+            aria-current={isActive('/guias') ? 'page' : undefined}
           >
-            <span aria-hidden="true">🌤️</span> {t("navigation.help")}
+            <span aria-hidden="true">�</span> Guias
           </Link>
 
           <Link
@@ -72,44 +62,14 @@ export default function Header() {
             }`}
             aria-current={isActive('/pragas') ? 'page' : undefined}
           >
-            <span aria-hidden="true">🐛</span> {t("navigation.forum")}
-          </Link>
-
-          <Link
-            href="/recursos"
-            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md ${
-              isActive('/recursos') ? 'text-[#22C55E] bg-white/10' : 'text-slate-200 hover:text-white hover:bg-white/5'
-            }`}
-            aria-current={isActive('/recursos') ? 'page' : undefined}
-          >
-            <span aria-hidden="true">📖</span> {t("navigation.forum")}
-          </Link>
-
-          <Link
-            href="/blog"
-            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md ${
-              isActive('/blog') ? 'text-[#22C55E] bg-white/10' : 'text-slate-200 hover:text-white hover:bg-white/5'
-            }`}
-            aria-current={isActive('/blog') ? 'page' : undefined}
-          >
-            <span aria-hidden="true">✍️</span> {t("navigation.blog")}
-          </Link>
-
-          <Link
-            href="/comunidade"
-            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md ${
-              isActive('/comunidade') ? 'text-[#22C55E] bg-white/10' : 'text-slate-200 hover:text-white hover:bg-white/5'
-            }`}
-            aria-current={isActive('/comunidade') ? 'page' : undefined}
-          >
-            <span aria-hidden="true">👥</span> {t("navigation.community")}
+            <span aria-hidden="true">�</span> Pragas
           </Link>
         </nav>
 
         <div className="hidden md:block">
           <Link href="/baixar-app">
             <Button className="bg-[#22C55E] hover:bg-[#34D399] text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105">
-              📱 {t("common.downloadGuide")}
+              📱 Baixar App
             </Button>
           </Link>
         </div>
@@ -147,16 +107,7 @@ export default function Header() {
               isActive('/') ? 'text-[#22C55E] bg-white/10' : 'text-slate-200 hover:text-white hover:bg-white/5'
             }`}
           >
-            <span aria-hidden="true">🏠</span> {t("navigation.home")}
-          </Link>
-
-          <Link
-            href="/guias"
-            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md ${
-              isActive('/guias') ? 'text-[#22C55E] bg-white/10' : 'text-slate-200 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <span aria-hidden="true">📚</span> {t("navigation.guides")}
+            <span aria-hidden="true">🏠</span> Início
           </Link>
 
           <Link
@@ -165,7 +116,16 @@ export default function Header() {
               isActive('/calendario') ? 'text-[#22C55E] bg-white/10' : 'text-slate-200 hover:text-white hover:bg-white/5'
             }`}
           >
-            <span aria-hidden="true">📅</span> {t("navigation.calendar")}
+            <span aria-hidden="true">�</span> Calendário
+          </Link>
+
+          <Link
+            href="/guias"
+            className={`font-medium transition-colors duration-200 px-3 py-2 rounded-md ${
+              isActive('/guias') ? 'text-[#22C55E] bg-white/10' : 'text-slate-200 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <span aria-hidden="true">�</span> Guias
           </Link>
 
           <Link
@@ -174,14 +134,14 @@ export default function Header() {
               isActive('/pragas') ? 'text-[#22C55E] bg-white/10' : 'text-slate-200 hover:text-white hover:bg-white/5'
             }`}
           >
-            <span aria-hidden="true">🐛</span> {t("navigation.forum")}
+            <span aria-hidden="true">🐛</span> Pragas
           </Link>
 
           <Link
             href="/baixar-app"
             className="bg-[#22C55E] hover:bg-[#34D399] text-white font-semibold py-2 px-4 rounded-lg text-center transition-colors duration-200"
           >
-            📱 {t("common.downloadGuide")}
+            📱 Baixar App
           </Link>
         </nav>
       </div>
