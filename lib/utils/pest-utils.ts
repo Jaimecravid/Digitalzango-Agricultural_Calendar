@@ -370,24 +370,26 @@ export const getCurrentSeason = (month: number): 'dry' | 'wet' | 'transition' =>
 };
 
 // Generate pest recommendations based on current conditions
-export const generatePestRecommendations = (
-  temperature: number,
-  humidity: number,
-  month: number,
-  province: string
-): Array<{
+type PestRecommendation = {
   type: 'warning' | 'info' | 'success';
   title: string;
   description: string;
   action: string;
   priority: 'low' | 'medium' | 'high';
   pestId?: string;
-}> => {
+};
+
+export const generatePestRecommendations = (
+  temperature: number,
+  humidity: number,
+  month: number,
+  province: string
+): PestRecommendation[] => {
   const activePests = getPestAlertsForConditions(temperature, humidity, month, province);
   const season = getCurrentSeason(month);
   const seasonalPests = getSeasonalPestWarnings(season, province);
   
-  const recommendations = [];
+  const recommendations: PestRecommendation[] = [];
   
   // Active pest warnings
   activePests.forEach(pest => {

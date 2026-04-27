@@ -1,4 +1,4 @@
-import { getBlogPostBySlug, getBlogPosts } from '../../lib/getBlogPosts';
+import { getBlogPostBySlug, getBlogPosts } from '@/lib/getBlogPosts';
 import { notFound } from 'next/navigation';
 
 interface BlogPostPageProps {
