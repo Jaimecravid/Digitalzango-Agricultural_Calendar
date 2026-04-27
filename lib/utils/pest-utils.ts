@@ -215,6 +215,77 @@ export const ANGOLA_PESTS: PestAlert[] = [
       highHumidity: 75,
       highTemperature: 25
     }
+  },
+  {
+    id: 'nematoides',
+    name: 'Root-knot Nematode',
+    namePortuguese: 'Nematoides',
+    riskLevel: 'high',
+    season: 'year-round',
+    affectedCrops: ['batata-doce', 'amendoim'],
+    province: ['Luanda', 'Bengo', 'Benguela', 'Namibe', 'Kwanza Sul'],
+    temperature: { min: 15, max: 35, optimal: 25 },
+    humidity: { min: 50, max: 90, optimal: 70 },
+    description: 'Microrganismos microscópicos que atacam as raízes, causando galhas e redução do crescimento.',
+    symptoms: [
+      'Galhas nas raízes',
+      'Amarelecimento das folhas',
+      'Crescimento reduzido',
+      'Murcha durante o dia'
+    ],
+    prevention: [
+      'Rotação de culturas com plantas não hospedeiras',
+      'Solarização do solo',
+      'Uso de matéria orgânica compostada',
+      'Variedades resistentes'
+    ],
+    treatment: [
+      'Paecilomyces lilacinus - fungo parasita',
+      'Pochonia chlamydosporia',
+      'Nematicidas registrados (consultar técnico)',
+      'Aplicação no sulco de plantio'
+    ],
+    pestPageUrl: '/pragas/nematoides',
+    activeMonths: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // Year-round
+    weatherTriggers: {
+      highHumidity: 60
+    }
+  },
+  {
+    id: 'antracnose',
+    name: 'Anthracnose',
+    namePortuguese: 'Antracnose',
+    riskLevel: 'medium',
+    season: 'wet',
+    affectedCrops: ['banana', 'abacate', 'manga', 'citrinos'],
+    province: ['Uíge', 'Malanje', 'Luanda', 'Bengo', 'Kwanza Norte', 'Lunda Norte'],
+    temperature: { min: 20, max: 30, optimal: 25 },
+    humidity: { min: 70, max: 95, optimal: 85 },
+    description: 'Doença fúngica que causa manchas escuras em frutos, folhas e ramos, com depressões circulares.',
+    symptoms: [
+      'Manchas escuras circulares nos frutos',
+      'Depressões circulares nas lesões',
+      'Queda prematura de folhas',
+      'Massa rosada de esporos'
+    ],
+    prevention: [
+      'Material de plantio saudável e certificado',
+      'Espaçamento adequado para circulação de ar',
+      'Evitar molhar folhas e frutos',
+      'Desinfecção de ferramentas de poda'
+    ],
+    treatment: [
+      'Fungicidas à base de cobre',
+      'Mancozebe - proteção preventiva',
+      'Azoxistrobina (aplicar na floração)',
+      'Aplicar preventivamente antes das chuvas'
+    ],
+    pestPageUrl: '/pragas/antracnose',
+    activeMonths: [9, 10, 11, 0, 1, 2], // Oct-Mar (wet season)
+    weatherTriggers: {
+      highHumidity: 80,
+      rainfall: true
+    }
   }
 ];
 

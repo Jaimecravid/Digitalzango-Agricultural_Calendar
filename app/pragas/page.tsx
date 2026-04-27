@@ -117,6 +117,26 @@ export default function PragasPage() {
       crops: ['Milho', 'Sorgo', 'Hortaliças'],
       season: 'Época seca',
       description: 'Suga seiva e transmite vírus'
+    },
+    {
+      name: 'Nematoides',
+      scientificName: 'Meloidogyne spp. e Pratylenchus spp.',
+      slug: 'nematoides',
+      category: 'Solo',
+      risk: 'Alto',
+      crops: ['Batata-doce', 'Amendoim'],
+      season: 'Todo o ano (solo húmido)',
+      description: 'Microrganismos microscópicos que atacam as raízes, causando galhas e redução do crescimento.'
+    },
+    {
+      name: 'Antracnose',
+      scientificName: 'Colletotrichum spp.',
+      slug: 'antracnose',
+      category: 'Fungo',
+      risk: 'Médio',
+      crops: ['Banana', 'Abacate'],
+      season: 'Época chuvosa (Outubro-Março)',
+      description: 'Doença fúngica que causa manchas escuras em frutos, folhas e ramos, com depressões circulares.'
     }
   ]
 
